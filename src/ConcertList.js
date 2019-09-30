@@ -2,13 +2,11 @@ import React from 'react'
 import Concert from './Concert'
 import styled from 'styled-components/macro'
 
-export default function ConcertList({ concerts}) {
+export default function ConcertList({ concerts }) {
   return (
     <ConcertListStyled>
-      <h1>Homepage</h1>
       {concerts.map(concert => (
-        <Concert artist={concert.artist} date={concert.date} place={concert.place} styles={concert.styles}
-        image={concert.image}/>
+        <Concert {...concert}/>
         ))}
     </ConcertListStyled>
   )

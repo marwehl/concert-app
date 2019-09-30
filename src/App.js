@@ -11,8 +11,8 @@ export default function App() {
 
   const concerts = [
     {
-      image: mumford,
-      artist: 'mumford and sons',
+      image: mumford ,
+      artist: 'Mumford and sons',
       place: 'Mojo',
       date: '14.10.2019',
       date_data: '2019-10-14',
@@ -20,7 +20,7 @@ export default function App() {
     },
     {
   image: bishop,
-      artist: 'bishop briggs',
+      artist: 'Bishop briggs',
       place: 'Große Freiheit',
       date: '14.10.2020',
       date_data: '2020-10-14',
@@ -28,7 +28,7 @@ export default function App() {
     },
     {
   image: okkid,
-      artist: 'ok kid',
+      artist: 'Ok kid',
       place: 'Große Freiheit',
       date: '03.11.2019',
       date_data: '2019-11-03',
@@ -36,7 +36,7 @@ export default function App() {
     },
     {
   image: frittenbude,
-      artist: 'frittenbude',
+      artist: 'Frittenbude',
       place: 'Mojo',
       date: '12.05.2019',
       date_data: '2019-05-12',
@@ -51,7 +51,6 @@ export default function App() {
   );
 }
 const AppStyled = styled.div`
-  //position: fixed;
   left: 0;
   right: 0;
   top: 0;
