@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components/macro';
-import mumford from './mumford.jpg'
-import { brotliDecompress } from 'zlib';
 
 
-export default function Concert({artist, date, place, styles}) {
+
+export default function Concert({artist, date, place, styles, image}) {
   return (
     <ConcertStyled>
-      <ImageStyled src={mumford} alt="pictureartist"/>
+      <ImageStyled src={image} alt="pictureartist"/>
       <TextStyled>
       <ArtistStyled>{artist}</ArtistStyled>
       <h4>{date}</h4>
