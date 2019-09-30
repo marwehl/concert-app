@@ -6,8 +6,7 @@ export default function ConcertList({ concerts }) {
   return (
     <ConcertListStyled>
       {concerts.map(concert => (
-        <Concert artist={concert.artist} date={concert.date} place={concert.place} styles={concert.styles}
-        image={concert.image}/>
+        <Concert {...concert}/>
         ))}
     </ConcertListStyled>
   )
