@@ -1,9 +1,18 @@
 import React, {useState} from 'react'
 import styled from 'styled-components/macro';
 import Tag from './Tag'
+import PropTypes from 'prop-types'
 
 
 export default function Concert({ artist, date, place, styles, image }) {
+
+Concert.propTypes = {
+  artist : PropTypes.string,
+  date: PropTypes.string,
+  place: PropTypes.string,
+  styles: PropTypes.arrayOf(PropTypes.string),
+  image: PropTypes.string
+}
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowRotation, setArrowRotation] = useState(90)

@@ -11,5 +11,8 @@ function Wrapper(storyFn) {
   return <div style={{ width: '300px', padding: '15px', background: '#dbdfec' }}>{storyFn()}</div>
 }
 
-export const concert = () => <Concert artist={'Ben Howard'} date={'11.09.2020'} place={'Mojo'}
+export const concertShort = () => <Concert artist={'Ben Howard'} date={'11.09.2020'} place={'Mojo'}
+  styles={['rock', 'pop']} image={mumford} />;
+
+export const concertLong = () => <Concert artist={'Ben Howard'} date={'11.09.2020'} place={'Mojo'}
   styles={['rock', 'pop']} image={mumford} />;
