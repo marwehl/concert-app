@@ -15,27 +15,25 @@ Concert.propTypes = {
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
-const [arrowRotation, setArrowRotation] = useState(90)
+
 
 function handleArrowClick () {
   setFullConcertIsVisible(!fullConcertIsVisible)
-  setArrowRotation(arrowRotation + 180)
+ 
 }
 
   return (
     <ConcertStyled>
-      <ImageStyled src={image}/>
+      <ConcertImageStyled src={image}/>
       <ConcertInfoStyled>
       <ArtistStyled>{artist}</ArtistStyled>
       <TimeStyled>
-          <CalenderIconStyled src="https://img.icons8.com/ios/50/000000/calendar.png"/>
-      <p>{date}</p>
-      <p>19:30</p>
+      <span>{date}</span>
+      <span>19:30</span>
       </TimeStyled>
-      <PlaceStyled>
-      <h4>{place}</h4>
-      </PlaceStyled>
-      <ArrowDownStyled onClick={handleArrowClick} arrowRotation={arrowRotation}>&raquo;</ArrowDownStyled>
+  
+      <div>{place}</div>
+      <ButtonStyled onClick={handleArrowClick}>Show more</ButtonStyled>
        <TagListStyled>
         {fullConcertIsVisible &&
           <p>{styles.map(style => <Tag text={style}/>)}</p>}
@@ -45,64 +43,41 @@ function handleArrowClick () {
   )
 }
 
-
 const ConcertStyled = styled.section`
-border-radius: 10px;
-border: none;
 background-color: white;
-`
+border-radius: 10px;
 
-const ConcertInfoStyled = styled.section`
-padding: 3px 20px;
 `
-
-const ArtistStyled = styled.h2`
-font-weight: bold;
-margin: 10px;
-`
-const TimeStyled = styled.div`
-display: flex;
-justify-content: flex-start;
-align-items: center;
-margin: 10px;
-gap: 7px;`
-
-const PlaceStyled = styled.div`
-display: flex;
-justify-content: flex-start;
-align-items: center;
-margin: 10px;
-gap: 7px;
-margin: -30px 10px;
-`
-
-const CalenderIconStyled = styled.img`
-color: #dbdfec;
-height: 20px;
-`
-
-const ArrowDownStyled = styled.h2`
-margin: 5px;
-height: 20px;
-text-align: center;
-font-size: 3em;
-transform: rotate(${props => (props.arrowRotation + 'deg') })
-`
-
-//const ArrowUpStyled = styled.h2`
-//transform: rotate(270deg);
-//height: 20px;
-//text-align: center;
-//font-size: 3em;
-//`
-const TagListStyled = styled.section`
-display: flex;
-justify-content: center;
-`
-
-const ImageStyled = styled.img`
+const ConcertImageStyled = styled.img`
 width: 100%;
 border-radius: 10px 10px 0 0;
 `
+
+const ConcertInfoStyled = styled.section`
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 15px;
+`
+const ArtistStyled = styled.span`
+font-size: 1.5em;
+`
+const TimeStyled = styled.section`
+display: flex;
+gap: 7px;
+`
+
+const ButtonStyled = styled.button`
+align-self: center;
+font-size: 1em;
+padding: 10px;
+border-radius: 10px;
+`
+
+const TagListStyled = styled.section`
+align-self: center;
+`
+
+
 
 

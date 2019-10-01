@@ -11,8 +11,8 @@ ConcertList.propTypes = {
 
   return (
     <ConcertListStyled>
-      {concerts.map(concert => (
-        <Concert {...concert}/>
+      {concerts.map((concert, index) => (
+        <Concert {...concert} key={index}/>
         ))}
     </ConcertListStyled>
   )
