@@ -22,7 +22,7 @@ Concert.propTypes = {
   artist : PropTypes.string,
   date: PropTypes.string,
   place: PropTypes.string,
-  styles: PropTypes.arrayOf(PropTypes.string),
+  //styles: PropTypes.arrayOf(PropTypes.string),
   image: PropTypes.string,
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
@@ -57,7 +57,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
         {fullConcertIsVisible &&
     <ConcertFullInfoStyled>
           <p>{description}</p>
-        <TagListStyled>{styles.map(style => <Tag text={style} />)}</TagListStyled>
+          <TagListStyled>{styles.map(style => <Tag text={style} />)}</TagListStyled>
         </ConcertFullInfoStyled>
           }
       </ConcertInfoStyled>
@@ -108,12 +108,12 @@ gap: 7px;
 
 const DateRangeStyled = styled(DateRange)`
 width: 18px;
-margin: 0 5px;
+margin: 0 5px 5px;
 `
 
 const PlaceStyled = styled(Place)`
 width: 18px;
-margin: 0 5px;
+margin: 0 5px 5px;
 `
 
 const AngleDoubleDownStyled = styled(AngleDoubleDown)`
