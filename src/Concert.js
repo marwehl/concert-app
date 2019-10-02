@@ -28,12 +28,6 @@ Concert.propTypes = {
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 
-
-function handleArrowClick () {
-  setFullConcertIsVisible(!fullConcertIsVisible)
- 
-}
-
   return (
     <ConcertStyled>
       <ConcertImageStyled src={image}/>
@@ -54,7 +48,8 @@ function handleArrowClick () {
           </div>
       </TimeStyled>
   
-      <ButtonStyled onClick={handleArrowClick}>Show more</ButtonStyled>
+        <ArrowStyled onClick={handleArrowClick} aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-double-down" class="svg-inline--fa fa-angle-double-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M143 256.3L7 120.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0L313 86.3c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.4 9.5-24.6 9.5-34 .1zm34 192l136-136c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.6c-9.4-9.4-24.6-9.4-33.9 0L160 352.1l-96.4-96.4c-9.4-9.4-24.6-9.4-33.9 0L7 278.3c-9.4 9.4-9.4 24.6 0 33.9l136 136c9.4 9.5 24.6 9.5 34 .1z"></path></ArrowStyled>
+    
         {fullConcertIsVisible &&
     <ConcertFullInfoStyled>
           <p>{description}</p>
@@ -64,6 +59,11 @@ function handleArrowClick () {
       </ConcertInfoStyled>
     </ConcertStyled>
   )
+
+  function handleArrowClick() {
+    setFullConcertIsVisible(!fullConcertIsVisible)
+  }
+  
 }
 
 const ConcertStyled = styled.section`
@@ -80,9 +80,9 @@ border-radius: 10px 10px 0 0;
 
 const StarStyled = styled.svg`
 position: absolute;
-top: 15px;
+top: -25px;
 right: 15px;
-width: 40px;
+width: 60px;
 color: ${props => (props.active ? '#44D7B6' : 'white')};
 `
 
@@ -106,11 +106,10 @@ width: 12px;
 margin: 0 5px;
 `
 
-const ButtonStyled = styled.button`
+const ArrowStyled = styled.svg`
 align-self: center;
+width: 20px;
 font-size: 1em;
-padding:  5px 10px;
-border-radius: 10px;
 `
 const ConcertFullInfoStyled = styled.section`
 display: flex;

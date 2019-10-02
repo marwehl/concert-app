@@ -35,7 +35,7 @@ export default function App() {
       date: '03.11.2019',
       styles: ['rap', 'indie', 'folk'],
       description: 'Sed diam voluptua.  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-    isFavorite: false,
+    isFavorite: true,
     },
     {
   image: frittenbude,
@@ -47,7 +47,7 @@ export default function App() {
     isFavorite: false,
     }
   ])
-  
+
   return (
     <AppStyled>
       <ConcertList concerts={concerts} toggleIsFavorite={toggleIsFavorite}/>
@@ -63,7 +63,8 @@ export default function App() {
     ])
   }
 }
-const AppStyled = styled.div`
+
+const AppStyled = styled.section`
   left: 0;
   right: 0;
   top: 0;

@@ -25,6 +25,6 @@ const ConcertListStyled = styled.main`
   padding: 20px;
   display: grid;
   align-content: flex-start;
-  gap: 20px;
+  gap: 40px;
   background-color: #dbdfec;
 `
