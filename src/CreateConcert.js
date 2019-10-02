@@ -2,7 +2,12 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
+
 export default function CreateConcert ({onSubmit}) {
+
+  CreateConcert.propTypes = {
+    onSubmit: PropTypes.func
+  }
 
   return (
  <FormStyled onSubmit={handleSubmit}>
@@ -13,6 +18,7 @@ export default function CreateConcert ({onSubmit}) {
 </DateStyled>
 <LabelStyled>Place:<InputStyled name="place"/></LabelStyled>
 <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
+<LabelStyled>Genres:<input name="styles"/></LabelStyled>
 <CreateButtonStyled>Create</CreateButtonStyled>
 </FormStyled>
   )
@@ -21,8 +27,10 @@ function handleSubmit(event) {
 event.preventDefault()
 const formData = new FormData(event.target)
 const data = Object.fromEntries(formData)
+data.styles = data.styles.split(',')
 onSubmit(data)
 }
+
 
 }
 

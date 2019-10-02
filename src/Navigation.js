@@ -30,7 +30,6 @@ const LinkStyled = styled(NavLink)`
   }
 `
 
-
 const NavigationStyled = styled.nav`
 display: grid;
 grid-auto-flow: column;

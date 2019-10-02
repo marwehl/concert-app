@@ -6,7 +6,8 @@ import PropTypes from 'prop-types'
 export default function ConcertList({ concerts, toggleIsFavorite }) {
 
 ConcertList.propTypes = {
-  concerts: PropTypes.arrayOf(PropTypes.object)
+  concerts: PropTypes.arrayOf(PropTypes.object),
+  toggleIsFavorite: PropTypes.func
 }
 
   return (

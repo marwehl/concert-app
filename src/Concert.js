@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components/macro';
-//import Tag from './Tag'
+import Tag from './Tag'
 import PropTypes from 'prop-types'
 import { AngleDoubleDown } from 'styled-icons/fa-solid/AngleDoubleDown'
 import { DateRange } from 'styled-icons/material/DateRange'
@@ -11,7 +11,7 @@ export default function Concert({
   artist, 
   date, 
   place, 
-  //styles, 
+  styles, 
   image, 
   description,
   isFavorite,
@@ -57,6 +57,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
         {fullConcertIsVisible &&
     <ConcertFullInfoStyled>
           <p>{description}</p>
+          <TagListStyled>{styles.map(style => <Tag text={style} />)}</TagListStyled>
         </ConcertFullInfoStyled>
           }
       </ConcertInfoStyled>
