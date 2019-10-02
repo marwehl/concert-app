@@ -22,11 +22,11 @@ ConcertList.propTypes = {
 }
 
 
-const ConcertListStyled = styled.main`
-  padding: 20px;
+const ConcertListStyled = styled.section`
   display: grid;
   align-content: flex-start;
   gap: 40px;
   background-color: #dbdfec;
   overflow-y: scroll;
+  padding: 20px;
 `
