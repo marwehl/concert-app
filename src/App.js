@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import ConcertList from './ConcertList';
+import Navigation from './Navigation'
 import mumford from './images/mumford.jpg'
 import bishop from './images/bishop.webp'
 import okkid from './images/okkid.jpg'
@@ -17,7 +19,7 @@ export default function App() {
       date: '14.10.2019',
       styles: ['rock', 'indie', 'folk'],
       description: 'Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
-      isFavorite : false
+      isFavorite : true,
     },
     {
   image: bishop,
@@ -49,9 +51,13 @@ export default function App() {
   ])
 
   return (
+    <Router>
     <AppStyled>
-      <ConcertList concerts={concerts} toggleIsFavorite={toggleIsFavorite}/>
+      <Route exact path="/" render={() => <ConcertList concerts={concerts} toggleIsFavorite={toggleIsFavorite} /> }/>
+  <Route path="/favorites" render={() => <ConcertList concerts={concerts.filter(concert => concert.isFavorite === true)} toggleIsFavorite={toggleIsFavorite}/> } />
+      <Navigation/>
     </AppStyled>
+    </Router>
   );
 
   function toggleIsFavorite(index) {
@@ -65,11 +71,13 @@ export default function App() {
 }
 
 const AppStyled = styled.section`
+display: grid;
+grid-template-rows: auto 48px;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  height: 100%;
+  height: 100vh;
 `
 
 
