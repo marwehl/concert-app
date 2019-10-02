@@ -27,4 +27,5 @@ const ConcertListStyled = styled.main`
   align-content: flex-start;
   gap: 40px;
   background-color: #dbdfec;
+  overflow-y: scroll;
 `
