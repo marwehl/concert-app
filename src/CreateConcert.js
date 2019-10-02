@@ -18,7 +18,7 @@ export default function CreateConcert ({onSubmit}) {
 </DateStyled>
 <LabelStyled>Place:<InputStyled name="place"/></LabelStyled>
 <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
-<LabelStyled>Genres:<InputStyled name="styles"/></LabelStyled>
+<LabelStyled>Genres:<InputStyled name="genres"/></LabelStyled>
 <CreateButtonStyled>Create</CreateButtonStyled>
 </FormStyled>
   )
@@ -27,7 +27,7 @@ function handleSubmit(event) {
 event.preventDefault()
 const formData = new FormData(event.target)
 const data = Object.fromEntries(formData)
-data.styles = data.styles.split(',')
+data.genres = data.genres.split(',')
 .map(item => item.trim())
 onSubmit(data)
 }
