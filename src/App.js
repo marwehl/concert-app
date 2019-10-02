@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import ConcertList from './ConcertList';
 import Navigation from './Navigation'
+import CreateConcert from './CreateConcert'
 import mumford from './images/mumford.jpg'
 import bishop from './images/bishop.webp'
 import okkid from './images/okkid.jpg'
@@ -55,10 +56,19 @@ export default function App() {
     <AppStyled>
       <Route exact path="/" render={() => <ConcertList concerts={concerts} toggleIsFavorite={toggleIsFavorite} /> }/>
   <Route path="/favorites" render={() => <ConcertList concerts={concerts.filter(concert => concert.isFavorite === true)} toggleIsFavorite={toggleIsFavorite}/> } />
+      <Route path="/create" render={() => <CreateConcert onSubmit={addConcert}/>} />
       <Navigation/>
     </AppStyled>
     </Router>
   );
+
+function addConcert (concert) {
+setConcerts([
+  ...concerts,
+   concert
+])
+
+}
 
   function toggleIsFavorite(index) {
     const concert = concerts[index]

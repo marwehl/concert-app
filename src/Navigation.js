@@ -9,6 +9,8 @@ export default function Navigation () {
         Home
       </LinkStyled>
       <LinkStyled to="/favorites">Favoriten</LinkStyled>
+      <LinkStyled to="/create">Create</LinkStyled>
+
     </NavigationStyled>
   )
 }
