@@ -108,12 +108,12 @@ gap: 7px;
 
 const DateRangeStyled = styled(DateRange)`
 width: 18px;
-margin: 0 5px 5px;
+margin: 0 5px;
 `
 
 const PlaceStyled = styled(Place)`
 width: 18px;
-margin: 0 5px 5px;
+margin: 0 5px;
 `
 
 const AngleDoubleDownStyled = styled(AngleDoubleDown)`
