@@ -23,6 +23,8 @@ const FilterBarStyled = styled.section`
  display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
+  -ms-overflow-style: none; 
+    scrollbar-width: none;
   scroll-snap-type: x mandatory;
   width: 100%;
   height: 48px;

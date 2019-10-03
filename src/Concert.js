@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { AngleDoubleDown } from 'styled-icons/fa-solid/AngleDoubleDown'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Place } from 'styled-icons/material/Place'
+import { Heart } from 'styled-icons/feather/Heart'
+import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
  
 
 export default function Concert({ 
@@ -35,12 +37,16 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
   return (
     <ConcertStyled>
       <ConcertImageStyled src={image}/>
-      <StarStyled onClick={toggleIsFavorite}
-      active={isFavorite}
-      aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></StarStyled>
-
+    
       <ConcertInfoStyled>
+        <ConcertInfoHeadlineStyled>
       <ArtistStyled>{artist}</ArtistStyled>
+        <HeartStyled onClick={toggleIsFavorite}
+        active={isFavorite}></HeartStyled>
+        <FullHeartStyled onClick={toggleIsFavorite}
+        active={!isFavorite}></FullHeartStyled>
+        </ConcertInfoHeadlineStyled>
+
       <TimeStyled>
         <div>
           <DateRangeStyled />
@@ -83,23 +89,33 @@ width: 100%;
 border-radius: 10px 10px 0 0;
 `
 
-const StarStyled = styled.svg`
-position: absolute;
-top: -25px;
-right: 15px;
-width: 60px;
-color: ${props => (props.active ? '#44D7B6' : 'white')};
-`
-
 const ConcertInfoStyled = styled.section`
 display: flex;
 flex-direction: column;
 gap: 10px;
 padding: 15px 30px 15px 15px;
 `
+
+const ConcertInfoHeadlineStyled = styled.div`
+display: flex;
+justify-content: space-between;
+`
 const ArtistStyled = styled.span`
 font-size: 1.5em;
 `
+
+const HeartStyled = styled(Heart)`
+width: 28px;
+margin-top: -10px;
+display: ${props => (props.active ? 'none' : 'block')}
+`
+
+const FullHeartStyled = styled(FullHeart)`
+width: 28px;
+margin-top: -10px;
+display: ${props => (props.active ? 'none' : 'block')}
+`
+
 const TimeStyled = styled.section`
 display: flex;
 justify-content: space-between;
