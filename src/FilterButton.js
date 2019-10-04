@@ -2,6 +2,11 @@ import React from 'react'
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
 
+FilterButton.propTypes = {
+  text: PropTypes.string,
+  onClick: PropTypes.func
+}
+
 export default function FilterButton({text, onClick}) {
   return <FilterButtonStyled onClick={onClick}>{text}</FilterButtonStyled>
 }

@@ -4,11 +4,18 @@ import PropTypes from 'prop-types'
 import FilterBar from './FilterBar'
 import ConcertList from './ConcertList'
 
-export default function HomePage({concerts, toggleIsFavorite, genres, onSelectGenre}) {
+HomePage.propTypes = {
+  concerts: PropTypes.arrayOf(PropTypes.string),
+  onHeartClick: PropTypes.func,
+  genres: PropTypes.arrayOf(PropTypes.string),
+  onSelectGenre: PropTypes.func
+}
+
+export default function HomePage({concerts, onHeartClick, genres, onSelectGenre}) {
   return (
     <MainStyled>
       <FilterBar genres={genres} onClick={onSelectGenre}/>
-      <ConcertList concerts={concerts} toggleIsFavorite={toggleIsFavorite}/>
+      <ConcertList concerts={concerts} onHeartClick={onHeartClick}/>
     </MainStyled>
   )
 }

@@ -7,6 +7,7 @@ import { DateRange } from 'styled-icons/material/DateRange'
 import { Place } from 'styled-icons/material/Place'
 import { Heart } from 'styled-icons/feather/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
+import mumford from './images/mumford.jpg'
  
 
 export default function Concert({ 
@@ -14,10 +15,10 @@ export default function Concert({
   date, 
   place, 
   genres, 
-  image, 
+  //image, 
   description,
   isFavorite,
-  toggleIsFavorite
+  onHeartClick
 }) 
 {
 Concert.propTypes = {
@@ -25,10 +26,10 @@ Concert.propTypes = {
   date: PropTypes.string,
   place: PropTypes.string,
   genres: PropTypes.arrayOf(PropTypes.string),
-  image: PropTypes.string,
+  //image: PropTypes.string,
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
-  toggleIsFavorite: PropTypes.func
+  onHeartClick: PropTypes.func
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
@@ -36,14 +37,13 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
 
   return (
     <ConcertStyled>
-      <ConcertImageStyled src={image}/>
-    
+      <ConcertImageStyled src={mumford} />
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
       <ArtistStyled>{artist}</ArtistStyled>
-        <HeartStyled onClick={toggleIsFavorite}
+        <HeartStyled onClick={onHeartClick}
         active={isFavorite}></HeartStyled>
-        <FullHeartStyled onClick={toggleIsFavorite}
+        <FullHeartStyled onClick={onHeartClick}
         active={!isFavorite}></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
 
@@ -59,7 +59,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
       </TimeStyled>
         {fullConcertIsVisible &&
           <ConcertFullInfoStyled>
-            <p>{description}</p>
+            <DescriptionStyled>{description}</DescriptionStyled>
             <TagListStyled>{genres.map(genre => <Tag text={genre} />)}</TagListStyled>
           </ConcertFullInfoStyled>
         }
@@ -78,16 +78,15 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
 }
 
 const ConcertStyled = styled.section`
-position: relative;
 background-color: white;
 border-radius: 10px;
 box-shadow: 0 5px 5px lightgray;
 `
 const ConcertImageStyled = styled.img`
-//position: relative;
-width: 100%;
-border-radius: 10px 10px 0 0;
+width: 100%;
+border-radius: 10px 10px 0 0;
 `
+
 
 const ConcertInfoStyled = styled.section`
 display: flex;
@@ -142,6 +141,9 @@ const ConcertFullInfoStyled = styled.section`
 display: flex;
 flex-direction: column;
 `
+
+const DescriptionStyled = styled.p`
+word-break: break-word;`
 
 const TagListStyled = styled.section`
 align-self: center;
