@@ -81,7 +81,7 @@ const ConcertStyled = styled.section`
 position: relative;
 background-color: white;
 border-radius: 10px;
-
+box-shadow: 0 5px 5px lightgray;
 `
 const ConcertImageStyled = styled.img`
 //position: relative;

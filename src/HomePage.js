@@ -15,6 +15,6 @@ export default function HomePage({concerts, toggleIsFavorite, genres, onSelectGe
 
 const MainStyled = styled.main`
 display: grid;
-grid-template-rows: 48px auto;
+grid-template-rows: 38px auto;
 overflow-y: scroll;
 `

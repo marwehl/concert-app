@@ -12,12 +12,13 @@ const FilterButtonStyled = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: pink;
-  color: white;
-  border: 2px solid white;
+  background: #EBEBF5;
+  color: #6D7278;
+  border: 2px solid #6D7278;
+  font-size: 1.2em;
 
   &:hover {
   background: white;
-  color: pink;
+  color: #6D7278;
   }
 `
