@@ -7,6 +7,7 @@ import { DateRange } from 'styled-icons/material/DateRange'
 import { Place } from 'styled-icons/material/Place'
 import { Heart } from 'styled-icons/feather/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
+import { Delete } from 'styled-icons/typicons/Delete'
 import mumford from './images/mumford.jpg'
  
 
@@ -18,7 +19,8 @@ export default function Concert({
   //image, 
   description,
   isFavorite,
-  onHeartClick
+  onHeartClick,
+  onDeleteClick
 }) 
 {
 Concert.propTypes = {
@@ -29,7 +31,8 @@ Concert.propTypes = {
   //image: PropTypes.string,
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
-  onHeartClick: PropTypes.func
+  onHeartClick: PropTypes.func,
+  onDeleteClick: PropTypes.func
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
@@ -37,6 +40,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
 
   return (
     <ConcertStyled>
+      <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
       <ConcertImageStyled src={mumford} />
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
@@ -78,6 +82,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
 }
 
 const ConcertStyled = styled.section`
+position: relative;
 background-color: white;
 border-radius: 10px;
 box-shadow: 0 5px 5px lightgray;
@@ -86,7 +91,13 @@ const ConcertImageStyled = styled.img`
 width: 100%;
 border-radius: 10px 10px 0 0;
 `
-
+const DeleteStyled = styled(Delete)`
+position: absolute;
+right: 10px;
+top: 10px;
+width: 30px;
+color: white;
+`
 
 const ConcertInfoStyled = styled.section`
 display: flex;

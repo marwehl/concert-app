@@ -5,17 +5,21 @@ import FilterBar from './FilterBar'
 import ConcertList from './ConcertList'
 
 HomePage.propTypes = {
-  concerts: PropTypes.arrayOf(PropTypes.string),
+  concerts: PropTypes.arrayOf(PropTypes.object),
   onHeartClick: PropTypes.func,
+  onDeleteClick: PropTypes.func,
   genres: PropTypes.arrayOf(PropTypes.string),
   onSelectGenre: PropTypes.func
 }
 
-export default function HomePage({concerts, onHeartClick, genres, onSelectGenre}) {
+export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick}) {
   return (
     <MainStyled>
-      <FilterBar genres={genres} onClick={onSelectGenre}/>
-      <ConcertList concerts={concerts} onHeartClick={onHeartClick}/>
+      <FilterBar genres={genres} o
+      nClick={onSelectGenre}/>
+      <ConcertList concerts={concerts} 
+      onHeartClick={onHeartClick}
+      onDeleteClick={onDeleteClick}/>
     </MainStyled>
   )
 }

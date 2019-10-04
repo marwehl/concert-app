@@ -5,7 +5,7 @@ import ConcertList from './ConcertList';
 import Navigation from './Navigation'
 import CreateConcert from './CreateConcert'
 import HomePage from './HomePage'
-import { getConcerts, postConcert, patchConcert } from './services'
+import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
 
 
 
@@ -48,6 +48,7 @@ export default function App() {
         genres={allGenres}
         onHeartClick={toggleIsFavorite}
         onSelectGenre={setSelectedGenre}
+        onDeleteClick={removeConcert}
         /> }/>
   <Route path="/favorites" render={() => <ConcertList 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 
@@ -59,6 +60,16 @@ export default function App() {
     </Router>
   );
 
+  function removeConcert(concert) {
+deleteConcert(concert._id)
+.then(selectedConcert => {
+  const index = concerts.findIndex(concert => concert._id === selectedConcert._id)
+  setConcerts([
+    ...concerts.slice(0, index),
+    ...concerts.slice(index + 1)
+  ])
+})
+  }
   
   function toggleIsFavorite(concert) {
     patchConcert(concert._id, { isFavorite: !concert.isFavorite })
