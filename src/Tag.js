@@ -6,9 +6,9 @@ return <TagStyled>{text}</TagStyled>
 }
 
 const TagStyled = styled.div`
-background-color: #44D7B6;
-padding: 5px 10px;
+padding: 3px 7px;
 display: inline-block;
+border: 2px solid #6D7278;
 border-radius: 10px;
 margin: 7px;
 `

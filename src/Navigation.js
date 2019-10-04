@@ -1,32 +1,35 @@
 import React from 'react'
 import {NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { Heart } from 'styled-icons/fa-solid/Heart'
+import { Home } from 'styled-icons/boxicons-solid/Home'
+import { PlusCircle } from 'styled-icons/boxicons-solid/PlusCircle'
 
 export default function Navigation () {
   return (
     <NavigationStyled>
       <LinkStyled exact to="/">
-        Home
+        <HomeStyled></HomeStyled>
       </LinkStyled>
-      <LinkStyled to="/favorites">Favoriten</LinkStyled>
-      <LinkStyled to="/create">Create</LinkStyled>
+      <LinkStyled to="/favorites"><HeartStyled></HeartStyled></LinkStyled>
+      <LinkStyled to="/create"><PlusCircleStyled></PlusCircleStyled></LinkStyled>
 
     </NavigationStyled>
   )
 }
 
 const LinkStyled = styled(NavLink)`
-  font-size: 2em;
+  font-size: 1.3em;
   flex-grow: 1;
   color: inherit;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: lightgray;
+  background: #EBEBF5;
 
   &.active {
-    background: hotpink;
+    background: white;
   }
 `
 
@@ -34,4 +37,14 @@ const NavigationStyled = styled.nav`
 display: grid;
 grid-auto-flow: column;
 gap: 1px;
+`
+
+const HomeStyled = styled(Home)`
+width: 28px;
+`
+const HeartStyled = styled(Heart)`
+width: 28px;
+`
+const PlusCircleStyled = styled(PlusCircle)`
+width: 28px;
 `
