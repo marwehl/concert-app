@@ -3,22 +3,21 @@ import Concert from './Concert'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
-export default function ConcertList({ concerts, toggleIsFavorite }) {
+export default function ConcertList({ concerts, onHeartClick }) {
 
 ConcertList.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),
-  toggleIsFavorite: PropTypes.func
+  onHeartClick: PropTypes.func
 }
 
   return (
     <ConcertListStyled>
-      {concerts.map((concert, index) => (
-        <Concert {...concert} key={index}
-        toggleIsFavorite={() => toggleIsFavorite(index)}/>
+      {concerts.map((concert) => (
+        <Concert {...concert} key={concert._id}
+        onHeartClick={() => onHeartClick(concert)}/>
         ))}
     </ConcertListStyled>
   )
-
 }
 
 
