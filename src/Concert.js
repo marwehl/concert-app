@@ -8,6 +8,7 @@ import { Place } from 'styled-icons/material/Place'
 import { Heart } from 'styled-icons/feather/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
+import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import mumford from './images/mumford.jpg'
  
 
@@ -41,6 +42,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
+      <EditStyled></EditStyled>
       <ConcertImageStyled src={mumford} />
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
@@ -96,6 +98,13 @@ position: absolute;
 right: 10px;
 top: 10px;
 width: 30px;
+color: white;
+`
+const EditStyled = styled(Edit)`
+position: absolute;
+right: 44px;
+top: 12px;
+width: 26px;
 color: white;
 `
 
