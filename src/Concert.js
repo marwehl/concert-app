@@ -19,7 +19,8 @@ export default function Concert({
   //image, 
   description,
   isFavorite,
-  onHeartClick
+  onHeartClick,
+  onDeleteClick
 }) 
 {
 Concert.propTypes = {
@@ -30,7 +31,8 @@ Concert.propTypes = {
   //image: PropTypes.string,
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
-  onHeartClick: PropTypes.func
+  onHeartClick: PropTypes.func,
+  onDeleteClick: PropTypes.func
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
@@ -38,7 +40,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
 
   return (
     <ConcertStyled>
-      <DeleteStyled></DeleteStyled>
+      <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
       <ConcertImageStyled src={mumford} />
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>

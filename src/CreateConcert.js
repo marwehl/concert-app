@@ -11,7 +11,7 @@ export default function CreateConcert ({onSubmit}) {
 
   return (
  <FormStyled onSubmit={handleSubmit}>
-<LabelStyled>Artist:<InputStyled name="artist" autofocus/></LabelStyled>
+<LabelStyled>Artist:<InputStyled name="artist" autoFocus/></LabelStyled>
 <DateStyled>
 <LabelStyled>Date:<InputStyled name="date" type="date"/></LabelStyled>
 <LabelStyled>Time:<InputStyled name="time" type="time"></InputStyled></LabelStyled>

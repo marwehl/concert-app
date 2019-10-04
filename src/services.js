@@ -10,6 +10,10 @@ export function patchConcert(id, data) {
   return fetchConcerts({ method: 'PATCH', id, data })
 }
 
+export function deleteConcert(id) {
+  return fetchConcerts({method: 'DELETE', id})
+}
+
 function fetchConcerts({ method = 'GET', id = '', data } = {}) {
   return fetch('/concerts/' + id, {
     method,

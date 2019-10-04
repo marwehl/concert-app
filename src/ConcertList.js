@@ -3,18 +3,20 @@ import Concert from './Concert'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
-export default function ConcertList({ concerts, onHeartClick }) {
+export default function ConcertList({ concerts, onHeartClick, onDeleteClick }) {
 
 ConcertList.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),
-  onHeartClick: PropTypes.func
+  onHeartClick: PropTypes.func,
+  onDeleteClick: PropTypes.func
 }
 
   return (
     <ConcertListStyled>
       {concerts.map((concert) => (
         <Concert {...concert} key={concert._id}
-        onHeartClick={() => onHeartClick(concert)}/>
+        onHeartClick={() => onHeartClick(concert)}
+        onDeleteClick={() => onDeleteClick(concert)}/>
         ))}
     </ConcertListStyled>
   )
