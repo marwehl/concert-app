@@ -3,7 +3,8 @@ import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
 
-export default function CreateConcert ({onSubmit}) {
+export default function CreateConcert({ onSubmit, cardData}) {
+  console.log(cardData)
 
   CreateConcert.propTypes = {
     onSubmit: PropTypes.func

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro';
 import Tag from './Tag'
 import PropTypes from 'prop-types'
@@ -21,7 +22,8 @@ export default function Concert({
   description,
   isFavorite,
   onHeartClick,
-  onDeleteClick
+  onDeleteClick,
+  onEditClick
 }) 
 {
 Concert.propTypes = {
@@ -33,7 +35,8 @@ Concert.propTypes = {
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
   onHeartClick: PropTypes.func,
-  onDeleteClick: PropTypes.func
+  onDeleteClick: PropTypes.func,
+  onEditClick: PropTypes.func
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
@@ -42,7 +45,13 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
-      <EditStyled></EditStyled>
+      <NavLink to={{ pathname: '/create', cardData: {
+        artist: artist,
+        date: date,
+        place: place,
+        genres: genres,
+        description: description
+      } }} ><EditStyled onClick={onEditClick}></EditStyled></NavLink>
       <ConcertImageStyled src={mumford} />
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
@@ -91,7 +100,7 @@ box-shadow: 0 5px 5px lightgray;
 `
 const ConcertImageStyled = styled.img`
 width: 100%;
-border-radius: 10px 10px 0 0;
+border-radius: 10px 10px 0 0;
 `
 const DeleteStyled = styled(Delete)`
 position: absolute;

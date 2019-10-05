@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import ConcertList from './ConcertList';
 import Navigation from './Navigation'
@@ -49,16 +49,23 @@ export default function App() {
         onHeartClick={toggleIsFavorite}
         onSelectGenre={setSelectedGenre}
         onDeleteClick={removeConcert}
+        onEditClick={editConcert}
         /> }/>
   <Route path="/favorites" render={() => <ConcertList 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 
   onHeartClick={toggleIsFavorite}/> } />
-      <Route path="/create" render={() => <CreateConcert 
-      onSubmit={addConcert}/>} />
+      <Route path="/create" render={props => {
+        console.log(props)
+      return <CreateConcert 
+        onSubmit={addConcert} cardData={props.cardData}/>}} />
       <Navigation/>
     </AppStyled>
     </Router>
   );
+
+  function editConcert(concert) {
+    return <Redirect to="/create" />
+  }
 
   function removeConcert(concert) {
 deleteConcert(concert._id)
