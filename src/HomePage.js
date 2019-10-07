@@ -21,7 +21,7 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
       <ConcertList concerts={concerts} 
       onHeartClick={onHeartClick}
       onDeleteClick={onDeleteClick}
-      onEditClick={onEditClick}/>
+  />
     </MainStyled>
   )
 }

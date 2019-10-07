@@ -3,23 +3,25 @@ import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
 
-export default function CreateConcert({ onSubmit, cardData}) {
-  console.log(cardData)
+export default function CreateConcert({ onSubmit}) {
 
   CreateConcert.propTypes = {
     onSubmit: PropTypes.func
   }
 
+ //const [artist, setArtist] = useState(editConcertData.artist)
+
   return (
  <FormStyled onSubmit={handleSubmit}>
 <LabelStyled>Artist:<InputStyled name="artist" autoFocus/></LabelStyled>
 <DateStyled>
-<LabelStyled>Date:<InputStyled name="date" type="date"/></LabelStyled>
-<LabelStyled>Time:<InputStyled name="time" type="time"></InputStyled></LabelStyled>
+        <LabelStyled>Date:<InputStyled name="date" type="date" /></LabelStyled>
+        <LabelStyled>Time:<InputStyled name="time" type="time" ></InputStyled></LabelStyled>
 </DateStyled>
-<LabelStyled>Place:<InputStyled name="place"/></LabelStyled>
-<LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
-<LabelStyled>Genres:<InputStyled name="genres"/></LabelStyled>
+      <LabelStyled>Place:<InputStyled name="place" /></LabelStyled>
+      <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
+      <LabelStyled>Genres:<InputStyled name="genres"
+      /></LabelStyled>
 <CreateButtonStyled>Create</CreateButtonStyled>
 </FormStyled>
   )
