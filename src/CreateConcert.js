@@ -73,6 +73,14 @@ const TextareaStyled = styled.textarea`
 height: 100px;
 border: none;
 border-radius: 10px;
+padding: 7px;
+
+&: active {
+background-color: lightgray;
+}
+&: focus {
+background-color: lightgray;
+}
 `
 
 const CreateButtonStyled = styled.button`
