@@ -37,11 +37,12 @@ Concert.propTypes = {
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
+const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
-      <ConcertImageStyled src={mumford} />
+      <ConcertImageStyled src={mumford} active={fullImageIsVisible} />
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
       <ArtistStyled>{artist}</ArtistStyled>
@@ -77,6 +78,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
   function handleArrowClick() {
     setFullConcertIsVisible(!fullConcertIsVisible)
     setArrowShowsDown(!arrowShowsDown)
+    setFullImageIsVisible(!fullImageIsVisible)
   }
   
 }
@@ -88,8 +90,11 @@ border-radius: 10px;
 box-shadow: 0 5px 5px lightgray;
 `
 const ConcertImageStyled = styled.img`
+height: ${props => (props.active) ? '' : '120px'};
 width: 100%;
-border-radius: 10px 10px 0 0;
+object-fit: cover;
+object-position: center;
+border-radius: 10 px 10px 0 0;
 `
 const DeleteStyled = styled(Delete)`
 position: absolute;
