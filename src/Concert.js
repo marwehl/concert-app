@@ -53,7 +53,7 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
         description,
         genres,
         id: _id,
-      }, }}><EditStyled></EditStyled></Link>
+      }}}><EditStyled></EditStyled></Link>
       <ConcertImageStyled src={mumford} />
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>

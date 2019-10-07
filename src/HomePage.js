@@ -13,7 +13,7 @@ HomePage.propTypes = {
   onSelectGenre: PropTypes.func
 }
 
-export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick, onEditClick}) {
+export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick}) {
   return (
     <MainStyled>
       <FilterBar genres={genres} o

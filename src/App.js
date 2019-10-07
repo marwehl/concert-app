@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import ConcertList from './ConcertList';
 import Navigation from './Navigation'
@@ -15,9 +15,7 @@ export default function App() {
   const [concerts, setConcerts] = useState([])
 
   useEffect(() => {
-    getConcerts().then(concertsData => {
-      setConcerts(concertsData)
-    })
+    getConcerts().then(setConcerts)
   }, [])
 
   function addConcert(concertData) {
@@ -69,18 +67,18 @@ export default function App() {
   );
 
   function editConcert(id, editData) {
-    console.log('id', id)
-    console.log(editData)
     patchConcert(id, editData)
     .then(editConcert => {
-      const index = concerts.findIndex(concert  => concert.id === editConcert._id)
+      const index = concerts.findIndex(concert  => concert._id === editConcert._id)
       setConcerts([
         ...concerts.slice(0, index),
-      { artist: editConcert.artist, 
-        date: editConcert.date, 
-        place: editConcert.place, 
-        description: editConcert.description,
-      genres: editConcert.genres},
+        {
+          artist: editConcert.artist,
+          date: editConcert.date,
+          place: editConcert.place,
+          description: editConcert.description,
+          genres: editConcert.genres
+        },
         ...concerts.slice(index + 1)
       ])
     })

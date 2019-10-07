@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 
 
@@ -15,11 +16,12 @@ export default function EditConcert({ editConcertData, onSubmit, concert}) {
   const [date, setDate] = useState(editConcertData.date)
   const [place, setPlace] = useState(editConcertData.place)
   const [description, setDescription] = useState(editConcertData.description)
-  const [genres, setGenres] = useState(editConcertData.genres)
+const editGenres = editConcertData.genres.join(', ')
+  const [genres, setGenres] = useState(editGenres)
 
 
   return (
-  
+    
     <FormStyled onSubmit={handleSubmit}>
       <LabelStyled>Artist:<InputStyled name="artist" value={artist} onChange={event => setArtist(event.target.value)}/></LabelStyled>
       <DateStyled>
@@ -39,9 +41,8 @@ export default function EditConcert({ editConcertData, onSubmit, concert}) {
     const newEditConcertData= {
       artist, date, place, description, genres
     }
- 
-   // data.genres = data.genres.split(',')
-     // .map(item => item.trim())
+    newEditConcertData.genres = newEditConcertData.genres.split(',')
+  .map(item => item.trim())
     onSubmit(editConcertData.id, newEditConcertData)
   }
 
