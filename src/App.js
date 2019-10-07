@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import ConcertList from './ConcertList';
 import Navigation from './Navigation'
 import CreateConcert from './CreateConcert'
+import EditConcert from './EditConcert'
 import HomePage from './HomePage'
 import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
 
@@ -14,9 +15,7 @@ export default function App() {
   const [concerts, setConcerts] = useState([])
 
   useEffect(() => {
-    getConcerts().then(concertsData => {
-      setConcerts(concertsData)
-    })
+    getConcerts().then(setConcerts)
   }, [])
 
   function addConcert(concertData) {
@@ -49,16 +48,41 @@ export default function App() {
         onHeartClick={toggleIsFavorite}
         onSelectGenre={setSelectedGenre}
         onDeleteClick={removeConcert}
+
         /> }/>
   <Route path="/favorites" render={() => <ConcertList 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 
   onHeartClick={toggleIsFavorite}/> } />
-      <Route path="/create" render={() => <CreateConcert 
-      onSubmit={addConcert}/>} />
+      <Route path="/create" 
+      render={() => {
+      return <CreateConcert 
+        onSubmit={addConcert}/>}} />
+        <Route path="/edit"
+        render={props => {
+          return <EditConcert
+            onSubmit={editConcert} editConcertData={props.location.editConcertData}/>}}/>
       <Navigation/>
     </AppStyled>
     </Router>
   );
+
+  function editConcert(id, editData) {
+    patchConcert(id, editData)
+    .then(editConcert => {
+      const index = concerts.findIndex(concert  => concert._id === editConcert._id)
+      setConcerts([
+        ...concerts.slice(0, index),
+        {
+          artist: editConcert.artist,
+          date: editConcert.date,
+          place: editConcert.place,
+          description: editConcert.description,
+          genres: editConcert.genres
+        },
+        ...concerts.slice(index + 1)
+      ])
+    })
+  }
 
   function removeConcert(concert) {
 deleteConcert(concert._id)

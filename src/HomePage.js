@@ -8,6 +8,7 @@ HomePage.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),
   onHeartClick: PropTypes.func,
   onDeleteClick: PropTypes.func,
+  onEditClick: PropTypes.func,
   genres: PropTypes.arrayOf(PropTypes.string),
   onSelectGenre: PropTypes.func
 }
@@ -19,7 +20,8 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
       onClick={onSelectGenre}/>
       <ConcertList concerts={concerts} 
       onHeartClick={onHeartClick}
-      onDeleteClick={onDeleteClick}/>
+      onDeleteClick={onDeleteClick}
+  />
     </MainStyled>
   )
 }

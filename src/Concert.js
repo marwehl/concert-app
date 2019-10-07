@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
 import Tag from './Tag'
 import PropTypes from 'prop-types'
@@ -8,6 +9,7 @@ import { Place } from 'styled-icons/material/Place'
 import { Heart } from 'styled-icons/feather/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
+import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import mumford from './images/mumford.jpg'
  
 
@@ -20,7 +22,9 @@ export default function Concert({
   description,
   isFavorite,
   onHeartClick,
-  onDeleteClick
+  onDeleteClick,
+  _id
+
 }) 
 {
 Concert.propTypes = {
@@ -32,7 +36,8 @@ Concert.propTypes = {
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
   onHeartClick: PropTypes.func,
-  onDeleteClick: PropTypes.func
+  onDeleteClick: PropTypes.func,
+
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
@@ -42,7 +47,19 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
+
+      <Link to={{ pathname: '/edit', editConcertData: {
+        artist, 
+        date, 
+        place,
+        description,
+        genres,
+        id: _id,
+      }}}><EditStyled/></Link>
+    
+
       <ConcertImageStyled src={mumford} active={fullImageIsVisible} />
+
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
       <ArtistStyled>{artist}</ArtistStyled>
@@ -95,12 +112,20 @@ width: 100%;
 object-fit: cover;
 object-position: center;
 border-radius: 10 px 10px 0 0;
+
 `
 const DeleteStyled = styled(Delete)`
 position: absolute;
 right: 10px;
 top: 10px;
 width: 30px;
+color: white;
+`
+const EditStyled = styled(Edit)`
+position: absolute;
+right: 44px;
+top: 12px;
+width: 26px;
 color: white;
 `
 
