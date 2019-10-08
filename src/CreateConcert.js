@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import axios from 'axios'
@@ -16,17 +16,19 @@ export default function CreateConcert({ onSubmit}) {
   function handleSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
-
-    upload(formData.get('image'))
-    .then(response => {
     const data = Object.fromEntries(formData)
-    data.image = response.data.url
     data.date = formatDate(data.date)
     data.genres = data.genres.split(',')
       .map(item => item.trim())
-    onSubmit(data)
-    })
-    .catch(err => console.log(err))
+
+    data.image === ''
+      ? onSubmit(data)
+      : upload(formData.get('image'))
+        .then(response => {
+          data.image = response.data.url
+          onSubmit(data)
+        })
+        .catch(err => console.log(err))
   }
 
   const months = [
@@ -56,6 +58,7 @@ export default function CreateConcert({ onSubmit}) {
   }
 
   function upload(file) {
+    console.log('UPLOAD')
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`
     const formData = new FormData()
     formData.append('file', file)
