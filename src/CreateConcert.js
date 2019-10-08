@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 
+
+const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME
+const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET
 
 export default function CreateConcert({ onSubmit}) {
 
@@ -9,7 +13,34 @@ export default function CreateConcert({ onSubmit}) {
     onSubmit: PropTypes.func
   }
 
- //const [artist, setArtist] = useState(editConcertData.artist)
+  function handleSubmit(event) {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+
+    upload(formData.get('image'))
+    .then(response => {
+    const data = Object.fromEntries(formData)
+    data.image = response.data.url
+    data.genres = data.genres.split(',')
+      .map(item => item.trim())
+    onSubmit(data)
+    })
+    .catch(err => console.log(err))
+  }
+
+  function upload(file) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', PRESET)
+    return axios.post(url, formData, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        }
+      })
+    }
+
+
 
   return (
  <FormStyled onSubmit={handleSubmit}>
@@ -22,19 +53,12 @@ export default function CreateConcert({ onSubmit}) {
       <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
       <LabelStyled>Genres:<InputStyled name="genres"
       /></LabelStyled>
+      <LabelStyled>Picture:
+      <input type="file" name="image"></input>
+      </LabelStyled>
 <CreateButtonStyled>Create</CreateButtonStyled>
 </FormStyled>
   )
-
-function handleSubmit(event) {
-event.preventDefault()
-const formData = new FormData(event.target)
-const data = Object.fromEntries(formData)
-data.genres = data.genres.split(',')
-.map(item => item.trim())
-onSubmit(data)
-}
-
 
 }
 

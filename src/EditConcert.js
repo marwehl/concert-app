@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 
-export default function EditConcert({ editConcertData, onSubmit, concert}) {
+export default function EditConcert({ editConcertData, onSubmit}) {
 
 
   EditConcert.propTypes = {

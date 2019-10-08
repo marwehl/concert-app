@@ -10,7 +10,7 @@ import { Heart } from 'styled-icons/feather/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
-import mumford from './images/mumford.jpg'
+
  
 
 export default function Concert({ 
@@ -18,7 +18,7 @@ export default function Concert({
   date, 
   place, 
   genres, 
-  //image, 
+  image, 
   description,
   isFavorite,
   onHeartClick,
@@ -32,7 +32,7 @@ Concert.propTypes = {
   date: PropTypes.string,
   place: PropTypes.string,
   genres: PropTypes.arrayOf(PropTypes.string),
-  //image: PropTypes.string,
+  image: PropTypes.string,
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
   onHeartClick: PropTypes.func,
@@ -53,12 +53,14 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
         date, 
         place,
         description,
+        image,
         genres,
         id: _id,
+        isFavorite
       }}}><EditStyled/></Link>
     
 
-      <ConcertImageStyled src={mumford} active={fullImageIsVisible} />
+      <ConcertImageStyled src={image} active={fullImageIsVisible} />
 
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>

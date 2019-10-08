@@ -13,7 +13,6 @@ onClick: PropTypes.func
 
   return (
     <FilterBarStyled>
-      <KeyboardArrowLeftStyled></KeyboardArrowLeftStyled>
     <FilterButton onClick={() => onClick('all')} key={'all'} text='All'></FilterButton>
     {genres.map(genre => <FilterButton onClick={() => onClick(genre)} key={genre} text={genre}></FilterButton>)}
     </FilterBarStyled>
@@ -32,8 +31,4 @@ position: relative;
   width: 100%;
   height: 38px;
   margin: auto;
-`
-const KeyboardArrowLeftStyled = styled(KeyboardArrowLeft)`
-position: absolute;
-width: 28px;
 `
