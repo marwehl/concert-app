@@ -74,6 +74,7 @@ export default function App() {
         ...concerts.slice(0, index),
         {
           artist: editConcert.artist,
+          image: editConcert.image,
           date: editConcert.date,
           place: editConcert.place,
           description: editConcert.description,
