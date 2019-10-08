@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import FilterButton from './FilterButton'
-import { KeyboardArrowLeft } from 'styled-icons/material/KeyboardArrowLeft'
+
 
 export default function FilterBar ({onClick, genres }) {
 

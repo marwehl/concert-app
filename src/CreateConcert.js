@@ -21,11 +21,38 @@ export default function CreateConcert({ onSubmit}) {
     .then(response => {
     const data = Object.fromEntries(formData)
     data.image = response.data.url
+    data.date = formatDate(data.date)
     data.genres = data.genres.split(',')
       .map(item => item.trim())
     onSubmit(data)
     })
     .catch(err => console.log(err))
+  }
+
+  const months = [
+    'Jan',
+    'Feb',
+    'März',
+    'Apr',
+    'Mai',
+    'Juni',
+    'Juli',
+    'Aug',
+    'Sept',
+    'Okt',
+    'Nov',
+    'Dez'
+  ]
+
+  function formatDate(date) {
+    const newDate = new Date(date)
+    const formattedDate =
+      newDate.getDate() +
+      '. ' +
+      months[newDate.getMonth()] +
+      ' ' +
+      newDate.getFullYear()
+    return formattedDate
   }
 
   function upload(file) {
