@@ -16,6 +16,8 @@ export default function CreateConcert({ onSubmit}) {
 
   const [date, setDate] = useState(Date.now())
 
+  console.log('date start-wert', date)
+
 
   function handleSubmit(event) {
     event.preventDefault()

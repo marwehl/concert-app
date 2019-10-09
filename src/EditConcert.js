@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import MyDatepicker from './MyDatepicker'
 
 
 export default function EditConcert({ editConcertData, onSubmit}) {
@@ -12,10 +13,15 @@ export default function EditConcert({ editConcertData, onSubmit}) {
   }
  
   const [artist, setArtist] = useState(editConcertData.artist)
-  const [date, setDate] = useState(editConcertData.date)
+  const [concertDate, setConcertDate] = useState(new Date(editConcertData.concertDate))
   const [description, setDescription] = useState(editConcertData.description)
   const editGenres = editConcertData.genres.join(', ')
   const [genres, setGenres] = useState(editGenres)
+
+
+  function handleDateChange(value) {
+    setConcertDate(value)
+  }
 
 
   return (
@@ -23,7 +29,14 @@ export default function EditConcert({ editConcertData, onSubmit}) {
     <FormStyled onSubmit={handleSubmit}>
       <LabelStyled>Artist:<InputStyled name="artist" value={artist} onChange={event => setArtist(event.target.value)}/></LabelStyled>
       <DateStyled>
-        <LabelStyled>Date:<InputStyled name="date" type="date" value={date} onChange={event => setDate(event.target.value)} /></LabelStyled>
+        <LabelStyled>Date:
+          <MyDatepicker
+            value={concertDate} 
+            onChange={handleDateChange}
+            name='date'
+            date={concertDate}
+
+          ></MyDatepicker></LabelStyled>
     
       </DateStyled>
       <LabelStyled>Description:<TextareaStyled name="description" type="text" value={description} onChange={event => setDescription(event.target.value)}/></LabelStyled>
@@ -38,7 +51,7 @@ export default function EditConcert({ editConcertData, onSubmit}) {
     event.preventDefault()
     const newEditConcertData= {
       ...editConcertData,
-      artist, date, description, genres
+      artist, concertDate, description, genres
     }
     newEditConcertData.genres = newEditConcertData.genres.split(',')
   .map(item => item.trim())
