@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import FilterButton from './FilterButton'
 
 
-export default function FilterBar ({onClick, genres }) {
+export default function FilterBar ({onClick, genres, selectedGenre}) {
 
 FilterBar.propTypes = {
 genres: PropTypes.arrayOf(PropTypes.string),
@@ -13,15 +13,14 @@ onClick: PropTypes.func
 
   return (
     <FilterBarStyled>
-    <FilterButton onClick={() => onClick('all')} key={'all'} text='All'></FilterButton>
-    {genres.map(genre => <FilterButton onClick={() => onClick(genre)} key={genre} text={genre}></FilterButton>)}
+      <FilterButton onClick={() => onClick('All')} key={'all'} text='All' selectedGenre={selectedGenre} ></FilterButton>
+    {genres.map(genre => <FilterButton selectedGenre={selectedGenre} onClick={() => onClick(genre)} key={genre} text={genre}></FilterButton>)}
     </FilterBarStyled>
   )
 
 }
 
 const FilterBarStyled = styled.section`
-position: relative;
  display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
@@ -29,6 +28,6 @@ position: relative;
     scrollbar-width: none;
   scroll-snap-type: x mandatory;
   width: 100%;
-  height: 38px;
+  height: 42px;
   margin: auto;
 `

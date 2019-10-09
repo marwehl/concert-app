@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
 import Tag from './Tag'
 import PropTypes from 'prop-types'
-import { AngleDoubleDown } from 'styled-icons/fa-solid/AngleDoubleDown'
+import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
-import { Place } from 'styled-icons/material/Place'
-import { Heart } from 'styled-icons/feather/Heart'
+import { Time } from 'styled-icons/boxicons-regular/Time'
+import { Heart } from 'styled-icons/fa-regular/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
@@ -16,8 +16,8 @@ import concert from './concert.jpg'
 
 export default function Concert({ 
   artist, 
-  date, 
-  place, 
+  concertDate, 
+  time, 
   genres, 
   image, 
   description,
@@ -25,25 +25,26 @@ export default function Concert({
   onHeartClick,
   onDeleteClick,
   _id
-
 }) 
+
 {
 Concert.propTypes = {
   artist : PropTypes.string,
-  date: PropTypes.string,
-  place: PropTypes.string,
   genres: PropTypes.arrayOf(PropTypes.string),
   image: PropTypes.string,
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
   onHeartClick: PropTypes.func,
   onDeleteClick: PropTypes.func,
-
 }
+
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
+
+time = renderableTime(concertDate)
+
 
   return (
     <ConcertStyled>
@@ -51,17 +52,18 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
       <Link to={{ pathname: '/edit', editConcertData: {
         artist, 
-        date, 
-        place,
+        //concertDate, 
+        time,
         description,
         image,
         genres,
         id: _id,
-        isFavorite
+        isFavorite, 
+        onHeartClick
       }}}><EditStyled/></Link>
     
 
-      <ConcertImageStyled src={image? image :concert} active={fullImageIsVisible} />
+      <ConcertImageStyled src={ image? image : concert } active={fullImageIsVisible} />
 
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
@@ -71,51 +73,73 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
         <FullHeartStyled onClick={onHeartClick}
         active={!isFavorite}></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
-
-      <TimeStyled>
+<DateContainerStyled>
         <div>
           <DateRangeStyled />
-      <span>{date}</span>
+            <span>{renderableDate(concertDate)}</span>
         </div>
         <div>
-            <PlaceStyled />
-      <span>{place}</span>
+            <TimeStyled />
+      <span>{time}</span>
           </div>
-      </TimeStyled>
-        {fullConcertIsVisible &&
+        </DateContainerStyled>
+    
+        {fullConcertIsVisible
+         && 
           <ConcertFullInfoStyled>
             <DescriptionStyled>{description}</DescriptionStyled>
-            <TagListStyled>{genres.map(genre => <Tag text={genre} />)}</TagListStyled>
+            <TagListStyled>{genres.map(genre => genre &&  <Tag text={genre} key={genre} />)}</TagListStyled>
           </ConcertFullInfoStyled>
         }
-        <AngleDoubleDownStyled 
+        {
+           (description || genres.length > 0)
+        &&
+        <KeyboardArrowDownStyled 
         active={arrowShowsDown}
         onClick={handleArrowClick}/>
+        }
       </ConcertInfoStyled>
     </ConcertStyled>
   )
+
+
+  function renderableDate(concertDate) {
+    const newdate = new Date(concertDate).toLocaleDateString('de-DE', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
+    return newdate
+  }
+
+  function renderableTime(concertDate) {
+    const timeString = new Date(concertDate).toLocaleString('de-DE', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+
+    return timeString
+  }
 
   function handleArrowClick() {
     setFullConcertIsVisible(!fullConcertIsVisible)
     setArrowShowsDown(!arrowShowsDown)
     setFullImageIsVisible(!fullImageIsVisible)
   }
-  
 }
 
 const ConcertStyled = styled.section`
 position: relative;
 background-color: white;
 border-radius: 10px;
-box-shadow: 0 5px 5px lightgray;
+box-shadow: 0 2px 4px #CCC2C2;
 `
 const ConcertImageStyled = styled.img`
 height: ${props => (props.active) ? '' : '120px'};
 width: 100%;
 object-fit: cover;
 object-position: center;
-border-radius: 10 px 10px 0 0;
-
+border-radius: 10px 10px 0 0;
 `
 const DeleteStyled = styled(Delete)`
 position: absolute;
@@ -143,6 +167,7 @@ const ConcertInfoHeadlineStyled = styled.div`
 display: flex;
 justify-content: space-between;
 `
+
 const ArtistStyled = styled.span`
 font-size: 1.5em;
 `
@@ -156,10 +181,11 @@ display: ${props => (props.active ? 'none' : 'block')}
 const FullHeartStyled = styled(FullHeart)`
 width: 28px;
 margin-top: -10px;
+color: #E87613;
 display: ${props => (props.active ? 'none' : 'block')}
 `
 
-const TimeStyled = styled.section`
+const  DateContainerStyled = styled.section`
 display: flex;
 justify-content: space-between;
 gap: 7px;
@@ -170,13 +196,13 @@ width: 18px;
 margin: 0 5px 5px;
 `
 
-const PlaceStyled = styled(Place)`
+const TimeStyled = styled(Time)`
 width: 18px;
 margin: 0 5px 5px;
 `
 
-const AngleDoubleDownStyled = styled(AngleDoubleDown)`
-width: 20px;
+const KeyboardArrowDownStyled = styled(KeyboardArrowDown)`
+width: 30px;
 align-self: center;
 transform: rotate(${props => (props.active ? '180deg' : '0')})
 `

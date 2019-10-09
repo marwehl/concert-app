@@ -8,10 +8,9 @@ export default function ConcertList({ concerts, onHeartClick, onDeleteClick}) {
 ConcertList.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),
   onHeartClick: PropTypes.func,
-  onDeleteClick: PropTypes.func,
-  onEditClick: PropTypes.func,
-  onHeartClick: PropTypes.func
+  onDeleteClick: PropTypes.func
 }
+
 
   return (
     <ConcertListStyled>
@@ -27,10 +26,12 @@ ConcertList.propTypes = {
 
 
 const ConcertListStyled = styled.section`
-  display: grid;
+ display: grid;
   align-content: flex-start;
   gap: 30px;
   background-color: white;
   overflow-y: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
   padding: 20px;
 `

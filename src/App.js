@@ -24,17 +24,20 @@ export default function App() {
     })
   }
 
-  const [selectedGenre, setSelectedGenre] = useState('all')
+  const [selectedGenre, setSelectedGenre] = useState('All')
 
-  const allGenres = Array.from(
+
+  let allGenres = Array.from(
     concerts.reduce((prev, concert) => {
       concert.genres && concert.genres.forEach(genre => prev.add(genre))
       return prev
     }, new Set())
   )
 
+console.log(selectedGenre)
+
   const filteredByGenre =
-    selectedGenre === 'all'
+    selectedGenre === 'All'
       ? concerts
       : concerts.filter(concert => concert.genres && concert.genres.includes(selectedGenre))
 
@@ -48,7 +51,7 @@ export default function App() {
         onHeartClick={toggleIsFavorite}
         onSelectGenre={setSelectedGenre}
         onDeleteClick={removeConcert}
-
+        selectedGenre={selectedGenre}
         /> }/>
   <Route path="/favorites" render={() => <ConcertList 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 
@@ -72,14 +75,7 @@ export default function App() {
       const index = concerts.findIndex(concert  => concert._id === editConcert._id)
       setConcerts([
         ...concerts.slice(0, index),
-        {
-          artist: editConcert.artist,
-          image: editConcert.image,
-          date: editConcert.date,
-          place: editConcert.place,
-          description: editConcert.description,
-          genres: editConcert.genres
-        },
+        editConcert,
         ...concerts.slice(index + 1)
       ])
     })

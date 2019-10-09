@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import MyDatepicker from './MyDatepicker'
 
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME
@@ -13,13 +14,20 @@ export default function CreateConcert({ onSubmit}) {
     onSubmit: PropTypes.func
   }
 
+  const [date, setDate] = useState(Date.now())
+
+
   function handleSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
-    const data = Object.fromEntries(formData)
-    data.date = formatDate(data.date)
+    const concertDate = new Date(date)
+   let data = Object.fromEntries(formData)
+    data = {...data, concertDate}
+    console.log(data)
     data.genres = data.genres.split(',')
+      .filter(item => item !== '' )
       .map(item => item.trim())
+      .map(item => (item.slice(0, 1).toUpperCase() + item.slice(1)))
 
     data.image === ''
       ? onSubmit(data)
@@ -31,34 +39,7 @@ export default function CreateConcert({ onSubmit}) {
         .catch(err => console.log(err))
   }
 
-  const months = [
-    'Jan',
-    'Feb',
-    'März',
-    'Apr',
-    'Mai',
-    'Juni',
-    'Juli',
-    'Aug',
-    'Sept',
-    'Okt',
-    'Nov',
-    'Dez'
-  ]
-
-  function formatDate(date) {
-    const newDate = new Date(date)
-    const formattedDate =
-      newDate.getDate() +
-      '. ' +
-      months[newDate.getMonth()] +
-      ' ' +
-      newDate.getFullYear()
-    return formattedDate
-  }
-
   function upload(file) {
-    console.log('UPLOAD')
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`
     const formData = new FormData()
     formData.append('file', file)
@@ -70,14 +51,20 @@ export default function CreateConcert({ onSubmit}) {
       })
     }
 
+  function handleDateChange(value) {
+    setDate(value)
+  }
+
 
 
   return (
  <FormStyled onSubmit={handleSubmit}>
 <LabelStyled>Artist:<InputStyled name="artist" autoFocus/></LabelStyled>
 <DateStyled>
-        <LabelStyled>Date:<InputStyled name="date" type="date" /></LabelStyled>
-        <LabelStyled>Time:<InputStyled name="time" type="time" ></InputStyled></LabelStyled>
+        <MyDatepicker
+          name='date'
+          date={date}
+          onChange={handleDateChange}></MyDatepicker>
 </DateStyled>
       <LabelStyled>Place:<InputStyled name="place" /></LabelStyled>
       <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
@@ -93,28 +80,29 @@ export default function CreateConcert({ onSubmit}) {
 }
 
 const FormStyled = styled.form`
+width: 100%;
 display: grid;
-padding: 20px;
+padding: 30px;
 gap: 20px;
 height: 60vh;
 `
 
 const LabelStyled = styled.label`
 display: grid;
-gap: 7px;
+gap: 0.7px;
 `
 
 
 const InputStyled = styled.input`
-border: none;
+border: 1px solid black;
 border-radius: 10px;
 padding: 7px;
-
+font-size: 1.1em;
 &: active {
-background-color: lightgray;
+border-color: #E87613 ;
 }
 &: focus {
-background-color: lightgray;
+border-color: #E87613;
 }
 `
 
@@ -125,19 +113,29 @@ gap: 30px;
 
 const TextareaStyled = styled.textarea`
 height: 100px;
-border: none;
+border: 1px solid black;
 border-radius: 10px;
 padding: 7px;
-
+font-family: Helvetica;
+font-size: 1.1em;
 &: active {
-background-color: lightgray;
+border-color: #E87613 ;
 }
 &: focus {
-background-color: lightgray;
+border-color: #E87613;
 }
 `
 
 const CreateButtonStyled = styled.button`
-width: 50%;
+width: 100%;
 align-self: center;
+background-color: #E87613;
+font-size: 2em;
+height: 60px;
+border: none;
+border-radius: 10px;
+box-shadow: 0 10px 10px gray;
+&:active {
+  box-shadow: none;
+}
 `
