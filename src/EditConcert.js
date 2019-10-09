@@ -17,6 +17,7 @@ export default function EditConcert({ editConcertData, onSubmit}) {
   const [description, setDescription] = useState(editConcertData.description)
   const editGenres = editConcertData.genres.join(', ')
   const [genres, setGenres] = useState(editGenres)
+  const [formattedDate, setFormattedDate] = useState(editConcertData.formattedDate)
 
  
 
@@ -36,11 +37,23 @@ export default function EditConcert({ editConcertData, onSubmit}) {
     </FormStyled>
   )
 
+  function getFormattedDate(date) {
+    const x = new Date(date)
+    const year = x.getFullYear()
+    const month = x.getMonth() + 1
+    const day = x.getDate()
+    const formattedDate = `${day}.${month}.${year}`
+    console.log(formattedDate)
+    console.log(date)
+    return formattedDate
+  }
+
   function handleSubmit(event) {
     event.preventDefault()
+    setFormattedDate(getFormattedDate(date))
     const newEditConcertData= {
       ...editConcertData,
-      artist, date, place, description, genres,
+      artist, date, place, description, genres, formattedDate
     }
     newEditConcertData.genres = newEditConcertData.genres.split(',')
   .map(item => item.trim())

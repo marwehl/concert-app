@@ -11,11 +11,11 @@ ConcertList.propTypes = {
   onDeleteClick: PropTypes.func
 }
 
+
   return (
     <ConcertListStyled>
       {concerts.map((concert) => (
         <Concert {...concert} key={concert._id}
-        date={concert.date}
         onHeartClick={() => onHeartClick(concert)}
         onDeleteClick={() => onDeleteClick(concert)}
       />

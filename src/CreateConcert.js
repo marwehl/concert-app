@@ -13,13 +13,28 @@ export default function CreateConcert({ onSubmit}) {
     onSubmit: PropTypes.func
   }
 
+function getFormattedDate(date) {
+  const x = new Date(date)
+  const year = x.getFullYear()
+  const month = x.getMonth() + 1
+  const day = x.getDate()
+  const formattedDate = `${day}.${month}.${year}`
+  console.log(formattedDate)
+  console.log(date)
+  return formattedDate
+}
+
+
   function handleSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
     const data = Object.fromEntries(formData)
+    data.formattedDate = getFormattedDate(data.date)
     data.genres = data.genres.split(',')
+      .filter(item => item !== '' )
       .map(item => item.trim())
-      .map(item => (item.slice(0,1).toUpperCase() + item.slice(1)))
+      .map(item => (item.slice(0, 1).toUpperCase() + item.slice(1)))
+    console.log(data.genres)
   
 
     data.image === ''

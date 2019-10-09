@@ -17,6 +17,7 @@ import concert from './concert.jpg'
 export default function Concert({ 
   artist, 
   date, 
+ // formattedDate,
   place, 
   genres, 
   image, 
@@ -25,12 +26,10 @@ export default function Concert({
   onHeartClick,
   onDeleteClick,
   _id
-
 }) 
 {
 Concert.propTypes = {
   artist : PropTypes.string,
-  date: PropTypes.string,
   place: PropTypes.string,
   genres: PropTypes.arrayOf(PropTypes.string),
   image: PropTypes.string,
@@ -38,6 +37,7 @@ Concert.propTypes = {
   isFavorie: PropTypes.bool,
   onHeartClick: PropTypes.func,
   onDeleteClick: PropTypes.func,
+  formattedDate: PropTypes.string
 }
 
 Concert.defaultProps = {
@@ -48,6 +48,8 @@ const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
+  console.log(genres)
+
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
@@ -55,6 +57,7 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
       <Link to={{ pathname: '/edit', editConcertData: {
         artist, 
         date, 
+        //formattedDate,
         place,
         description,
         image,
@@ -93,7 +96,9 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
             <TagListStyled>{genres.map(genre => genre &&  <Tag text={genre} key={genre} />)}</TagListStyled>
           </ConcertFullInfoStyled>
         }
-        {(description || genres) && 
+        {
+           (description || genres.length > 0)
+        &&
         <KeyboardArrowDownStyled 
         active={arrowShowsDown}
         onClick={handleArrowClick}/>
