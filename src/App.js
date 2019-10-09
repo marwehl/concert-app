@@ -33,9 +33,7 @@ export default function App() {
       return prev
     }, new Set())
   )
-
-console.log(selectedGenre)
-
+  
   const filteredByGenre =
     selectedGenre === 'All'
       ? concerts

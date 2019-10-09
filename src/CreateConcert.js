@@ -23,7 +23,6 @@ export default function CreateConcert({ onSubmit}) {
     const concertDate = new Date(date)
    let data = Object.fromEntries(formData)
     data = {...data, concertDate}
-    console.log(data)
     data.genres = data.genres.split(',')
       .filter(item => item !== '' )
       .map(item => item.trim())

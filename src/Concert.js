@@ -52,8 +52,7 @@ time = renderableTime(concertDate)
 
       <Link to={{ pathname: '/edit', editConcertData: {
         artist, 
-        //concertDate, 
-        time,
+        concertDate, 
         description,
         image,
         genres,
