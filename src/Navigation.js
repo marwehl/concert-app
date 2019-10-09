@@ -26,10 +26,10 @@ const LinkStyled = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #EBEBF5;
+  background: white;
 
   &.active {
-    background: white;
+    color: #E87613;
   }
 `
 

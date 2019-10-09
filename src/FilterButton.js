@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
 
@@ -8,22 +8,34 @@ FilterButton.propTypes = {
 }
 
 export default function FilterButton({text, onClick}) {
-  return <FilterButtonStyled onClick={onClick}>{text}</FilterButtonStyled>
+
+const [selectedFilter, setSelectedFilter] = useState(false)
+
+  return (<FilterButtonStyled onClick={handleClick} active={!selectedFilter} >{text}</FilterButtonStyled>)
+
+function handleClick () {
+  setSelectedFilter(!selectedFilter)
+  onClick()
+}
+
 }
 
 const FilterButtonStyled = styled.button`
-  flex: 1 0 25%;
+  flex: 1 0 20%;
   scroll-snap-align: start;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #EBEBF5;
-  color: #6D7278;
-  border: 2px solid #6D7278;
-  font-size: 1.2em;
+  background: ${props => (props.active ? '#E87613' : 'white')};
+  font-size: 1.3em;
+  outline: none;
+  border: none;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow:  0 2px 4px #CCC2C2;
 
   &:hover {
-  background: white;
-  color: #6D7278;
+  background: #E87613;
   }
+ 
 `

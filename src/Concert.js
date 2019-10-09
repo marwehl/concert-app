@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
 import Tag from './Tag'
 import PropTypes from 'prop-types'
-import { AngleDoubleDown } from 'styled-icons/fa-solid/AngleDoubleDown'
+import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Place } from 'styled-icons/material/Place'
-import { Heart } from 'styled-icons/feather/Heart'
+import { Heart } from 'styled-icons/fa-regular/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
@@ -38,7 +38,10 @@ Concert.propTypes = {
   isFavorie: PropTypes.bool,
   onHeartClick: PropTypes.func,
   onDeleteClick: PropTypes.func,
+}
 
+Concert.defaultProps = {
+  date: new Date()
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
@@ -61,7 +64,7 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
       }}}><EditStyled/></Link>
     
 
-      <ConcertImageStyled src={image? image :concert} active={fullImageIsVisible} />
+      <ConcertImageStyled src={ image? image : concert } active={fullImageIsVisible} />
 
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
@@ -88,7 +91,7 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
             <TagListStyled>{genres.map(genre => <Tag text={genre} />)}</TagListStyled>
           </ConcertFullInfoStyled>
         }
-        <AngleDoubleDownStyled 
+        <KeyboardArrowDownStyled 
         active={arrowShowsDown}
         onClick={handleArrowClick}/>
       </ConcertInfoStyled>
@@ -107,14 +110,14 @@ const ConcertStyled = styled.section`
 position: relative;
 background-color: white;
 border-radius: 10px;
-box-shadow: 0 5px 5px lightgray;
+box-shadow: 0 2px 4px #CCC2C2;
 `
 const ConcertImageStyled = styled.img`
 height: ${props => (props.active) ? '' : '120px'};
 width: 100%;
 object-fit: cover;
 object-position: center;
-border-radius: 10 px 10px 0 0;
+border-radius: 10px 10px 0 0;
 
 `
 const DeleteStyled = styled(Delete)`
@@ -156,6 +159,7 @@ display: ${props => (props.active ? 'none' : 'block')}
 const FullHeartStyled = styled(FullHeart)`
 width: 28px;
 margin-top: -10px;
+color: #E87613;
 display: ${props => (props.active ? 'none' : 'block')}
 `
 
@@ -175,8 +179,8 @@ width: 18px;
 margin: 0 5px 5px;
 `
 
-const AngleDoubleDownStyled = styled(AngleDoubleDown)`
-width: 20px;
+const KeyboardArrowDownStyled = styled(KeyboardArrowDown)`
+width: 30px;
 align-self: center;
 transform: rotate(${props => (props.active ? '180deg' : '0')})
 `

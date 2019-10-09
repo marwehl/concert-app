@@ -25,6 +25,7 @@ export default function App() {
   }
 
   const [selectedGenre, setSelectedGenre] = useState('all')
+  const [selectedFilter, setSelectedFilter] = useState('all')
 
   const allGenres = Array.from(
     concerts.reduce((prev, concert) => {
@@ -48,7 +49,6 @@ export default function App() {
         onHeartClick={toggleIsFavorite}
         onSelectGenre={setSelectedGenre}
         onDeleteClick={removeConcert}
-
         /> }/>
   <Route path="/favorites" render={() => <ConcertList 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 

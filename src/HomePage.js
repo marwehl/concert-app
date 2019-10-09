@@ -28,6 +28,8 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
 
 const MainStyled = styled.main`
 display: grid;
-grid-template-rows: 38px auto;
+grid-template-rows: 42px auto;
 overflow-y: scroll;
+  -ms-overflow-style: none; 
+    scrollbar-width: none;
 `
