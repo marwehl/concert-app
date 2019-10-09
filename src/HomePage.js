@@ -13,11 +13,12 @@ HomePage.propTypes = {
   onSelectGenre: PropTypes.func
 }
 
-export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick}) {
+export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick, selectedGenre}) {
   return (
     <MainStyled>
       <FilterBar genres={genres} 
-      onClick={onSelectGenre}/>
+      onClick={onSelectGenre}
+      selectedGenre={selectedGenre}/>
       <ConcertList concerts={concerts} 
       onHeartClick={onHeartClick}
       onDeleteClick={onDeleteClick}

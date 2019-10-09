@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Concert = mongoose.model('Concert', {
   artist: String,
   image: String,
-  date: String,
+  concertDate: Object,
   time: String,
   place: String,
   description: String,

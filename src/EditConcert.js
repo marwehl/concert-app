@@ -13,13 +13,10 @@ export default function EditConcert({ editConcertData, onSubmit}) {
  
   const [artist, setArtist] = useState(editConcertData.artist)
   const [date, setDate] = useState(editConcertData.date)
-  const [place, setPlace] = useState(editConcertData.place)
   const [description, setDescription] = useState(editConcertData.description)
   const editGenres = editConcertData.genres.join(', ')
   const [genres, setGenres] = useState(editGenres)
-  const [formattedDate, setFormattedDate] = useState(editConcertData.formattedDate)
 
- 
 
   return (
     
@@ -27,9 +24,8 @@ export default function EditConcert({ editConcertData, onSubmit}) {
       <LabelStyled>Artist:<InputStyled name="artist" value={artist} onChange={event => setArtist(event.target.value)}/></LabelStyled>
       <DateStyled>
         <LabelStyled>Date:<InputStyled name="date" type="date" value={date} onChange={event => setDate(event.target.value)} /></LabelStyled>
-       
+    
       </DateStyled>
-      <LabelStyled>Place:<InputStyled name="place" value={place} onChange={event => setPlace(event.target.value)} /></LabelStyled>
       <LabelStyled>Description:<TextareaStyled name="description" type="text" value={description} onChange={event => setDescription(event.target.value)}/></LabelStyled>
       <LabelStyled>Genres:<InputStyled name="genres" value={genres} onChange={event => setGenres(event.target.value)}
       /></LabelStyled>
@@ -37,23 +33,12 @@ export default function EditConcert({ editConcertData, onSubmit}) {
     </FormStyled>
   )
 
-  function getFormattedDate(date) {
-    const x = new Date(date)
-    const year = x.getFullYear()
-    const month = x.getMonth() + 1
-    const day = x.getDate()
-    const formattedDate = `${day}.${month}.${year}`
-    console.log(formattedDate)
-    console.log(date)
-    return formattedDate
-  }
 
   function handleSubmit(event) {
     event.preventDefault()
-    setFormattedDate(getFormattedDate(date))
     const newEditConcertData= {
       ...editConcertData,
-      artist, date, place, description, genres, formattedDate
+      artist, date, description, genres
     }
     newEditConcertData.genres = newEditConcertData.genres.split(',')
   .map(item => item.trim())

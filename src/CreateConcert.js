@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import MyDatepicker from './MyDatepicker'
 
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME
@@ -13,29 +14,20 @@ export default function CreateConcert({ onSubmit}) {
     onSubmit: PropTypes.func
   }
 
-function getFormattedDate(date) {
-  const x = new Date(date)
-  const year = x.getFullYear()
-  const month = x.getMonth() + 1
-  const day = x.getDate()
-  const formattedDate = `${day}.${month}.${year}`
-  console.log(formattedDate)
-  console.log(date)
-  return formattedDate
-}
+  const [date, setDate] = useState(Date.now())
 
 
   function handleSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
-    const data = Object.fromEntries(formData)
-    data.formattedDate = getFormattedDate(data.date)
+    const concertDate = new Date(date)
+   let data = Object.fromEntries(formData)
+    data = {...data, concertDate}
+    console.log(data)
     data.genres = data.genres.split(',')
       .filter(item => item !== '' )
       .map(item => item.trim())
       .map(item => (item.slice(0, 1).toUpperCase() + item.slice(1)))
-    console.log(data.genres)
-  
 
     data.image === ''
       ? onSubmit(data)
@@ -59,13 +51,20 @@ function getFormattedDate(date) {
       })
     }
 
+  function handleDateChange(value) {
+    setDate(value)
+  }
+
 
 
   return (
  <FormStyled onSubmit={handleSubmit}>
 <LabelStyled>Artist:<InputStyled name="artist" autoFocus/></LabelStyled>
 <DateStyled>
-        <LabelStyled>Date:<InputStyled name="date" type="date" /></LabelStyled>
+        <MyDatepicker
+          name='date'
+          date={date}
+          onChange={handleDateChange}></MyDatepicker>
 </DateStyled>
       <LabelStyled>Place:<InputStyled name="place" /></LabelStyled>
       <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>

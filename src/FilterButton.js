@@ -7,12 +7,14 @@ FilterButton.propTypes = {
   onClick: PropTypes.func
 }
 
-export default function FilterButton({text, onClick}) {
+export default function FilterButton({text, onClick, selectedGenre}) {
 
 
-  return (<FilterButtonStyled onClick={onClick}>{text}</FilterButtonStyled>)
-
-
+  return (<FilterButtonStyled 
+    onClick={() => onClick(text)} 
+    active={text === (selectedGenre) ? true : false
+    }>{text}</FilterButtonStyled>
+  )
 }
 
 const FilterButtonStyled = styled.button`

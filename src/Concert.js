@@ -5,7 +5,7 @@ import Tag from './Tag'
 import PropTypes from 'prop-types'
 import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
-import { Place } from 'styled-icons/material/Place'
+import { Time } from 'styled-icons/boxicons-regular/Time'
 import { Heart } from 'styled-icons/fa-regular/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
@@ -16,9 +16,8 @@ import concert from './concert.jpg'
 
 export default function Concert({ 
   artist, 
-  date, 
- // formattedDate,
-  place, 
+  concertDate, 
+  time, 
   genres, 
   image, 
   description,
@@ -27,28 +26,25 @@ export default function Concert({
   onDeleteClick,
   _id
 }) 
+
 {
 Concert.propTypes = {
   artist : PropTypes.string,
-  place: PropTypes.string,
   genres: PropTypes.arrayOf(PropTypes.string),
   image: PropTypes.string,
   description: PropTypes.string,
   isFavorie: PropTypes.bool,
   onHeartClick: PropTypes.func,
   onDeleteClick: PropTypes.func,
-  formattedDate: PropTypes.string
 }
 
-Concert.defaultProps = {
-  date: new Date()
-}
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
-  console.log(genres)
+time = renderableTime(concertDate)
+
 
   return (
     <ConcertStyled>
@@ -56,9 +52,8 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
       <Link to={{ pathname: '/edit', editConcertData: {
         artist, 
-        date, 
-        //formattedDate,
-        place,
+        //concertDate, 
+        time,
         description,
         image,
         genres,
@@ -78,17 +73,17 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
         <FullHeartStyled onClick={onHeartClick}
         active={!isFavorite}></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
-
-      <TimeStyled>
+<DateContainerStyled>
         <div>
           <DateRangeStyled />
-      <span>{date}</span>
+            <span>{renderableDate(concertDate)}</span>
         </div>
         <div>
-            <PlaceStyled />
-      <span>{place}</span>
+            <TimeStyled />
+      <span>{time}</span>
           </div>
-      </TimeStyled>
+        </DateContainerStyled>
+    
         {fullConcertIsVisible
          && 
           <ConcertFullInfoStyled>
@@ -107,13 +102,30 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
     </ConcertStyled>
   )
 
+
+  function renderableDate(concertDate) {
+    const newdate = new Date(concertDate).toLocaleDateString('de-DE', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
+    return newdate
+  }
+
+  function renderableTime(concertDate) {
+    const timeString = new Date(concertDate).toLocaleString('de-DE', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+
+    return timeString
+  }
+
   function handleArrowClick() {
     setFullConcertIsVisible(!fullConcertIsVisible)
     setArrowShowsDown(!arrowShowsDown)
     setFullImageIsVisible(!fullImageIsVisible)
   }
-
-  
 }
 
 const ConcertStyled = styled.section`
@@ -128,7 +140,6 @@ width: 100%;
 object-fit: cover;
 object-position: center;
 border-radius: 10px 10px 0 0;
-
 `
 const DeleteStyled = styled(Delete)`
 position: absolute;
@@ -156,6 +167,7 @@ const ConcertInfoHeadlineStyled = styled.div`
 display: flex;
 justify-content: space-between;
 `
+
 const ArtistStyled = styled.span`
 font-size: 1.5em;
 `
@@ -173,7 +185,7 @@ color: #E87613;
 display: ${props => (props.active ? 'none' : 'block')}
 `
 
-const TimeStyled = styled.section`
+const  DateContainerStyled = styled.section`
 display: flex;
 justify-content: space-between;
 gap: 7px;
@@ -184,7 +196,7 @@ width: 18px;
 margin: 0 5px 5px;
 `
 
-const PlaceStyled = styled(Place)`
+const TimeStyled = styled(Time)`
 width: 18px;
 margin: 0 5px 5px;
 `
