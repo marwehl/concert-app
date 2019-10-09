@@ -8,15 +8,14 @@ export default function ConcertList({ concerts, onHeartClick, onDeleteClick}) {
 ConcertList.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),
   onHeartClick: PropTypes.func,
-  onDeleteClick: PropTypes.func,
-  onEditClick: PropTypes.func,
-  onHeartClick: PropTypes.func
+  onDeleteClick: PropTypes.func
 }
 
   return (
     <ConcertListStyled>
       {concerts.map((concert) => (
         <Concert {...concert} key={concert._id}
+        date={concert.date}
         onHeartClick={() => onHeartClick(concert)}
         onDeleteClick={() => onDeleteClick(concert)}
       />

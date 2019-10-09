@@ -10,6 +10,5 @@ export default createGlobalStyle`
     margin: 0;
     background: white;
     font-family: Helvetica;
-    color: black;
   }
   `

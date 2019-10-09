@@ -9,14 +9,9 @@ FilterButton.propTypes = {
 
 export default function FilterButton({text, onClick}) {
 
-const [selectedFilter, setSelectedFilter] = useState(false)
 
-  return (<FilterButtonStyled onClick={handleClick} active={!selectedFilter} >{text}</FilterButtonStyled>)
+  return (<FilterButtonStyled onClick={onClick}>{text}</FilterButtonStyled>)
 
-function handleClick () {
-  setSelectedFilter(!selectedFilter)
-  onClick()
-}
 
 }
 

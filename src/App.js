@@ -25,7 +25,6 @@ export default function App() {
   }
 
   const [selectedGenre, setSelectedGenre] = useState('all')
-  const [selectedFilter, setSelectedFilter] = useState('all')
 
   const allGenres = Array.from(
     concerts.reduce((prev, concert) => {
@@ -39,6 +38,7 @@ export default function App() {
       ? concerts
       : concerts.filter(concert => concert.genres && concert.genres.includes(selectedGenre))
 
+    
 
   return (
     <Router>
@@ -72,14 +72,7 @@ export default function App() {
       const index = concerts.findIndex(concert  => concert._id === editConcert._id)
       setConcerts([
         ...concerts.slice(0, index),
-        {
-          artist: editConcert.artist,
-          image: editConcert.image,
-          date: editConcert.date,
-          place: editConcert.place,
-          description: editConcert.description,
-          genres: editConcert.genres
-        },
+        editConcert,
         ...concerts.slice(index + 1)
       ])
     })
@@ -97,6 +90,7 @@ deleteConcert(concert._id)
   }
   
   function toggleIsFavorite(concert) {
+    console.log(concert)
     patchConcert(concert._id, { isFavorite: !concert.isFavorite })
       .then(updatedConcert => {
         const index = concerts.findIndex(concert => concert._id === updatedConcert._id)

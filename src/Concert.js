@@ -60,7 +60,8 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
         image,
         genres,
         id: _id,
-        isFavorite
+        isFavorite, 
+        onHeartClick
       }}}><EditStyled/></Link>
     
 
@@ -85,15 +86,18 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
       <span>{place}</span>
           </div>
       </TimeStyled>
-        {fullConcertIsVisible &&
+        {fullConcertIsVisible
+         && 
           <ConcertFullInfoStyled>
             <DescriptionStyled>{description}</DescriptionStyled>
-            <TagListStyled>{genres.map(genre => <Tag text={genre} />)}</TagListStyled>
+            <TagListStyled>{genres.map(genre => genre &&  <Tag text={genre} key={genre} />)}</TagListStyled>
           </ConcertFullInfoStyled>
         }
+        {(description || genres) && 
         <KeyboardArrowDownStyled 
         active={arrowShowsDown}
         onClick={handleArrowClick}/>
+        }
       </ConcertInfoStyled>
     </ConcertStyled>
   )
@@ -103,6 +107,7 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
     setArrowShowsDown(!arrowShowsDown)
     setFullImageIsVisible(!fullImageIsVisible)
   }
+
   
 }
 

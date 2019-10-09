@@ -17,7 +17,6 @@ export default function CreateConcert({ onSubmit}) {
     event.preventDefault()
     const formData = new FormData(event.target)
     const data = Object.fromEntries(formData)
-    data.date = formatDate(data.date)
     data.genres = data.genres.split(',')
       .map(item => item.trim())
       .map(item => (item.slice(0,1).toUpperCase() + item.slice(1)))
@@ -31,32 +30,6 @@ export default function CreateConcert({ onSubmit}) {
           onSubmit(data)
         })
         .catch(err => console.log(err))
-  }
-
-  const months = [
-    'Jan',
-    'Feb',
-    'März',
-    'Apr',
-    'Mai',
-    'Juni',
-    'Juli',
-    'Aug',
-    'Sept',
-    'Okt',
-    'Nov',
-    'Dez'
-  ]
-
-  function formatDate(date) {
-    const newDate = new Date(date)
-    const formattedDate =
-      newDate.getDate() +
-      '. ' +
-      months[newDate.getMonth()] +
-      ' ' +
-      newDate.getFullYear()
-    return formattedDate
   }
 
   function upload(file) {

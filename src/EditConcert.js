@@ -18,6 +18,7 @@ export default function EditConcert({ editConcertData, onSubmit}) {
   const editGenres = editConcertData.genres.join(', ')
   const [genres, setGenres] = useState(editGenres)
 
+ 
 
   return (
     
@@ -38,14 +39,13 @@ export default function EditConcert({ editConcertData, onSubmit}) {
   function handleSubmit(event) {
     event.preventDefault()
     const newEditConcertData= {
-      artist, date, place, description, genres
+      ...editConcertData,
+      artist, date, place, description, genres,
     }
     newEditConcertData.genres = newEditConcertData.genres.split(',')
   .map(item => item.trim())
     onSubmit(editConcertData.id, newEditConcertData)
   }
-
-
 }
 
 const FormStyled = styled.form`
