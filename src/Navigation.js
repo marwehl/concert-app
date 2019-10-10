@@ -13,7 +13,6 @@ export default function Navigation () {
       </LinkStyled>
       <LinkStyled to="/favorites"><HeartStyled></HeartStyled></LinkStyled>
       <LinkStyled to="/create"><PlusCircleStyled></PlusCircleStyled></LinkStyled>
-
     </NavigationStyled>
   )
 }

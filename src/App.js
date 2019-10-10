@@ -67,6 +67,24 @@ export default function App() {
     </Router>
   );
 
+  function sortConcerts({ sortbarInput = 'Latest added' }) {
+    if (sortbarInput === 'Latest added') {
+      return concerts
+    } else if (sortbarInput === 'Date') {
+      concerts.slice()
+        .sort((a, b) => {
+          return a.fullDate - b.fullDate
+        }
+        )
+    } else if (sortbarInput === 'Name of Artist') {
+      concerts.slice()
+        .sort((a, b) => {
+          return a.artist - b.artist
+        }
+        )
+    }
+  }
+
   function editConcert(id, editData) {
     patchConcert(id, editData)
     .then(editConcert => {

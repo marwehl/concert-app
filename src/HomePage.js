@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
 import FilterBar from './genrefilter/FilterBar'
 import ConcertList from './concert/ConcertList'
+import SortBar from './SortBar'
 
 HomePage.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),
@@ -19,6 +20,9 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
       <FilterBar genres={genres} 
       onClick={onSelectGenre}
       selectedGenre={selectedGenre}/>
+
+      <SortBar></SortBar>
+
       <ConcertList concerts={concerts} 
       onHeartClick={onHeartClick}
       onDeleteClick={onDeleteClick}
@@ -29,6 +33,7 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
 
 const MainStyled = styled.main`
 display: grid;
+grid-gap: 10px;
 grid-template-rows: 42px auto;
 overflow-y: scroll;
   -ms-overflow-style: none; 
