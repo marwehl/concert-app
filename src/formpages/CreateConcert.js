@@ -61,18 +61,17 @@ export default function CreateConcert({ onSubmit}) {
   return (
  <FormStyled onSubmit={handleSubmit}>
 <LabelStyled>Artist:<InputStyled name="artist" autoFocus/></LabelStyled>
-<DateStyled>
+<LabelStyled>Date:
         <MyDatepicker
           name='date'
           date={date}
           onChange={handleDateChange}></MyDatepicker>
-</DateStyled>
-      <LabelStyled>Place:<InputStyled name="place" /></LabelStyled>
+</LabelStyled>
       <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
       <LabelStyled>Genres:<InputStyled name="genres"
       /></LabelStyled>
-      <LabelStyled>Picture:
-      <input type="file" name="image"></input>
+      <LabelStyled>Image:
+      <InputStyled type="file" name="image"></InputStyled>
       </LabelStyled>
 <CreateButtonStyled>Create</CreateButtonStyled>
 </FormStyled>
@@ -107,13 +106,9 @@ border-color: #E87613;
 }
 `
 
-const DateStyled = styled.div`
-display: flex;
-gap: 30px;
-`
 
 const TextareaStyled = styled.textarea`
-height: 100px;
+height: 160px;
 border: 1px solid black;
 border-radius: 10px;
 padding: 7px;

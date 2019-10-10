@@ -27,18 +27,14 @@ export default function EditConcert({ editConcertData, onSubmit}) {
   return (
     
     <FormStyled onSubmit={handleSubmit}>
-      <LabelStyled>Artist:<InputStyled name="artist" value={artist} onChange={event => setArtist(event.target.value)}/></LabelStyled>
-      <DateStyled>
+      <LabelStyled>Artist:<InputStyled name="artist" value={artist} onChange={event => setArtist(event.target.value)} autoFocus/></LabelStyled>
         <LabelStyled>Date:
           <MyDatepicker
             value={concertDate} 
             onChange={handleDateChange}
             name='date'
             date={concertDate}
-
           ></MyDatepicker></LabelStyled>
-    
-      </DateStyled>
       <LabelStyled>Description:<TextareaStyled name="description" type="text" value={description} onChange={event => setDescription(event.target.value)}/></LabelStyled>
       <LabelStyled>Genres:<InputStyled name="genres" value={genres} onChange={event => setGenres(event.target.value)}
       /></LabelStyled>
@@ -86,13 +82,8 @@ border-color: #E87613;
 }
 `
 
-const DateStyled = styled.div`
-display: flex;
-gap: 30px;
-`
-
 const TextareaStyled = styled.textarea`
-height: 100px;
+height: 160px;
 border: 1px solid black;
 border-radius: 10px;
 padding: 7px;
