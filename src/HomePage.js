@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState }from 'react'
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
 import FilterBar from './genrefilter/FilterBar'
@@ -14,21 +14,68 @@ HomePage.propTypes = {
   onSelectGenre: PropTypes.func
 }
 
+
 export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick, selectedGenre}) {
+  
+  const [activeSort, setActiveSort] = useState('Latest added')
+
+  console.log(activeSort)
+  let sortedConcerts = concerts.slice()
+
+  function compare(a, b) {
+    let comparison = 0;
+    if (a.artist > b.artist) {
+      comparison = 1;
+    } else if (a.artist < b.artist) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+  sortedConcerts.sort(compare)
+  
+  console.log(getSortedConcerts(activeSort))
+
+ function getSortedConcerts (activeSort) {
+   if (activeSort === 'Latest added') {
+     sortedConcerts = concerts
+     return sortedConcerts
+   }
+   if (activeSort === 'Date') {
+     sortedConcerts = sortedConcerts.sort((a, b) => new Date(a.fullDate) - new Date(b.fullDate))
+     return sortedConcerts
+   }
+   if (activeSort === 'Name of Artist') {
+      function compare(a, b) {
+       let comparison = 0;
+       if (a.artist > b.artist) {
+         comparison = 1;
+       } else if (a.artist < b.artist) {
+         comparison = -1;
+       }
+       return comparison;
+     }
+   sortedConcerts = sortedConcerts.sort(compare)
+   
+   }
+  }
+
+  
   return (
     <MainStyled>
       <FilterBar genres={genres} 
       onClick={onSelectGenre}
       selectedGenre={selectedGenre}/>
 
-      <SortBar></SortBar>
+      <SortBar
+      handleRadioInputChange={setActiveSort}></SortBar>
 
-      <ConcertList concerts={concerts} 
+      <ConcertList concerts={sortedConcerts} 
       onHeartClick={onHeartClick}
       onDeleteClick={onDeleteClick}
   />
     </MainStyled>
   )
+
 }
 
 const MainStyled = styled.main`

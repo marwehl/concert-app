@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
 
-export default function SortBar () {
+export default function SortBar ({handleRadioInputChange}) {
 
 const [sortbarInput, setSortbarInput] = useState('Latest added')
 const [sortOptionsOpen, setSortOptionsOpen] = useState(false)
 
 function handleInputChange (event) {
-  setSortbarInput(event.target.value)
+setSortbarInput(event.target.value)
+handleRadioInputChange(event.target.value)
 }
 
 function handleClick () {
