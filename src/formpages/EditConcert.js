@@ -13,32 +13,23 @@ export default function EditConcert({ editConcertData, onSubmit}) {
   }
  
   const [artist, setArtist] = useState(editConcertData.artist)
-  const [concertDate, setConcertDate] = useState(new Date(editConcertData.concertDate))
+  const [fullDate, setFullDate] = useState(new Date(editConcertData.fullDate))
   const [description, setDescription] = useState(editConcertData.description)
   const editGenres = editConcertData.genres.join(', ')
   const [genres, setGenres] = useState(editGenres)
 
 
-  function handleDateChange(value) {
-    setConcertDate(value)
-  }
-
-
   return (
     
     <FormStyled onSubmit={handleSubmit}>
-      <LabelStyled>Artist:<InputStyled name="artist" value={artist} onChange={event => setArtist(event.target.value)}/></LabelStyled>
-      <DateStyled>
+      <LabelStyled>Artist:<InputStyled name="artist" value={artist} onChange={event => setArtist(event.target.value)} autoFocus/></LabelStyled>
         <LabelStyled>Date:
           <MyDatepicker
-            value={concertDate} 
-            onChange={handleDateChange}
+            value={fullDate} 
+            onChange={(value) => setFullDate(value)}
             name='date'
-            date={concertDate}
-
+            date={fullDate}
           ></MyDatepicker></LabelStyled>
-    
-      </DateStyled>
       <LabelStyled>Description:<TextareaStyled name="description" type="text" value={description} onChange={event => setDescription(event.target.value)}/></LabelStyled>
       <LabelStyled>Genres:<InputStyled name="genres" value={genres} onChange={event => setGenres(event.target.value)}
       /></LabelStyled>
@@ -46,12 +37,11 @@ export default function EditConcert({ editConcertData, onSubmit}) {
     </FormStyled>
   )
 
-
   function handleSubmit(event) {
     event.preventDefault()
     const newEditConcertData= {
       ...editConcertData,
-      artist, concertDate, description, genres
+      artist, fullDate, description, genres
     }
     newEditConcertData.genres = newEditConcertData.genres.split(',')
   .map(item => item.trim())
@@ -72,7 +62,6 @@ display: grid;
 gap: 0.7px;
 `
 
-
 const InputStyled = styled.input`
 border: 1px solid black;
 border-radius: 10px;
@@ -86,13 +75,8 @@ border-color: #E87613;
 }
 `
 
-const DateStyled = styled.div`
-display: flex;
-gap: 30px;
-`
-
 const TextareaStyled = styled.textarea`
-height: 100px;
+height: 160px;
 border: 1px solid black;
 border-radius: 10px;
 padding: 7px;

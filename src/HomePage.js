@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
-import FilterBar from './FilterBar'
-import ConcertList from './ConcertList'
+import FilterBar from './genrefilter/FilterBar'
+import ConcertList from './concert/ConcertList'
 
 HomePage.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),

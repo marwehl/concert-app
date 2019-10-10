@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import styled from 'styled-components/macro'
-import ConcertList from './ConcertList';
+import ConcertList from './concert/ConcertList';
 import Navigation from './Navigation'
-import CreateConcert from './CreateConcert'
-import EditConcert from './EditConcert'
+import CreateConcert from './formpages/CreateConcert'
+import EditConcert from './formpages/EditConcert'
 import HomePage from './HomePage'
 import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
 
@@ -33,7 +33,7 @@ export default function App() {
       return prev
     }, new Set())
   )
-  
+
   const filteredByGenre =
     selectedGenre === 'All'
       ? concerts
