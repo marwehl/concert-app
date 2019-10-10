@@ -10,7 +10,7 @@ import { Heart } from 'styled-icons/fa-regular/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
-import concert from './concert.jpg'
+import concert from '../images/concert.jpg'
 
  
 
