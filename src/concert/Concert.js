@@ -16,8 +16,7 @@ import concert from '../images/concert.jpg'
 
 export default function Concert({ 
   artist, 
-  concertDate, 
-  time, 
+  fullDate, 
   genres, 
   image, 
   description,
@@ -43,16 +42,13 @@ const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
-time = renderableTime(concertDate)
-
-
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
 
       <Link to={{ pathname: '/edit', editConcertData: {
         artist, 
-        concertDate, 
+        fullDate, 
         description,
         image,
         genres,
@@ -75,11 +71,11 @@ time = renderableTime(concertDate)
 <DateContainerStyled>
         <div>
           <DateRangeStyled />
-            <span>{renderableDate(concertDate)}</span>
+            <span>{formatDate(fullDate)}</span>
         </div>
         <div>
             <TimeStyled />
-      <span>{time}</span>
+      <span>{formatTime(fullDate)}</span>
           </div>
         </DateContainerStyled>
     
@@ -102,17 +98,17 @@ time = renderableTime(concertDate)
   )
 
 
-  function renderableDate(concertDate) {
-    const newdate = new Date(concertDate).toLocaleDateString('de-DE', {
+  function formatDate(fullDate) {
+    const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit'
     })
-    return newdate
+    return dateString
   }
 
-  function renderableTime(concertDate) {
-    const timeString = new Date(concertDate).toLocaleString('de-DE', {
+  function formatTime(fullDate) {
+    const timeString = new Date(fullDate).toLocaleString('de-DE', {
       hour: '2-digit',
       minute: '2-digit'
     })

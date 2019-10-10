@@ -16,15 +16,31 @@ export default function CreateConcert({ onSubmit}) {
 
   const [date, setDate] = useState(Date.now())
 
-  console.log('date start-wert', date)
-
+  return (
+    <FormStyled onSubmit={handleSubmit}>
+      <LabelStyled>Artist:<InputStyled name="artist" autoFocus /></LabelStyled>
+      <LabelStyled>Date:
+        <MyDatepicker
+          name='date'
+          date={date}
+          onChange={(value) => setDate(value)}></MyDatepicker>
+      </LabelStyled>
+      <LabelStyled>Description:<TextareaStyled name="description" type="text" /></LabelStyled>
+      <LabelStyled>Genres:<InputStyled name="genres"
+      /></LabelStyled>
+      <LabelStyled>Image:
+      <InputStyled type="file" name="image"></InputStyled>
+      </LabelStyled>
+      <CreateButtonStyled>Create</CreateButtonStyled>
+    </FormStyled>
+  )
 
   function handleSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.target)
-    const concertDate = new Date(date)
+    const fullDate = new Date(date)
    let data = Object.fromEntries(formData)
-    data = {...data, concertDate}
+    data = {...data, fullDate}
     data.genres = data.genres.split(',')
       .filter(item => item !== '' )
       .map(item => item.trim())
@@ -52,31 +68,6 @@ export default function CreateConcert({ onSubmit}) {
       })
     }
 
-  function handleDateChange(value) {
-    setDate(value)
-  }
-
-
-
-  return (
- <FormStyled onSubmit={handleSubmit}>
-<LabelStyled>Artist:<InputStyled name="artist" autoFocus/></LabelStyled>
-<LabelStyled>Date:
-        <MyDatepicker
-          name='date'
-          date={date}
-          onChange={handleDateChange}></MyDatepicker>
-</LabelStyled>
-      <LabelStyled>Description:<TextareaStyled name="description" type="text"/></LabelStyled>
-      <LabelStyled>Genres:<InputStyled name="genres"
-      /></LabelStyled>
-      <LabelStyled>Image:
-      <InputStyled type="file" name="image"></InputStyled>
-      </LabelStyled>
-<CreateButtonStyled>Create</CreateButtonStyled>
-</FormStyled>
-  )
-
 }
 
 const FormStyled = styled.form`
@@ -92,7 +83,6 @@ display: grid;
 gap: 0.7px;
 `
 
-
 const InputStyled = styled.input`
 border: 1px solid black;
 border-radius: 10px;
@@ -105,7 +95,6 @@ border-color: #E87613 ;
 border-color: #E87613;
 }
 `
-
 
 const TextareaStyled = styled.textarea`
 height: 160px;
