@@ -19,47 +19,6 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
   
   const [activeSort, setActiveSort] = useState('Latest added')
 
-  console.log(activeSort)
-  let sortedConcerts = concerts.slice()
-
-  function compare(a, b) {
-    let comparison = 0;
-    if (a.artist > b.artist) {
-      comparison = 1;
-    } else if (a.artist < b.artist) {
-      comparison = -1;
-    }
-    return comparison;
-  }
-  sortedConcerts.sort(compare)
-  
-  console.log(getSortedConcerts(activeSort))
-
- function getSortedConcerts (activeSort) {
-   if (activeSort === 'Latest added') {
-     sortedConcerts = concerts
-     return sortedConcerts
-   }
-   if (activeSort === 'Date') {
-     sortedConcerts = sortedConcerts.sort((a, b) => new Date(a.fullDate) - new Date(b.fullDate))
-     return sortedConcerts
-   }
-   if (activeSort === 'Name of Artist') {
-      function compare(a, b) {
-       let comparison = 0;
-       if (a.artist > b.artist) {
-         comparison = 1;
-       } else if (a.artist < b.artist) {
-         comparison = -1;
-       }
-       return comparison;
-     }
-   sortedConcerts = sortedConcerts.sort(compare)
-   
-   }
-  }
-
-  
   return (
     <MainStyled>
       <FilterBar genres={genres} 
@@ -67,9 +26,10 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
       selectedGenre={selectedGenre}/>
 
       <SortBar
-      handleRadioInputChange={setActiveSort}></SortBar>
+      handleRadioInputChange={setActiveSort}>
+      </SortBar>
 
-      <ConcertList concerts={sortedConcerts} 
+      <ConcertList concerts={getSortedConcerts(concerts, activeSort)} 
       onHeartClick={onHeartClick}
       onDeleteClick={onDeleteClick}
   />
@@ -86,3 +46,17 @@ overflow-y: scroll;
   -ms-overflow-style: none; 
     scrollbar-width: none;
 `
+
+
+function getSortedConcerts(concerts, activeSort) {
+  let sortedConcerts = concerts.slice()
+ 
+  if (activeSort === 'Date') {
+    sortedConcerts.sort((a, b) => new Date(a.fullDate) - new Date(b.fullDate))
+  }
+  if (activeSort === 'Name of Artist') {
+    sortedConcerts.sort((a,b) => a.artist > b.artist ? 1 : -1)
+  }
+return sortedConcerts
+}
+ 

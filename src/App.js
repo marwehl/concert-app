@@ -26,7 +26,6 @@ export default function App() {
 
   const [selectedGenre, setSelectedGenre] = useState('All')
 
-
   let allGenres = Array.from(
     concerts.reduce((prev, concert) => {
       concert.genres && concert.genres.forEach(genre => prev.add(genre))
@@ -80,7 +79,7 @@ export default function App() {
     })
   }
 
-  function removeConcert(concert) {
+function removeConcert(concert) {
 deleteConcert(concert._id)
 .then(selectedConcert => {
   const index = concerts.findIndex(concert => concert._id === selectedConcert._id)
