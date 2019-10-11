@@ -28,13 +28,14 @@ export default function Concert({
 
 {
 Concert.propTypes = {
-  artist : PropTypes.string,
+  artist : PropTypes.string.isRequired,
+  fullDate: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string),
   image: PropTypes.string,
   description: PropTypes.string,
-  isFavorie: PropTypes.bool,
-  onHeartClick: PropTypes.func,
-  onDeleteClick: PropTypes.func,
+  isFavorite: PropTypes.bool,
+  onHeartClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 }
 
 

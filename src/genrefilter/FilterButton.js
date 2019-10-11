@@ -9,7 +9,6 @@ FilterButton.propTypes = {
 
 export default function FilterButton({text, onClick, selectedGenre}) {
 
-
   return (<FilterButtonStyled 
     onClick={() => onClick(text)} 
     active={text === (selectedGenre) ? true : false
