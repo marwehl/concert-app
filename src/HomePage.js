@@ -5,6 +5,7 @@ import FilterBar from './genrefilter/FilterBar'
 import ConcertList from './concert/ConcertList'
 import SortBar from './SortBar'
 
+
 HomePage.propTypes = {
   concerts: PropTypes.arrayOf(PropTypes.object),
   onHeartClick: PropTypes.func,

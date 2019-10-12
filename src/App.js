@@ -6,6 +6,7 @@ import Navigation from './Navigation'
 import CreateConcert from './formpages/CreateConcert'
 import EditConcert from './formpages/EditConcert'
 import HomePage from './HomePage'
+import Calendar from './Calendar'
 import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
 
 
@@ -53,6 +54,9 @@ export default function App() {
   <Route path="/favorites" render={() => <ConcertList 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 
   onHeartClick={toggleIsFavorite}/> } />
+        <Route path="/calendar" render={() => <Calendar
+          concerts={concerts.filter(concert => concert.isFavorite === true)}
+       />} />
       <Route path="/create" 
       render={() => {
       return <CreateConcert 
