@@ -31,7 +31,7 @@ export default function CreateConcert({ onSubmit}) {
       <LabelStyled>Image:
       <InputStyled type="file" name="image"></InputStyled>
       </LabelStyled>
-      <CreateButtonStyled>Create</CreateButtonStyled>
+      <CreateButtonStyled onClick={() => { window.location = 'http://localhost:3000/'}}>Create</CreateButtonStyled>
     </FormStyled>
   )
 

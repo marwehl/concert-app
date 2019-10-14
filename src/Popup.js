@@ -46,10 +46,8 @@ export default function Popup({
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
           <ArtistStyled>{artist}</ArtistStyled>
-          <HeartStyled onClick={onHeartClick}
-            active={isFavorite}></HeartStyled>
           <FullHeartStyled onClick={onHeartClick}
-            active={!isFavorite}></FullHeartStyled>
+          ></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
         <DateContainerStyled>
           <div>
@@ -61,8 +59,6 @@ export default function Popup({
             <span>{formatTime(fullDate)}</span>
           </div>
         </DateContainerStyled>
-
-        
           <ConcertFullInfoStyled>
             <DescriptionStyled>{description}</DescriptionStyled>
             <TagListStyled>{genres.map(genre => genre && <Tag text={genre} key={genre} />)}</TagListStyled>
@@ -123,17 +119,10 @@ const ArtistStyled = styled.span`
 font-size: 1.5em;
 `
 
-const HeartStyled = styled(Heart)`
-width: 28px;
-margin-top: -10px;
-display: ${props => (props.active ? 'none' : 'block')}
-`
-
 const FullHeartStyled = styled(FullHeart)`
 width: 28px;
 margin-top: -10px;
 color: #E87613;
-display: ${props => (props.active ? 'none' : 'block')}
 `
 
 const DateContainerStyled = styled.section`

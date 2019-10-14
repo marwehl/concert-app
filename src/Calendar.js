@@ -33,8 +33,8 @@ function togglePopup() {
     />
       </FullCalendarStyled>
       {showPopup && 
-      <PopupStyled>
-        <PopupInnerStyled onClick={togglePopup}>
+      <PopupStyled onClick={togglePopup}>
+        <PopupInnerStyled>
           <Popup
             {...selectedConcert}/>
         </PopupInnerStyled>
@@ -87,11 +87,12 @@ const PopupInnerStyled = styled.div`
 const MainStyled = styled.main`
 postition: relative;
 padding: 10px;
+margin: auto 0;
 `
 
 const FullCalendarStyled = styled.div`
 
-height: 100% !important;
+
 /* DayGridView
 --------------------------------------------------------------------------------------------------*/
 /* day row structure */
@@ -102,9 +103,8 @@ height: 100% !important;
   /* ensure a space at bottom of cell for user selecting/clicking */
 }
 
-.sc-ifAKCX{
-  height: 100% !important;
-  overflow: none !important;
+button.fc-today-button {
+  display: none !important;
 }
 
 .fc-dayGrid-view .fc-body .fc-row {
@@ -809,6 +809,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 */
 /* reset */
 .fc-button {
+  display: none;
   border-radius: 0;
   overflow: visible;
   text-transform: none;

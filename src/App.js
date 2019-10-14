@@ -21,7 +21,7 @@ export default function App() {
 
   function addConcert(concertData) {
     postConcert(concertData).then(concert => {
-      setConcerts([...concerts, concert])
+      setConcerts([concert, ...concerts])
     })
   }
 
@@ -76,8 +76,8 @@ export default function App() {
     .then(editConcert => {
       const index = concerts.findIndex(concert  => concert._id === editConcert._id)
       setConcerts([
-        ...concerts.slice(0, index),
         editConcert,
+        ...concerts.slice(0, index),
         ...concerts.slice(index + 1)
       ])
     })

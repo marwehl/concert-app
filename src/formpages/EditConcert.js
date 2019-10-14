@@ -33,7 +33,9 @@ export default function EditConcert({ editConcertData, onSubmit}) {
       <LabelStyled>Description:<TextareaStyled name="description" type="text" value={description} onChange={event => setDescription(event.target.value)}/></LabelStyled>
       <LabelStyled>Genres:<InputStyled name="genres" value={genres} onChange={event => setGenres(event.target.value)}
       /></LabelStyled>
-      <CreateButtonStyled>Edit</CreateButtonStyled>
+      <CreateButtonStyled
+        onClick={() => { window.location = 'http://localhost:3000/' }}
+        >Edit</CreateButtonStyled>
     </FormStyled>
   )
 
