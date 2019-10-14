@@ -14,15 +14,11 @@ import {
 export default function Calendar ({concerts}) {
 
   const [selectedConcert, setSelectedConcert] = useState({})
-
-  console.log('selectedConcert', selectedConcert)
   
   const dates = concerts.map(concert => concert.fullDate)
  const slicedDates = dates.map(foo => foo.slice(0,10))
 
- console.log('concerts',concerts)
-
-  const newEvents = slicedDates.map(slicedDate => { return { title: '', date: slicedDate}})
+  const newEvents = slicedDates.map(slicedDate => { return { title: '', date: slicedDate, extendedProps: {id: slicedDate}}})
 
   return (
     <>
@@ -32,7 +28,8 @@ export default function Calendar ({concerts}) {
       plugins={[dayGridPlugin, interactionPlugin]}
       weekends={true}
       events={newEvents}
-      dateClick={(event) => handleClick(event, concerts)}
+      dateClick={(event) => handleDateClick(event, concerts)}
+      eventClick={handleEventClick}
     />
       </FullCalendarStyled>
       <div>
@@ -53,11 +50,15 @@ export default function Calendar ({concerts}) {
     PopupboxManager.open({ content })
   }
 
-
-  function handleClick(event, concerts) {
-    const eventDate = event.date
-   const newDate = eventDate.toISOString().slice(0,10)
-  const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0,10) === newDate)
+function handleEventClick(event){
+  const eventDate = event.event.extendedProps.id
+  const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)
+  console.log('selected Concert', selectedConcert)
+  openPopupbox(selectedConcert)
+}
+  function handleDateClick(event, concerts) {
+    const eventDate = event.dateStr
+  const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0,10) === eventDate)
   setSelectedConcert(selectedConcert)
     console.log('selected Concert',  selectedConcert)
     openPopupbox(selectedConcert)
