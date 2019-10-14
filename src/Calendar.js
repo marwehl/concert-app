@@ -1,28 +1,29 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Concert from './concert/Concert'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction";
 import styled from 'styled-components'
-import Popup from "reactjs-popup";
-
-import {
-  PopupboxManager,
-  PopupboxContainer
-} from 'react-popupbox';
 
 
 export default function Calendar ({concerts}) {
 
-  //const [selectedConcert, setSelectedConcert] = useState({})
-  
   const dates = concerts.map(concert => concert.fullDate)
  const slicedDates = dates.map(foo => foo.slice(0,10))
-
   const newEvents = slicedDates.map(slicedDate => { return { title: '', date: slicedDate, extendedProps: {id: slicedDate}}})
+const [showPopup, setShowPopup] = useState(false)
+const [selectedConcert, setSelectedConcert] = useState({})
+
+function openPopup() {
+  setShowPopup(!showPopup)
+}
+
+function hideConcert() {
+  setShowPopup(!showPopup)
+}
 
   return (
-    <>
+    <MainStyled>
     <FullCalendarStyled>
     <FullCalendar
       defaultView="dayGridMonth"
@@ -33,38 +34,65 @@ export default function Calendar ({concerts}) {
       eventClick={handleEventClick}
     />
       </FullCalendarStyled>
+      {showPopup && 
+      <PopupStyled>
+        <PopupInnerStyled onClick={hideConcert}>
+          <Concert artist={selectedConcert.artist} genres={['foo', 'bar']}/>
+        </PopupInnerStyled>
+      </PopupStyled>}
 
-      <div>
-        <PopupboxContainer/>   
-      </div>
-     
-   
-    </>
+    </MainStyled>
 
   )
 
-  function openPopupbox(selectedConcert) {
-    const content = (
-      <Concert
-        artist={selectedConcert.artist} fullDate={selectedConcert.fullDate} description={selectedConcert.description} genres={['foo', 'bar']} />
-    )
-    PopupboxManager.open({ content })
-  }
 
 function handleEventClick(event){
   const eventDate = event.event.extendedProps.id
   const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
-  openPopupbox(selectedConcert)
+  setSelectedConcert(selectedConcert)
+  openPopup(selectedConcert)
 }
   function handleDateClick(event, concerts) {
     const eventDate = event.dateStr
     const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
-  //setSelectedConcert(selectedConcert)
-     selectedConcert && openPopupbox(selectedConcert)
+   setSelectedConcert(selectedConcert)
+   openPopup(selectedConcert)
   }
 
 
 } 
+
+const ButtonStyled = styled.button`
+width: 200px
+height: 50px;
+background: red
+`
+
+const PopupStyled = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 3;
+`
+
+const PopupInnerStyled = styled.div`
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 16%;
+  margin: auto;
+  background: rgba(0,0,0, 0.5);
+`
+
+const MainStyled = styled.main`
+postition: relative
+`
 const FullCalendarStyled = styled.div`
 /* DayGridView
 --------------------------------------------------------------------------------------------------*/
