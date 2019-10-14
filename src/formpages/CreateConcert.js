@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import axios from 'axios'
@@ -8,7 +9,8 @@ import MyDatepicker from './MyDatepicker'
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET
 
-export default function CreateConcert({ onSubmit}) {
+export default function CreateConcert({ onSubmit }) {
+  const [isCreated, setIsCreated] = useState(false)
 
   CreateConcert.propTypes = {
     onSubmit: PropTypes.func
@@ -17,6 +19,9 @@ export default function CreateConcert({ onSubmit}) {
   const [date, setDate] = useState(Date.now())
 
   return (
+    isCreated
+      ? <Redirect to="/" />
+      :
     <FormStyled onSubmit={handleSubmit}>
       <LabelStyled>Artist:<InputStyled name="artist" autoFocus /></LabelStyled>
       <LabelStyled>Date:
@@ -31,7 +36,7 @@ export default function CreateConcert({ onSubmit}) {
       <LabelStyled>Image:
       <InputStyled type="file" name="image"></InputStyled>
       </LabelStyled>
-      <CreateButtonStyled onClick={() => { window.location = 'http://localhost:3000/'}}>Create</CreateButtonStyled>
+      <CreateButtonStyled>Create</CreateButtonStyled>
     </FormStyled>
   )
 
@@ -52,6 +57,7 @@ export default function CreateConcert({ onSubmit}) {
         .then(response => {
           data.image = response.data.url
           onSubmit(data)
+          setIsCreated(true)
         })
         .catch(err => console.log(err))
   }
