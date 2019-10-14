@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction";
 import styled from 'styled-components'
+import Popup from "reactjs-popup";
 
 import {
   PopupboxManager,
@@ -13,7 +14,7 @@ import {
 
 export default function Calendar ({concerts}) {
 
-  const [selectedConcert, setSelectedConcert] = useState({})
+  //const [selectedConcert, setSelectedConcert] = useState({})
   
   const dates = concerts.map(concert => concert.fullDate)
  const slicedDates = dates.map(foo => foo.slice(0,10))
@@ -32,8 +33,8 @@ export default function Calendar ({concerts}) {
       eventClick={handleEventClick}
     />
       </FullCalendarStyled>
+
       <div>
-        <button onClick={openPopupbox}>Click me</button>
         <PopupboxContainer/>   
       </div>
      
@@ -52,16 +53,14 @@ export default function Calendar ({concerts}) {
 
 function handleEventClick(event){
   const eventDate = event.event.extendedProps.id
-  const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)
-  console.log('selected Concert', selectedConcert)
+  const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
   openPopupbox(selectedConcert)
 }
   function handleDateClick(event, concerts) {
     const eventDate = event.dateStr
-  const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0,10) === eventDate)
-  setSelectedConcert(selectedConcert)
-    console.log('selected Concert',  selectedConcert)
-    openPopupbox(selectedConcert)
+    const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
+  //setSelectedConcert(selectedConcert)
+     selectedConcert && openPopupbox(selectedConcert)
   }
 
 

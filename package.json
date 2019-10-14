@@ -25,6 +25,7 @@
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
     "react-swipe-component": "^3.0.0",
+    "reactjs-popup": "^1.5.0",
     "styled-components": "^4.4.0",
     "styled-icons": "^8.4.2"
   },
