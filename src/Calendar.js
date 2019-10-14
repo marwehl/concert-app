@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Concert from './concert/Concert'
+import Popup from './Popup'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction";
@@ -14,18 +14,16 @@ export default function Calendar ({concerts}) {
 const [showPopup, setShowPopup] = useState(false)
 const [selectedConcert, setSelectedConcert] = useState({})
 
-function openPopup() {
+function togglePopup() {
   setShowPopup(!showPopup)
 }
 
-function hideConcert() {
-  setShowPopup(!showPopup)
-}
 
   return (
     <MainStyled>
     <FullCalendarStyled>
     <FullCalendar
+   height="auto"
       defaultView="dayGridMonth"
       plugins={[dayGridPlugin, interactionPlugin]}
       weekends={true}
@@ -36,8 +34,9 @@ function hideConcert() {
       </FullCalendarStyled>
       {showPopup && 
       <PopupStyled>
-        <PopupInnerStyled onClick={hideConcert}>
-          <Concert artist={selectedConcert.artist} genres={['foo', 'bar']}/>
+        <PopupInnerStyled onClick={togglePopup}>
+          <Popup
+            {...selectedConcert}/>
         </PopupInnerStyled>
       </PopupStyled>}
 
@@ -50,23 +49,17 @@ function handleEventClick(event){
   const eventDate = event.event.extendedProps.id
   const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
   setSelectedConcert(selectedConcert)
-  openPopup(selectedConcert)
+  togglePopup(selectedConcert)
 }
   function handleDateClick(event, concerts) {
     const eventDate = event.dateStr
     const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
    setSelectedConcert(selectedConcert)
-   openPopup(selectedConcert)
+   togglePopup(selectedConcert)
   }
 
 
 } 
-
-const ButtonStyled = styled.button`
-width: 200px
-height: 50px;
-background: red
-`
 
 const PopupStyled = styled.div`
   position: fixed;
@@ -88,12 +81,17 @@ const PopupInnerStyled = styled.div`
   top: 16%;
   margin: auto;
   background: rgba(0,0,0, 0.5);
+  border-radius: 10px;
 `
 
 const MainStyled = styled.main`
-postition: relative
+postition: relative;
+padding: 10px;
 `
+
 const FullCalendarStyled = styled.div`
+
+height: 100% !important;
 /* DayGridView
 --------------------------------------------------------------------------------------------------*/
 /* day row structure */
@@ -102,6 +100,11 @@ const FullCalendarStyled = styled.div`
   /* there may be week numbers in these views, so no padding-top */
   padding-bottom: 1em;
   /* ensure a space at bottom of cell for user selecting/clicking */
+}
+
+.sc-ifAKCX{
+  height: 100% !important;
+  overflow: none !important;
 }
 
 .fc-dayGrid-view .fc-body .fc-row {
@@ -337,6 +340,7 @@ a[data-goto]:hover {
 .fc-row .fc-bgevent-skeleton table,
 .fc-row .fc-highlight-skeleton table {
   height: 100%;
+
   /* stretch skeleton to bottom of row */
 }
 
