@@ -6,6 +6,7 @@ import Navigation from './Navigation'
 import CreateConcert from './formpages/CreateConcert'
 import EditConcert from './formpages/EditConcert'
 import HomePage from './HomePage'
+import Calendar from './Calendar'
 import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
 
 
@@ -20,7 +21,7 @@ export default function App() {
 
   function addConcert(concertData) {
     postConcert(concertData).then(concert => {
-      setConcerts([...concerts, concert])
+      setConcerts([concert, ...concerts])
     })
   }
 
@@ -53,6 +54,9 @@ export default function App() {
   <Route path="/favorites" render={() => <ConcertList 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 
   onHeartClick={toggleIsFavorite}/> } />
+        <Route path="/calendar" render={() => <Calendar
+          concerts={concerts.filter(concert => concert.isFavorite === true)}
+       />} />
       <Route path="/create" 
       render={() => {
       return <CreateConcert 
@@ -72,8 +76,8 @@ export default function App() {
     .then(editConcert => {
       const index = concerts.findIndex(concert  => concert._id === editConcert._id)
       setConcerts([
-        ...concerts.slice(0, index),
         editConcert,
+        ...concerts.slice(0, index),
         ...concerts.slice(index + 1)
       ])
     })

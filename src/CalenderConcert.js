@@ -1,98 +1,96 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
-import Tag from './Tag'
+import Tag from './concert/Tag'
 import PropTypes from 'prop-types'
 import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Time } from 'styled-icons/boxicons-regular/Time'
 import { Heart } from 'styled-icons/fa-regular/Heart'
-import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
+import { Heart as FullHeart } from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import concert from '../images/concert.jpg'
 
- 
 
-export default function Concert({ 
-  artist, 
-  fullDate, 
-  genres, 
-  image, 
+
+export default function CalendarConcert({
+  artist,
+  fullDate,
+  genres,
+  image,
   description,
   isFavorite,
   onHeartClick,
   onDeleteClick,
   _id,
-}) 
-
-{
-Concert.propTypes = {
-  artist : PropTypes.string.isRequired,
-  fullDate: PropTypes.string.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string),
-  image: PropTypes.string,
-  description: PropTypes.string,
-  isFavorite: PropTypes.bool,
-  onHeartClick: PropTypes.func.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
-}
+}) {
+  CalendarConcert.propTypes = {
+    artist: PropTypes.string.isRequired,
+    fullDate: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string),
+    image: PropTypes.string,
+    description: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    onHeartClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
+  }
 
 
-const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
-const [arrowShowsDown, setArrowShowsDown] = useState(false)
-const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
+  const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
+  const [arrowShowsDown, setArrowShowsDown] = useState(false)
+  const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
 
-      <Link to={{ pathname: '/edit', editConcertData: {
-        artist, 
-        fullDate, 
-        description,
-        image,
-        genres,
-        id: _id,
-        isFavorite, 
-        onHeartClick
-      }}}><EditStyled/></Link>
-    
+      <Link to={{
+        pathname: '/edit', editConcertData: {
+          artist,
+          fullDate,
+          description,
+          image,
+          genres,
+          id: _id,
+          isFavorite,
+          onHeartClick
+        }
+      }}><EditStyled /></Link>
 
-      <ConcertImageStyled src={ image? image : concert } active={fullImageIsVisible} />
+
+      <ConcertImageStyled src={image ? image : concert} active={fullImageIsVisible} />
 
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
-      <ArtistStyled>{artist}</ArtistStyled>
-        <HeartStyled onClick={onHeartClick}
-        active={isFavorite}></HeartStyled>
-        <FullHeartStyled onClick={onHeartClick}
-        active={!isFavorite}></FullHeartStyled>
+          <ArtistStyled>{artist}</ArtistStyled>
+          <HeartStyled onClick={onHeartClick}
+            active={isFavorite}></HeartStyled>
+          <FullHeartStyled onClick={onHeartClick}
+            active={!isFavorite}></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
-<DateContainerStyled>
-        <div>
-          <DateRangeStyled />
+        <DateContainerStyled>
+          <div>
+            <DateRangeStyled />
             <span>{formatDate(fullDate)}</span>
-        </div>
-        <div>
+          </div>
+          <div>
             <TimeStyled />
-      <span>{formatTime(fullDate)}</span>
+            <span>{formatTime(fullDate)}</span>
           </div>
         </DateContainerStyled>
-    
-        {fullConcertIsVisible
-         && 
+
+        
           <ConcertFullInfoStyled>
             <DescriptionStyled>{description}</DescriptionStyled>
-            <TagListStyled>{genres.map(genre => genre &&  <Tag text={genre} key={genre} />)}</TagListStyled>
+            <TagListStyled>{genres.map(genre => genre && <Tag text={genre} key={genre} />)}</TagListStyled>
           </ConcertFullInfoStyled>
-        }
         {
-           (description || genres.length > 0)
-        &&
-        <KeyboardArrowDownStyled 
-        active={arrowShowsDown}
-        onClick={handleArrowClick}/>
+          (description || genres.length > 0)
+          &&
+          <KeyboardArrowDownStyled
+            active={arrowShowsDown}
+            onClick={handleArrowClick} />
         }
       </ConcertInfoStyled>
     </ConcertStyled>
@@ -181,7 +179,7 @@ color: #E87613;
 display: ${props => (props.active ? 'none' : 'block')}
 `
 
-const  DateContainerStyled = styled.section`
+const DateContainerStyled = styled.section`
 display: flex;
 justify-content: space-between;
 gap: 7px;
@@ -214,7 +212,3 @@ word-break: break-word;`
 const TagListStyled = styled.section`
 align-self: center;
 `
-
-
-
-
