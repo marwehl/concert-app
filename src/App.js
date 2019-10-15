@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Navigation from './Navigation'
-import CreateConcert from './formpages/CreateConcert'
+import CreatePage from './pages/CreatePage'
 import EditConcert from './formpages/EditConcert'
 import HomePage from './pages/HomePage'
 import FavoritesPage from './pages/FavoritesPage'
@@ -59,11 +59,12 @@ export default function App() {
        />} />
       <Route path="/create" 
       render={() => {
-      return <CreateConcert 
-        onSubmit={addConcert}/>}} />
+      return <CreatePage 
+        onSubmit={addConcert}
+        editConcertData={{}}/>}} />
         <Route path="/edit"
         render={props => {
-          return <EditConcert
+          return <CreatePage
             onSubmit={editConcert} editConcertData={props.location.editConcertData}/>}}/>
       <Navigation/>
     </AppStyled>

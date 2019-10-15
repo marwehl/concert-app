@@ -1,21 +1,31 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import MyDatepicker from "./MyDatepicker";
+import axios from "axios";
+import MyDatepicker from "../formpages/MyDatepicker";
 
-export default function EditConcert({ editConcertData, onSubmit }) {
-  EditConcert.propTypes = {
-    onSubmit: PropTypes.func,
-    editConcertData: PropTypes.object
+const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
+const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
+
+export default function CreatePage({ onSubmit, editConcertData }) {
+  const [isCreated, setIsCreated] = useState(false);
+
+  CreatePage.propTypes = {
+    onSubmit: PropTypes.func
   };
 
-  const [artist, setArtist] = useState(editConcertData.artist);
-  const [fullDate, setFullDate] = useState(new Date(editConcertData.fullDate));
-  const [description, setDescription] = useState(editConcertData.description);
-  const editGenres = editConcertData.genres.join(", ");
-  const [genres, setGenres] = useState(editGenres);
+    const [artist, setArtist] = useState(editConcertData.artist ? editConcertData.artist : '' );
+    const [date, setDate] = useState(new Date(editConcertData.fullDate ? editConcertData.fullDate : Date.now()));
+    const [description, setDescription] = useState(editConcertData.description ? editConcertData.description : '');
+    const editGenres = editConcertData.genres ? editConcertData.genres.join(", ").split(',') : []
+    const [genres, setGenres] = useState(editGenres)
+    //const [image, setImage] = useState(editConcertData.image ? editConcertData.image : '');
+    console.log(editConcertData.image)
 
-  return (
+  return isCreated ? (
+    <Redirect to="/" />
+  ) : (
     <FormStyled onSubmit={handleSubmit}>
       <LabelStyled>
         Artist:
@@ -29,10 +39,9 @@ export default function EditConcert({ editConcertData, onSubmit }) {
       <LabelStyled>
         Date:
         <MyDatepicker
-          value={fullDate}
-          onChange={value => setFullDate(value)}
           name="date"
-          date={fullDate}
+          date={date}
+          onChange={value => setDate(value)}
         ></MyDatepicker>
       </LabelStyled>
       <LabelStyled>
@@ -52,29 +61,50 @@ export default function EditConcert({ editConcertData, onSubmit }) {
           onChange={event => setGenres(event.target.value)}
         />
       </LabelStyled>
-      <CreateButtonStyled
-        onClick={() => {
-          window.location = "http://localhost:3000/";
-        }}
-      >
-        Edit
-      </CreateButtonStyled>
+      <LabelStyled>
+        Image:
+        <InputStyled type="file" name="image"></InputStyled>
+      </LabelStyled>
+      <CreateButtonStyled>Create</CreateButtonStyled>
     </FormStyled>
   );
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const newDate = new Date(fullDate);
+    const fullDate = new Date(date);
     let data = Object.fromEntries(formData);
-    data = { ...data, newDate };
+    data = { ...data, fullDate };
     data.genres = data.genres
       .split(",")
       .filter(item => item !== "")
       .map(item => item.trim())
       .map(item => item.slice(0, 1).toUpperCase() + item.slice(1));
+    
 
-    onSubmit(editConcertData.id, data);
+    data.image === (editConcertData.image || '')
+      ? (editConcertData.id ? onSubmit(editConcertData.id, data) : onSubmit(data))
+      : upload(formData.get("image"))
+          .then(response => {
+            data.image = response.data.url;
+            (editConcertData.id
+              ? onSubmit(editConcertData.id, data)
+              : onSubmit(data))
+            setIsCreated(true);
+          })
+          .catch(err => console.log(err));
+  }
+
+  function upload(file) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", PRESET);
+    return axios.post(url, formData, {
+      headers: {
+        "Content-type": "multipart/form-data"
+      }
+    });
   }
 }
 
