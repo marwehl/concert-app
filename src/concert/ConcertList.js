@@ -28,10 +28,9 @@ ConcertList.propTypes = {
 const ConcertListStyled = styled.section`
  display: grid;
   align-content: flex-start;
-  gap: 30px;
+  gap: 15px;
   background-color: white;
   overflow-y: scroll;
     -ms-overflow-style: none; 
     scrollbar-width: none;
-  padding: 20px;
 `

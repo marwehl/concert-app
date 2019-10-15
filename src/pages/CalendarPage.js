@@ -1,15 +1,95 @@
-import React from 'react'
-import styled from 'styled-components/macro'
+import React, { useState } from 'react'
+import Popup from '../Popup'
+import styled from 'styled-components'
+import CalendarWrapper from '../Calendar'
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction"; 
 
 
-export default function CalendarWrapper () {
+export default function CalendarPage ({concerts}) {
+
+const dates = concerts.map(concert => concert.fullDate)
+const slicedDates = dates.map(foo => foo.slice(0,10))
+const newEvents = slicedDates.map(slicedDate => { return { title: '', date: slicedDate, extendedProps: {id: slicedDate}}})
+const [showPopup, setShowPopup] = useState(false)
+const [selectedConcert, setSelectedConcert] = useState({})
+
+function togglePopup() {
+  setShowPopup(!showPopup)
+}
 
   return (
-  <CalendarStyled/>
-  )
+    <MainStyled>
+      <CalendarStyled>
+        <FullCalendar
+          concerts={concerts}
+          height="auto"
+          defaultView="dayGridMonth"
+          weekends={true}
+          events={newEvents}
+          dateClick={event => handleDateClick(event, concerts)}
+          eventClick={handleEventClick}
+          plugins={[dayGridPlugin, interactionPlugin]}
+        />
+      </CalendarStyled>
 
+      {showPopup && (
+        <PopupStyled onClick={togglePopup}>
+          <PopupInnerStyled>
+            <Popup {...selectedConcert} />
+          </PopupInnerStyled>
+        </PopupStyled>
+      )}
+    </MainStyled>
+  );
+
+
+function handleEventClick(event){
+  const eventDate = event.event.extendedProps.id
+  const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
+  setSelectedConcert(selectedConcert)
+  togglePopup(selectedConcert)
+}
+  function handleDateClick(event, concerts) {
+    const eventDate = event.dateStr
+    const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
+   setSelectedConcert(selectedConcert)
+   togglePopup(selectedConcert)
   }
-    
+
+
+} 
+
+const PopupStyled = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 3;
+`
+
+const PopupInnerStyled = styled.div`
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 16%;
+  margin: auto;
+  background: rgba(0,0,0, 0.5);
+  border-radius: 10px;
+`
+
+const MainStyled = styled.main`
+postition: relative;
+padding: 10px;
+margin: auto 0;
+`
+
 const CalendarStyled = styled.div`
   /* DayGridView
 --------------------------------------------------------------------------------------------------*/
@@ -1130,3 +1210,4 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
     }
   }
 `;
+
