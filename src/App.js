@@ -73,14 +73,15 @@ export default function App() {
 
 
   function editConcert(id, editData) {
+    console.log('editdata', editData)
     patchConcert(id, editData)
     .then(editConcert => {
       const index = concerts.findIndex(concert  => concert._id === editConcert._id)
       setConcerts([
-        editConcert,
         ...concerts.slice(0, index),
+        editConcert,
         ...concerts.slice(index + 1)
-      ])
+      ]);
     })
   }
 

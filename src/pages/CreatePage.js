@@ -20,8 +20,7 @@ export default function CreatePage({ onSubmit, editConcertData }) {
     const [description, setDescription] = useState(editConcertData.description ? editConcertData.description : '');
     const editGenres = editConcertData.genres ? editConcertData.genres.join(", ").split(',') : []
     const [genres, setGenres] = useState(editGenres)
-    //const [image, setImage] = useState(editConcertData.image ? editConcertData.image : '');
-    console.log(editConcertData.image)
+   const [image, setImage] = useState(editConcertData.image ? editConcertData.image : '');
 
   return isCreated ? (
     <Redirect to="/" />
@@ -63,8 +62,9 @@ export default function CreatePage({ onSubmit, editConcertData }) {
       </LabelStyled>
       <LabelStyled>
         Image:
-        <InputStyled type="file" name="image"></InputStyled>
+        <InputStyled type="file" name="image" onChange={upload}></InputStyled>
       </LabelStyled>
+      <ImageStyled src={image} />
       <CreateButtonStyled>Create</CreateButtonStyled>
     </FormStyled>
   );
@@ -74,29 +74,24 @@ export default function CreatePage({ onSubmit, editConcertData }) {
     const formData = new FormData(event.target);
     const fullDate = new Date(date);
     let data = Object.fromEntries(formData);
-    data = { ...data, fullDate };
+    data = { ...data, fullDate, image };
     data.genres = data.genres
       .split(",")
       .filter(item => item !== "")
       .map(item => item.trim())
       .map(item => item.slice(0, 1).toUpperCase() + item.slice(1));
-    
-
-    data.image === (editConcertData.image || '')
-      ? (editConcertData.id ? onSubmit(editConcertData.id, data) : onSubmit(data))
-      : upload(formData.get("image"))
-          .then(response => {
-            data.image = response.data.url;
-            (editConcertData.id
-              ? onSubmit(editConcertData.id, data)
-              : onSubmit(data))
-            setIsCreated(true);
-          })
-          .catch(err => console.log(err));
+         setIsCreated(true);
+             editConcertData.id
+            ? onSubmit(editConcertData.id, data)
+            : onSubmit(data)
+          
   }
-
-  function upload(file) {
+  
+  function upload(event) {
+    const file = event.target.files[0];
+    console.log()
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
+    console.log(file);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", PRESET);
@@ -104,7 +99,10 @@ export default function CreatePage({ onSubmit, editConcertData }) {
       headers: {
         "Content-type": "multipart/form-data"
       }
-    });
+    }).then(response => {
+      setImage(response.data.url);
+  }
+    ).catch(err => console.log(err));
   }
 }
 
@@ -133,6 +131,9 @@ const InputStyled = styled.input`
     border-color: #e87613;
   }
 `;
+
+const ImageStyled = styled.img`
+width: 150px;`
 
 const TextareaStyled = styled.textarea`
   height: 160px;
