@@ -3,24 +3,27 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import axios from "axios";
-import MyDatepicker from "../formpages/MyDatepicker";
+import MyDatepicker from "../MyDatepicker"
+import AddImageIcon from "../AddImageIcon";
+import concert from "../images/concert.jpg"
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 export default function CreatePage({ onSubmit, editConcertData }) {
-  const [isCreated, setIsCreated] = useState(false);
 
   CreatePage.propTypes = {
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    editConcertData: PropTypes.object
   };
-
+    const [isCreated, setIsCreated] = useState(false);
     const [artist, setArtist] = useState(editConcertData.artist ? editConcertData.artist : '' );
     const [date, setDate] = useState(new Date(editConcertData.fullDate ? editConcertData.fullDate : Date.now()));
     const [description, setDescription] = useState(editConcertData.description ? editConcertData.description : '');
-    const editGenres = editConcertData.genres ? editConcertData.genres.join(", ").split(',') : []
-    const [genres, setGenres] = useState(editGenres)
-   const [image, setImage] = useState(editConcertData.image ? editConcertData.image : '');
+    const [genres, setGenres] = useState(
+      editConcertData.genres ? editConcertData.genres.join(", ").split(",") : []
+    );
+   const [image, setImage] = useState(editConcertData.image ? editConcertData.image : concert);
 
   return isCreated ? (
     <Redirect to="/" />
@@ -60,11 +63,17 @@ export default function CreatePage({ onSubmit, editConcertData }) {
           onChange={event => setGenres(event.target.value)}
         />
       </LabelStyled>
-      <LabelStyled>
-        Image:
-        <InputStyled type="file" name="image" onChange={upload}></InputStyled>
-      </LabelStyled>
-      <ImageStyled src={image} />
+      <ImageContainerStyled>
+        <LabelStyled>
+          <AddImageIcon />
+          <InputImageStyled
+            type="file"
+            name="image"
+            onChange={upload}
+          ></InputImageStyled>
+        </LabelStyled>
+        <ImageStyled src={image} />
+      </ImageContainerStyled>
       <CreateButtonStyled>Create</CreateButtonStyled>
     </FormStyled>
   );
@@ -78,8 +87,7 @@ export default function CreatePage({ onSubmit, editConcertData }) {
     data.genres = data.genres
       .split(",")
       .filter(item => item !== "")
-      .map(item => item.trim())
-      .map(item => item.slice(0, 1).toUpperCase() + item.slice(1));
+      .map(item => item.trim().slice(0, 1).toUpperCase() + item.slice(1));
          setIsCreated(true);
              editConcertData.id
             ? onSubmit(editConcertData.id, data)
@@ -89,9 +97,7 @@ export default function CreatePage({ onSubmit, editConcertData }) {
   
   function upload(event) {
     const file = event.target.files[0];
-    console.log()
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
-    console.log(file);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", PRESET);
@@ -107,22 +113,23 @@ export default function CreatePage({ onSubmit, editConcertData }) {
 }
 
 const FormStyled = styled.form`
-  width: 100%;
   display: grid;
-  padding: 30px;
-  gap: 20px;
-  height: 60vh;
+  padding: 20px;
+  gap: 16px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const LabelStyled = styled.label`
   display: grid;
-  gap: 0.7px;
+  gap: 0.5px;
 `;
 
 const InputStyled = styled.input`
+  padding: 7px;
   border: 1px solid black;
   border-radius: 10px;
-  padding: 7px;
   font-size: 1.1em;
   &: active {
     border-color: #e87613;
@@ -132,15 +139,22 @@ const InputStyled = styled.input`
   }
 `;
 
+const ImageContainerStyled = styled.section`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`;
+
 const ImageStyled = styled.img`
+border: none;
 width: 150px;`
 
 const TextareaStyled = styled.textarea`
-  height: 160px;
+  height: 140px;
   border: 1px solid black;
   border-radius: 10px;
   padding: 7px;
-  font-family: Helvetica;
+  font-family: inherit;
   font-size: 1.1em;
   &: active {
     border-color: #e87613;
@@ -151,11 +165,10 @@ const TextareaStyled = styled.textarea`
 `;
 
 const CreateButtonStyled = styled.button`
-  width: 100%;
+  height: 48px;
   align-self: center;
   background-color: #e87613;
   font-size: 2em;
-  height: 60px;
   border: none;
   border-radius: 10px;
   box-shadow: 0 10px 10px gray;
@@ -163,3 +176,8 @@ const CreateButtonStyled = styled.button`
     box-shadow: none;
   }
 `;
+
+const InputImageStyled = styled.input`
+display:none;
+`
+;

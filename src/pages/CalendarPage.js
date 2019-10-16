@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Popup from '../Popup'
 import styled from 'styled-components'
-import CalendarWrapper from '../Calendar'
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; 
