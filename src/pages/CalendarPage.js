@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import Popup from '../Popup'
 import styled from 'styled-components'
+import PropTypes from "prop-types";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; 
+import CalendarWrapper from '../calendar/Calendar'
+import Popup from "../calendar/Popup";
 
 
 export default function CalendarPage ({concerts}) {
@@ -31,7 +33,8 @@ function togglePopup() {
           eventClick={handleEventClick}
           plugins={[dayGridPlugin, interactionPlugin]}
         />
-      </CalendarStyled>
+        </CalendarStyled>
+
 
       {showPopup && (
         <PopupStyled onClick={togglePopup}>
@@ -56,7 +59,6 @@ function handleEventClick(event){
    setSelectedConcert(selectedConcert)
    togglePopup(selectedConcert)
   }
-
 
 } 
 

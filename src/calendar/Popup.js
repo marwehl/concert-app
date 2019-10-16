@@ -1,18 +1,11 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import styled from 'styled-components/macro';
-import Tag from './concert/Tag'
+import Tag from '../concert/Tag'
 import PropTypes from 'prop-types'
-import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Time } from 'styled-icons/boxicons-regular/Time'
-import { Heart } from 'styled-icons/fa-regular/Heart'
 import { Heart as FullHeart } from 'styled-icons/fa-solid/Heart'
-import { Delete } from 'styled-icons/typicons/Delete'
-import { Edit } from 'styled-icons/boxicons-regular/Edit'
-import concert from './images/concert.jpg'
-
-
+import concert from '../images/concert.jpg'
 
 export default function Popup({
   artist,
@@ -21,10 +14,9 @@ export default function Popup({
   image,
   description,
   isFavorite,
-  onHeartClick,
-  onDeleteClick,
   _id,
 }) {
+
   Popup.propTypes = {
     artist: PropTypes.string.isRequired,
     fullDate: PropTypes.string.isRequired,
@@ -32,21 +24,16 @@ export default function Popup({
     image: PropTypes.string,
     description: PropTypes.string,
     isFavorite: PropTypes.bool,
-    onHeartClick: PropTypes.func.isRequired,
-    onDeleteClick: PropTypes.func.isRequired,
   }
 
 
   return (
     <ConcertStyled>
-  
-
       <ConcertImageStyled src={image ? image : concert}/>
-
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
           <ArtistStyled>{artist}</ArtistStyled>
-          <FullHeartStyled onClick={onHeartClick}
+          <FullHeartStyled
           ></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
         <DateContainerStyled>
@@ -63,7 +50,6 @@ export default function Popup({
             <DescriptionStyled>{description}</DescriptionStyled>
             <TagListStyled>{genres.map(genre => genre && <Tag text={genre} key={genre} />)}</TagListStyled>
           </ConcertFullInfoStyled>
-       
       </ConcertInfoStyled>
     </ConcertStyled>
   )

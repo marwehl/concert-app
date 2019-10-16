@@ -1,7 +1,7 @@
 import React from 'react'
-import Concert from './Concert'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import Concert from "./Concert";
 
 export default function ConcertList({ concerts, onHeartClick, onDeleteClick}) {
 
@@ -23,7 +23,6 @@ ConcertList.propTypes = {
     </ConcertListStyled>
   )
 }
-
 
 const ConcertListStyled = styled.section`
  display: grid;

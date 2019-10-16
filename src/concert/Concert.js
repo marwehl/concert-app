@@ -36,15 +36,20 @@ Concert.propTypes = {
   onDeleteClick: PropTypes.func.isRequired,
 }
 
-
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
+function handleDeleteClick(event) {
+  event.preventDefault()
+  if (window.confirm('Are you sure you wish to delete this item?')) {
+    onDeleteClick(_id)
+  }
+}
+
   return (
     <ConcertStyled>
-      <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
-
+      <DeleteStyled onClick={handleDeleteClick}></DeleteStyled>
       <Link to={{ pathname: '/edit', editConcertData: {
         artist, 
         fullDate, 
@@ -56,7 +61,6 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
         onHeartClick
       }}}><EditStyled/></Link>
     
-
       <ConcertImageStyled src={ image? image : concert } active={fullImageIsVisible} />
 
       <ConcertInfoStyled>
@@ -95,7 +99,6 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
       </ConcertInfoStyled>
     </ConcertStyled>
   )
-
 
   function formatDate(fullDate) {
     const dateString = new Date(fullDate).toLocaleDateString('de-DE', {

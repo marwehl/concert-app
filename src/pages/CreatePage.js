@@ -3,8 +3,8 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import axios from "axios";
-import MyDatepicker from "../MyDatepicker"
-import AddImageIcon from "../AddImageIcon";
+import Datepicker from "../createConcert/Datepicker"
+import AddImageIcon from "../createConcert/AddImageIcon";
 import concert from "../images/concert.jpg"
 
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -40,11 +40,11 @@ export default function CreatePage({ onSubmit, editConcertData }) {
       </LabelStyled>
       <LabelStyled>
         Date:
-        <MyDatepicker
+        <Datepicker
           name="date"
           date={date}
           onChange={value => setDate(value)}
-        ></MyDatepicker>
+        ></Datepicker>
       </LabelStyled>
       <LabelStyled>
         Description:
@@ -87,12 +87,12 @@ export default function CreatePage({ onSubmit, editConcertData }) {
     data.genres = data.genres
       .split(",")
       .filter(item => item !== "")
-      .map(item => item.trim().slice(0, 1).toUpperCase() + item.slice(1));
+      .map(item => item.trim())
+      .map(item => item.slice(0, 1).toUpperCase() + item.slice(1));
          setIsCreated(true);
              editConcertData.id
             ? onSubmit(editConcertData.id, data)
-            : onSubmit(data)
-          
+            : onSubmit(data)        
   }
   
   function upload(event) {
