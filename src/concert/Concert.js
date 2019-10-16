@@ -12,8 +12,6 @@ import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import concert from '../images/concert.jpg'
 
- 
-
 export default function Concert({ 
   artist, 
   fullDate, 

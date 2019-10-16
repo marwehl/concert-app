@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import styled from 'styled-components/macro'
-import ConcertList from './concert/ConcertList';
 import Navigation from './Navigation'
-import CreateConcert from './formpages/CreateConcert'
-import EditConcert from './formpages/EditConcert'
-import HomePage from './HomePage'
-import Calendar from './Calendar'
+import CreatePage from './pages/CreatePage'
+import HomePage from './pages/HomePage'
+import FavoritesPage from './pages/FavoritesPage'
+import CalendarPage from './pages/CalendarPage'
 import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
 
 
@@ -51,19 +50,20 @@ export default function App() {
         onDeleteClick={removeConcert}
         selectedGenre={selectedGenre}
         /> }/>
-  <Route path="/favorites" render={() => <ConcertList 
+  <Route path="/favorites" render={() => <FavoritesPage 
   concerts={concerts.filter(concert => concert.isFavorite === true)} 
   onHeartClick={toggleIsFavorite}/> } />
-        <Route path="/calendar" render={() => <Calendar
+        <Route path="/calendar" render={() => <CalendarPage
           concerts={concerts.filter(concert => concert.isFavorite === true)}
        />} />
       <Route path="/create" 
       render={() => {
-      return <CreateConcert 
-        onSubmit={addConcert}/>}} />
+      return <CreatePage 
+        onSubmit={addConcert}
+        editConcertData={{}}/>}} />
         <Route path="/edit"
         render={props => {
-          return <EditConcert
+          return <CreatePage
             onSubmit={editConcert} editConcertData={props.location.editConcertData}/>}}/>
       <Navigation/>
     </AppStyled>
@@ -72,14 +72,15 @@ export default function App() {
 
 
   function editConcert(id, editData) {
+    console.log('editdata', editData)
     patchConcert(id, editData)
     .then(editConcert => {
       const index = concerts.findIndex(concert  => concert._id === editConcert._id)
       setConcerts([
-        editConcert,
         ...concerts.slice(0, index),
+        editConcert,
         ...concerts.slice(index + 1)
-      ])
+      ]);
     })
   }
 

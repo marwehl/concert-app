@@ -1,9 +1,9 @@
 import React, { useState }from 'react'
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
-import FilterBar from './genrefilter/FilterBar'
-import ConcertList from './concert/ConcertList'
-import SortBar from './SortBar'
+import FilterBar from '../genrefilter/FilterBar'
+import ConcertList from '../concert/ConcertList'
+import SortBar from '../SortBar'
 
 
 HomePage.propTypes = {
@@ -40,9 +40,10 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
 }
 
 const MainStyled = styled.main`
+padding: 15px;
 display: grid;
 grid-gap: 10px;
-grid-template-rows: 42px auto;
+grid-template-rows: 42px 42px auto;
 overflow-y: scroll;
   -ms-overflow-style: none; 
     scrollbar-width: none;
