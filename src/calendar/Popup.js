@@ -13,8 +13,6 @@ export default function Popup({
   genres,
   image,
   description,
-  isFavorite,
-  _id,
 }) {
 
   Popup.propTypes = {
@@ -23,9 +21,7 @@ export default function Popup({
     genres: PropTypes.arrayOf(PropTypes.string),
     image: PropTypes.string,
     description: PropTypes.string,
-    isFavorite: PropTypes.bool,
   }
-
 
   return (
     <ConcertStyled>
@@ -53,7 +49,6 @@ export default function Popup({
       </ConcertInfoStyled>
     </ConcertStyled>
   )
-
 
   function formatDate(fullDate) {
     const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
@@ -87,7 +82,6 @@ object-fit: cover;
 object-position: center;
 border-radius: 10px 10px 0 0;
 `
-
 
 const ConcertInfoStyled = styled.section`
 display: flex;

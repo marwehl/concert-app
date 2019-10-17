@@ -40,65 +40,70 @@ const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 
-function handleDeleteClick(event) {
-  event.preventDefault()
-  if (window.confirm('Are you sure you wish to delete this item?')) {
-    onDeleteClick(_id)
-  }
-}
 
   return (
     <ConcertStyled>
-      <DeleteStyled onClick={handleDeleteClick}></DeleteStyled>
-      <Link to={{ pathname: '/edit', editConcertData: {
-        artist, 
-        fullDate, 
-        description,
-        image,
-        genres,
-        id: _id,
-        isFavorite, 
-        onHeartClick
-      }}}><EditStyled/></Link>
-    
-      <ConcertImageStyled src={ image? image : concert } active={fullImageIsVisible} />
+      <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
+      <Link
+        to={{
+          pathname: "/edit",
+          editConcertData: {
+            id: _id,
+            artist,
+            fullDate,
+            description,
+            image,
+            genres,
+            isFavorite,
+            onHeartClick
+          }
+        }}
+      >
+        <EditStyled />
+      </Link>
+
+      <ConcertImageStyled
+        src={image ? image : concert}
+        active={fullImageIsVisible}
+      />
 
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
-      <ArtistStyled>{artist}</ArtistStyled>
-        <HeartStyled onClick={onHeartClick}
-        active={isFavorite}></HeartStyled>
-        <FullHeartStyled onClick={onHeartClick}
-        active={!isFavorite}></FullHeartStyled>
+          <ArtistStyled>{artist}</ArtistStyled>
+          <HeartStyled onClick={onHeartClick} active={isFavorite}></HeartStyled>
+          <FullHeartStyled
+            onClick={onHeartClick}
+            active={!isFavorite}
+          ></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
-<DateContainerStyled>
-        <div>
-          <DateRangeStyled />
+        <DateContainerStyled>
+          <div>
+            <DateRangeStyled />
             <span>{formatDate(fullDate)}</span>
-        </div>
-        <div>
+          </div>
+          <div>
             <TimeStyled />
-      <span>{formatTime(fullDate)}</span>
+            <span>{formatTime(fullDate)}</span>
           </div>
         </DateContainerStyled>
-    
-        {fullConcertIsVisible
-         && 
+
+        {fullConcertIsVisible && (
           <ConcertFullInfoStyled>
             <DescriptionStyled>{description}</DescriptionStyled>
-            <TagListStyled>{genres.map(genre => genre &&  <Tag text={genre} key={genre} />)}</TagListStyled>
+            <TagListStyled>
+              {genres.map(genre => genre && <Tag text={genre} key={genre} />)}
+            </TagListStyled>
           </ConcertFullInfoStyled>
-        }
-        {
-           (description || genres.length > 0)
-        &&
-        <KeyboardArrowDownStyled 
-        active={arrowShowsDown}
-        onClick={handleArrowClick}/>
-        }
+        )}
+        {(description || genres.length > 0) && (
+          <KeyboardArrowDownStyled
+            active={arrowShowsDown}
+            onClick={handleArrowClick}
+          />
+        )}
       </ConcertInfoStyled>
     </ConcertStyled>
-  )
+  );
 
   function formatDate(fullDate) {
     const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
