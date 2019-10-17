@@ -57,8 +57,8 @@ export default function App() {
        //const favoriteConcerts = currentUser.favorites.map(favorite =>
          //concerts.filter(concert => concert.id === favorite)
        //);
-       const favoriteConcert = concerts.filter(concert => concert._id === currentUser.favorites[0])
-       console.log(favoriteConcert);
+       const favoriteConcerts = concerts.filter(concert => currentUser.favorites.includes(concert._id) )
+       console.log(favoriteConcerts);
   }
 
 
@@ -95,10 +95,10 @@ export default function App() {
         selectedGenre={selectedGenre}
         /> }/>
   <Route path="/favorites" render={() => <FavoritesPage 
-  concerts={concerts.filter(concert => concert._id === currentUser.favorites[0])} 
+  concerts={concerts.filter(concert => currentUser.favorites.includes(concert._id))} 
   onHeartClick={toggleIsFavorite}/> } />
         <Route path="/calendar" render={() => <CalendarPage
-          concerts={concerts.filter(concert => concert.isFavorite === true)}
+          concerts={concerts.filter(concert => currentUser.favorites.includes(concert._id))}
        />} />
       <Route path="/create" 
       render={() => {
