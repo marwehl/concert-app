@@ -12,11 +12,20 @@ export default function Navigation () {
       <LinkStyled exact to="/">
         <HomeStyled></HomeStyled>
       </LinkStyled>
-      <LinkStyled to="/favorites"><HeartStyled></HeartStyled></LinkStyled>
-      <LinkStyled to="/calendar"><CalendarStyled></CalendarStyled></LinkStyled>
-      <LinkStyled to="/create"><PlusCircleStyled></PlusCircleStyled></LinkStyled>
+      <LinkStyled to="/favorites">
+        <HeartStyled></HeartStyled>
+      </LinkStyled>
+      <LinkStyled to="/calendar">
+        <CalendarStyled></CalendarStyled>
+      </LinkStyled>
+      <LinkStyled to="/create">
+        <PlusCircleStyled></PlusCircleStyled>
+      </LinkStyled>
+      <LinkStyled to="/login">
+        <PlusCircleStyled></PlusCircleStyled>
+      </LinkStyled>
     </NavigationStyled>
-  )
+  );
 }
 
 const LinkStyled = styled(NavLink)`

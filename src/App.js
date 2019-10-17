@@ -6,17 +6,61 @@ import CreatePage from './pages/CreatePage'
 import HomePage from './pages/HomePage'
 import FavoritesPage from './pages/FavoritesPage'
 import CalendarPage from './pages/CalendarPage'
-import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
-
+import LoginPage from "./LoginPage";
+import { getConcerts, postConcert, patchConcert, deleteConcert, getUsers, postUser, patchUser, deleteUser } from './services'
 
 
 export default function App() {
 
   const [concerts, setConcerts] = useState([])
+  const [users, setUsers] = useState([])
+  const [currentUser, setCurrentUser] = useState(
+    {
+      favorites: [
+        "5da86c862bb41a6aabb9ce4a",
+        "5da86caa2bb41a6aabb9ce4b",
+        "5da86cf42bb41a6aabb9ce4d"
+      ],
+      _id: "5da859b2853eb55f068663b1",
+      username: "Josi",
+      password: "word5678",
+      __v: 0
+    }
+  );
+  //const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     getConcerts().then(setConcerts)
   }, [])
+
+  useEffect(() => {
+    getUsers().then(setUsers);
+  }, []);
+
+  console.log('users', users)
+
+  function handleLogin(userData) {
+    const selectedUser = users.filter(
+      user =>
+        user.username === userData.username &&
+        user.password === userData.password
+    )
+    console.log('selectedUser', selectedUser);
+
+      selectedUser
+      ? setCurrentUser(selectedUser[0])
+      : setCurrentUser({});
+
+       console.log("current user", currentUser);
+       console.log("current user favorites", currentUser.favorites);
+
+       //const favoriteConcerts = currentUser.favorites.map(favorite =>
+         //concerts.filter(concert => concert.id === favorite)
+       //);
+       const favoriteConcert = concerts.filter(concert => concert._id === currentUser.favorites[0])
+       console.log(favoriteConcert);
+  }
+
 
   function addConcert(concertData) {
     postConcert(concertData).then(concert => {
@@ -51,7 +95,7 @@ export default function App() {
         selectedGenre={selectedGenre}
         /> }/>
   <Route path="/favorites" render={() => <FavoritesPage 
-  concerts={concerts.filter(concert => concert.isFavorite === true)} 
+  concerts={concerts.filter(concert => concert._id === currentUser.favorites[0])} 
   onHeartClick={toggleIsFavorite}/> } />
         <Route path="/calendar" render={() => <CalendarPage
           concerts={concerts.filter(concert => concert.isFavorite === true)}
@@ -65,6 +109,8 @@ export default function App() {
         render={props => {
           return <CreatePage
             onSubmit={editConcert} editConcertData={props.location.editConcertData}/>}}/>
+        <Route path="/login"
+        render={() => <LoginPage handleLogin={handleLogin}/>}/>
       <Navigation/>
     </AppStyled>
     </Router>
