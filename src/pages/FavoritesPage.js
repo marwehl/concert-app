@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import ConcertList from '../concert/ConcertList'
 
 export default function FavoritesPage ({concerts, onHeartClick}) {
+
   return (
     <FavoritesPageStyled>
       <ConcertList concerts={concerts} onHeartClick={onHeartClick} />

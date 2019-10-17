@@ -14,19 +14,17 @@ export default function App() {
 
   const [concerts, setConcerts] = useState([])
   const [users, setUsers] = useState([])
-  const [currentUser, setCurrentUser] = useState(
-    {
-      favorites: [
-        "5da86c862bb41a6aabb9ce4a",
-        "5da86caa2bb41a6aabb9ce4b",
-        "5da86cf42bb41a6aabb9ce4d"
-      ],
-      _id: "5da859b2853eb55f068663b1",
-      username: "Josi",
-      password: "word5678",
-      __v: 0
-    }
-  );
+  const [currentUser, setCurrentUser] = useState({
+    favorites: [
+      "5da86c862bb41a6aabb9ce4a",
+      "5da86caa2bb41a6aabb9ce4b",
+      "5da86cf42bb41a6aabb9ce4d"
+    ],
+    _id: "5da859b2853eb55f068663b1",
+    username: "Josi",
+    password: "word5678",
+    __v: 0
+  });
   //const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
@@ -45,20 +43,11 @@ export default function App() {
         user.username === userData.username &&
         user.password === userData.password
     )
-    console.log('selectedUser', selectedUser);
-
-      selectedUser
+    selectedUser
       ? setCurrentUser(selectedUser[0])
       : setCurrentUser({});
 
-       console.log("current user", currentUser);
-       console.log("current user favorites", currentUser.favorites);
-
-       //const favoriteConcerts = currentUser.favorites.map(favorite =>
-         //concerts.filter(concert => concert.id === favorite)
-       //);
-       const favoriteConcerts = concerts.filter(concert => currentUser.favorites.includes(concert._id) )
-       console.log(favoriteConcerts);
+      console.log(currentUser)
   }
 
 
@@ -89,7 +78,7 @@ export default function App() {
         <Route exact path="/" render={() => <HomePage 
         concerts={filteredByGenre} 
         genres={allGenres}
-        onHeartClick={toggleIsFavorite}
+        onHeartClick={setUsersFavorite}
         onSelectGenre={setSelectedGenre}
         onDeleteClick={removeConcert}
         selectedGenre={selectedGenre}
@@ -115,6 +104,48 @@ export default function App() {
     </AppStyled>
     </Router>
   );
+
+  function setUsersFavorite(concert) {
+    const indexFav = currentUser.favorites.findIndex(
+      favorite => favorite === concert._id
+    );
+  currentUser.favorites.includes(concert._id)
+  ? patchUser(currentUser._id, {
+      favorites: [
+        ...currentUser.favorites.slice(0, indexFav),
+        ...currentUser.favorites.slice(indexFav + 1)
+      ]
+    }).then(updatedUser => {
+      const index = users.findIndex(user => user._id === updatedUser._id);
+      const indexFav = currentUser.favorites.findIndex(
+        favorite => favorite === concert._id
+      );
+      console.log(currentUser.favorites);
+      console.log(indexFav);
+      setUsers([
+        ...users.slice(0, index),
+        {
+          ...currentUser,
+          favorites: [
+            ...currentUser.favorites.slice(0, indexFav),
+            ...currentUser.favorites.slice(indexFav + 1)
+          ]
+        },
+        ...users.slice(index + 1)
+      ]);
+    })
+  : patchUser(currentUser._id, {
+      favorites: [...currentUser.favorites, concert._id]
+    }).then(updatedUser => {
+      const index = users.findIndex(user => user._id === updatedUser._id);
+      setUsers([
+        ...users.slice(0, index),
+        { ...currentUser, favorites: [...currentUser.favorites, concert._id] },
+        ...users.slice(index + 1)
+      ]);
+    });
+
+  }
 
 
   function editConcert(id, editData) {
