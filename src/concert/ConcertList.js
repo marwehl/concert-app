@@ -7,13 +7,14 @@ export default function ConcertList({
                  concerts,
                  onHeartClick,
                  onDeleteClick,
+                 currentUser
                }) {
                  ConcertList.propTypes = {
                    concerts: PropTypes.arrayOf(PropTypes.object),
                    onHeartClick: PropTypes.func,
                    onDeleteClick: PropTypes.func
                  };
-
+                 
                  return (
                    <ConcertListStyled>
                      {concerts.map(concert => (
@@ -22,10 +23,12 @@ export default function ConcertList({
                          key={concert._id}
                          onHeartClick={() => onHeartClick(concert)}
                          onDeleteClick={() => onDeleteClick(concert)}
+                         currentUser={currentUser}
                        />
                      ))}
                    </ConcertListStyled>
                  );
+
                }
 
 const ConcertListStyled = styled.section`

@@ -17,7 +17,7 @@ HomePage.propTypes = {
 }
 
 
-export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick, selectedGenre}) {
+export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick, selectedGenre, currentUser}) {
   
   const [activeSort, setActiveSort] = useState('Latest added')
   const [showPopup, setShowPopup] = useState(false);
@@ -47,6 +47,7 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
           concerts={getSortedConcerts(concerts, activeSort)}
           onHeartClick={onHeartClick}
           onDeleteClick={handleDeleteClick}
+          currentUser={currentUser}
         />
       </MainStyled>
       {showPopup && (

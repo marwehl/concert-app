@@ -6,17 +6,31 @@ import CreatePage from './pages/CreatePage'
 import HomePage from './pages/HomePage'
 import FavoritesPage from './pages/FavoritesPage'
 import CalendarPage from './pages/CalendarPage'
-import { getConcerts, postConcert, patchConcert, deleteConcert } from './services'
-
+import LoginPage from "./LoginPage";
+import { getConcerts, postConcert, patchConcert, deleteConcert, postUser, patchUser, deleteUser, getSingleUser } from './services'
 
 
 export default function App() {
 
   const [concerts, setConcerts] = useState([])
+  const [currentUser, setCurrentUser] = useState({});
+
+  //const [isAdmin, setIsAdmin] = useState(false)   wird als nächstes eingebaut
 
   useEffect(() => {
     getConcerts().then(setConcerts)
   }, [])
+
+  useEffect(() => {
+  setCurrentUser(currentUser);
+  }, [currentUser]);
+
+
+  function handleLogin(userData) {
+    getSingleUser(userData.username)
+    .then(setCurrentUser)
+  }
+
 
   function addConcert(concertData) {
     postConcert(concertData).then(concert => {
@@ -41,38 +55,91 @@ export default function App() {
 
   return (
     <Router>
-    <AppStyled>
-        <Route exact path="/" render={() => <HomePage 
-        concerts={filteredByGenre} 
-        genres={allGenres}
-        onHeartClick={toggleIsFavorite}
-        onSelectGenre={setSelectedGenre}
-        onDeleteClick={removeConcert}
-        selectedGenre={selectedGenre}
-        /> }/>
-  <Route path="/favorites" render={() => <FavoritesPage 
-  concerts={concerts.filter(concert => concert.isFavorite === true)} 
-  onHeartClick={toggleIsFavorite}/> } />
-        <Route path="/calendar" render={() => <CalendarPage
-          concerts={concerts.filter(concert => concert.isFavorite === true)}
-       />} />
-      <Route path="/create" 
-      render={() => {
-      return <CreatePage 
-        onSubmit={addConcert}
-        editConcertData={{}}/>}} />
-        <Route path="/edit"
-        render={props => {
-          return <CreatePage
-            onSubmit={editConcert} editConcertData={props.location.editConcertData}/>}}/>
-      <Navigation/>
-    </AppStyled>
+      <AppStyled>
+        <Route
+          path="/home"
+          render={() => (
+            <HomePage
+              concerts={filteredByGenre}
+              genres={allGenres}
+              onHeartClick={setUsersFavorite}
+              onSelectGenre={setSelectedGenre}
+              onDeleteClick={removeConcert}
+              selectedGenre={selectedGenre}
+              currentUser={currentUser}
+            />
+          )}
+        />
+        <Route
+          path="/favorites"
+          render={() => (
+            <FavoritesPage
+              currentUser={currentUser}
+              concerts={concerts.filter(concert =>
+                currentUser.favorites.includes(concert._id)
+              )}
+              onHeartClick={toggleIsFavorite}
+            />
+          )}
+        />
+        <Route
+          path="/calendar"
+          render={() => (
+            <CalendarPage
+              currentUser={currentUser}
+              concerts={concerts.filter(concert =>
+                currentUser.favorites.includes(concert._id)
+              )}
+            />
+          )}
+        />
+        <Route
+          path="/create"
+          render={() => {
+            return <CreatePage onSubmit={addConcert} editConcertData={{}} />;
+          }}
+        />
+        <Route
+          path="/edit"
+          render={props => {
+            return (
+              <CreatePage
+                onSubmit={editConcert}
+                editConcertData={props.location.editConcertData}
+              />
+            );
+          }}
+        />
+        <Route exact
+          path="/"
+          render={() => <LoginPage handleLogin={handleLogin} />}
+        />
+        <Navigation />
+      </AppStyled>
     </Router>
   );
 
+  function setUsersFavorite(concert) {
+    const indexFav = currentUser.favorites.findIndex(
+      favorite => favorite === concert._id
+    );
+  currentUser.favorites.includes(concert._id)
+  ? patchUser(currentUser._id, {
+      favorites: [
+        ...currentUser.favorites.slice(0, indexFav),
+        ...currentUser.favorites.slice(indexFav + 1)
+      ]
+    }).then(currentUser => {
+      setCurrentUser(currentUser)
+       })
+  : patchUser(currentUser._id, {
+      favorites: [...currentUser.favorites, concert._id]
+    }).then(currentUser => {
+      setCurrentUser(currentUser)
+  });
+  }
 
   function editConcert(id, editData) {
-    console.log('editdata', editData)
     patchConcert(id, editData)
     .then(editConcert => {
       const index = concerts.findIndex(concert  => concert._id === editConcert._id)
@@ -93,7 +160,7 @@ deleteConcert(concert._id)
     ...concerts.slice(index + 1)
   ])
 })
-  }
+}
   
   function toggleIsFavorite(concert) {
     patchConcert(concert._id, { isFavorite: !concert.isFavorite })
