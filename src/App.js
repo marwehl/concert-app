@@ -7,23 +7,13 @@ import HomePage from './pages/HomePage'
 import FavoritesPage from './pages/FavoritesPage'
 import CalendarPage from './pages/CalendarPage'
 import LoginPage from "./LoginPage";
-import { getConcerts, postConcert, patchConcert, deleteConcert, getUsers, postUser, patchUser, deleteUser, getSingleUser } from './services'
+import { getConcerts, postConcert, patchConcert, deleteConcert, postUser, patchUser, deleteUser, getSingleUser } from './services'
 
 
 export default function App() {
 
   const [concerts, setConcerts] = useState([])
-  const [currentUser, setCurrentUser] = useState({
-    favorites: [
-      "5da86c862bb41a6aabb9ce4a",
-      "5da86caa2bb41a6aabb9ce4b",
-      "5da86cf42bb41a6aabb9ce4d"
-    ],
-    _id: "5da859b2853eb55f068663b1",
-    username: "Josi",
-    password: "word5678",
-    __v: 0
-  });
+  const [currentUser, setCurrentUser] = useState({});
 
   //const [isAdmin, setIsAdmin] = useState(false)   wird als nächstes eingebaut
 
@@ -67,8 +57,7 @@ export default function App() {
     <Router>
       <AppStyled>
         <Route
-          exact
-          path="/"
+          path="/home"
           render={() => (
             <HomePage
               concerts={filteredByGenre}
@@ -121,8 +110,8 @@ export default function App() {
             );
           }}
         />
-        <Route
-          path="/login"
+        <Route exact
+          path="/"
           render={() => <LoginPage handleLogin={handleLogin} />}
         />
         <Navigation />

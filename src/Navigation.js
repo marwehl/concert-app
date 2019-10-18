@@ -5,11 +5,12 @@ import { Heart } from 'styled-icons/fa-solid/Heart'
 import { Home } from 'styled-icons/boxicons-solid/Home'
 import { PlusCircle } from 'styled-icons/boxicons-solid/PlusCircle'
 import { Calendar } from 'styled-icons/boxicons-regular/Calendar'
+import { Exit } from "styled-icons/icomoon/Exit";
 
 export default function Navigation () {
   return (
     <NavigationStyled>
-      <LinkStyled exact to="/">
+      <LinkStyled to="/home">
         <HomeStyled></HomeStyled>
       </LinkStyled>
       <LinkStyled to="/favorites">
@@ -21,8 +22,8 @@ export default function Navigation () {
       <LinkStyled to="/create">
         <PlusCircleStyled></PlusCircleStyled>
       </LinkStyled>
-      <LinkStyled to="/login">
-        <PlusCircleStyled></PlusCircleStyled>
+      <LinkStyled exact to="/">
+        <ExitStyled></ExitStyled>
       </LinkStyled>
     </NavigationStyled>
   );
@@ -49,6 +50,9 @@ grid-auto-flow: column;
 gap: 1px;
 `
 
+const ExitStyled = styled(Exit)`
+width: 28px;
+`
 const HomeStyled = styled(Home)`
 width: 28px;
 `

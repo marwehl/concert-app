@@ -15,27 +15,34 @@ function handleSubmit(event) {
 }
 
   return (
+    <MainStyled>
     <StyledForm onSubmit={handleSubmit}>
-      <label>
+      <LabelStyled>
         Username:
-        <input
+        <InputStyled
           name="username"
           value={username}
           onChange={event => setUsername(event.target.value)}
-        ></input>
-      </label>
-      <label>
+        ></InputStyled>
+      </LabelStyled>
+      <LabelStyled>
         Password:
-        <input
+        <InputStyled
+        type="password"
           name="password"
           value={password}
           onChange={event => setPassword(event.target.value)}
-        ></input>
-      </label>
-      <button>Login</button>
+        ></InputStyled>
+      </LabelStyled>
+      <ButtonStyled>Login</ButtonStyled>
     </StyledForm>
+    </MainStyled>
   );
 }
+
+const MainStyled = styled.main`
+padding: 30px;
+`
 
 const StyledForm = styled.form`
 display: flex;
@@ -44,3 +51,34 @@ gap: 20px;
 height: 400px;
 width: 300px;
 `
+
+const LabelStyled = styled.label`
+  display: grid;
+  gap: 0.5px;
+`;
+
+const InputStyled = styled.input`
+  padding: 7px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 1.1em;
+  &: active {
+    border-color: #e87613;
+  }
+  &: focus {
+    border-color: #e87613;
+  }
+  `
+
+  const ButtonStyled = styled.button`
+    height: 48px;
+    align-self: center;
+    background-color: #e87613;
+    font-size: 2em;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px gray;
+    &:active {
+      box-shadow: none;
+    }
+  `;
