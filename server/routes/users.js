@@ -7,8 +7,8 @@ router.get("/", (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.get("/:id", (req, res) => {
-  User.find({ id: req.params.id })
+router.get("/:username", (req, res) => {
+  User.findOne({ username: req.params.username })
     .then(users => res.json(users))
     .catch(err => res.json(err));
 });

@@ -2,11 +2,15 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import ConcertList from '../concert/ConcertList'
 
-export default function FavoritesPage ({concerts, onHeartClick}) {
+export default function FavoritesPage ({concerts, onHeartClick, currentUser}) {
 
   return (
     <FavoritesPageStyled>
-      <ConcertList concerts={concerts} onHeartClick={onHeartClick} />
+      <ConcertList
+        concerts={concerts}
+        onHeartClick={onHeartClick}
+        currentUser={currentUser}
+      />
     </FavoritesPageStyled>
   );
 }

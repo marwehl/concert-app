@@ -22,6 +22,7 @@ export default function Concert({
   onHeartClick,
   onDeleteClick,
   _id,
+  currentUser
 }) 
 
 {
@@ -39,6 +40,9 @@ Concert.propTypes = {
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
+console.log("Concert", currentUser);
+
+
 
 
   return (
@@ -70,10 +74,16 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
           <ArtistStyled>{artist}</ArtistStyled>
-          <HeartStyled onClick={onHeartClick} active={isFavorite}></HeartStyled>
+          <HeartStyled
+            onClick={onHeartClick}
+            active={
+              currentUser.favorites && currentUser.favorites.includes(_id)
+            }
+          ></HeartStyled>
           <FullHeartStyled
             onClick={onHeartClick}
-            active={!isFavorite}
+            active={!currentUser.favorites.includes(_id)
+            }
           ></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
         <DateContainerStyled>

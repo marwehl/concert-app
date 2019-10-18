@@ -28,6 +28,10 @@ export function getUsers() {
   return fetchUsers()
 }
 
+export function getSingleUser(id) {
+  return fetchUsers({id})
+}
+
 export function postUser(data) {
   return fetchUsers({ method: 'POST', data })
 }
