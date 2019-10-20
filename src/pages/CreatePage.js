@@ -26,7 +26,7 @@ export default function CreatePage({ onSubmit, editConcertData }) {
    const [image, setImage] = useState(editConcertData.image ? editConcertData.image : concert);
 
   return isCreated ? (
-    <Redirect to="/" />
+    <Redirect to="/home" />
   ) : (
     <FormStyled onSubmit={handleSubmit}>
       <LabelStyled>

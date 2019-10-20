@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 
 
@@ -6,15 +7,20 @@ export default function LoginPage({handleLogin}) {
 
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
+const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 function handleSubmit(event) {
   event.preventDefault()
      const formData = new FormData(event.target);
      let userdata = Object.fromEntries(formData);
      handleLogin(userdata)
+    //setIsLoggedIn(true);
 }
 
-  return (
+  return isLoggedIn 
+    ? (
+    <Redirect to="/home" />
+  ) : (
     <MainStyled>
     <StyledForm onSubmit={handleSubmit}>
       <LabelStyled>
@@ -37,7 +43,7 @@ function handleSubmit(event) {
       <ButtonStyled>Login</ButtonStyled>
     </StyledForm>
     </MainStyled>
-  );
+  )
 }
 
 const MainStyled = styled.main`
