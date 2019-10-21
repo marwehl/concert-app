@@ -27,6 +27,7 @@ export default function App() {
 
 
   function handleLogin(userData) {
+    console.log('Userdata', userData)
     getSingleUser(userData.username)
     .then(setCurrentUser)
   }

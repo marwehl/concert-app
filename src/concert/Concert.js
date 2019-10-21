@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
 import Tag from './Tag'
@@ -11,6 +11,7 @@ import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import concert from '../images/concert.jpg'
+import { fetchSpotify } from '../services';
 
 export default function Concert({ 
   artist, 
@@ -42,8 +43,13 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 console.log("Concert", currentUser);
 
+//async function getSampleLink(){
+ //await fetchSpotify()}
 
 
+ //useEffect(
+  //()getSampleLink()
+  //, [])
 
   return (
     <ConcertStyled>
@@ -191,11 +197,11 @@ display: ${props => (props.active ? 'none' : 'block')}
 `
 
 const FullHeartStyled = styled(FullHeart)`
-width: 28px;
-margin-top: -10px;
-color: #E87613;
-display: ${props => (props.active ? 'none' : 'block')}
-`
+  width: 28px;
+  margin-top: -10px;
+  color: #f39b4f;
+  display: ${props => (props.active ? "none" : "block")};
+`;
 
 const  DateContainerStyled = styled.section`
 display: flex;
