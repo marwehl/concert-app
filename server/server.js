@@ -1,7 +1,4 @@
 
-
-
-
 const express = require('express')
 const cors = require('cors')
 const server = express()
@@ -23,4 +20,3 @@ server.use("/users", require("./routes/users"));
 
 
 getSongPreview().then(res => console.log('TEST',res))
-//getArtistId().then(res => console.log("TEST artist id", res));

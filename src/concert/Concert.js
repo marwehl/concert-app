@@ -11,7 +11,7 @@ import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import concert from '../images/concert.jpg'
-import { fetchSpotify } from '../services';
+import {PlayArrow} from "styled-icons/material/PlayArrow";
 
 export default function Concert({ 
   artist, 
@@ -19,6 +19,7 @@ export default function Concert({
   genres, 
   image, 
   description,
+  previewUrl,
   isFavorite,
   onHeartClick,
   onDeleteClick,
@@ -43,13 +44,6 @@ const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 console.log("Concert", currentUser);
 
-//async function getSampleLink(){
- //await fetchSpotify()}
-
-
- //useEffect(
-  //()getSampleLink()
-  //, [])
 
   return (
     <ConcertStyled>
@@ -80,6 +74,13 @@ console.log("Concert", currentUser);
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
           <ArtistStyled>{artist}</ArtistStyled>
+          <AudioStyled
+            id="player"
+            controls
+            type="audio/mpeg"
+            src={previewUrl}
+          />
+          <PlayArrowStyled></PlayArrowStyled>
           <HeartStyled
             onClick={onHeartClick}
             active={
@@ -88,8 +89,7 @@ console.log("Concert", currentUser);
           ></HeartStyled>
           <FullHeartStyled
             onClick={onHeartClick}
-            active={!currentUser.favorites.includes(_id)
-            }
+            active={!currentUser.favorites.includes(_id)}
           ></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
         <DateContainerStyled>
@@ -158,6 +158,13 @@ width: 100%;
 object-fit: cover;
 object-position: center;
 border-radius: 10px 10px 0 0;
+`
+
+const AudioStyled = styled.audio`
+width: 50px;
+`
+const PlayArrowStyled = styled(PlayArrow)`
+width: 26px;
 `
 const DeleteStyled = styled(Delete)`
 position: absolute;

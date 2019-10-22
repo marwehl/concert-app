@@ -1,13 +1,13 @@
 const requestLib = require('request')
-const client_id = process.env.REACT_APP_CLIENT_ID;
-const client_secret = process.env.REACT_APP_CLIENT_SECRET;
+const client_id = ;
+const client_secret = ;
 
 let spotifyToken = null
 let artist_ID = null
 
-async function getSongPreview() {
+async function getSongPreview(artist_query) {
   const token = await getSpotifyToken();
-  const artistID = await getArtistId(token);
+  const artistID = await getArtistId(token, artist_query);
   const previewUrl = await getPreviewUrl(token, artistID);
   return previewUrl;
 }
@@ -38,10 +38,10 @@ return spotifyToken;
  }
 
 
-async function getArtistId (token) {
+async function getArtistId (token, artist_query) {
   const authOptions = {
     url:
-      "https://api.spotify.com/v1/search?query=bring+me+the+horizon&offset=0&limit=20&type=artist",
+      `https://api.spotify.com/v1/search?query=${artist_query}&offset=0&limit=20&type=artist`,
     headers: {
       Authorization: "Bearer " + token
     }
@@ -52,13 +52,11 @@ async function getArtistId (token) {
     resolve(data.artists.items[0].id)
   });
   });
-  console.log("ID", artistId);
   return artistId
 }
 
 
 async function getPreviewUrl(token, artistID) {
-  console.log('id', artist_ID)
   const authOptions = {
     url:
       `https://api.spotify.com/v1/artists/${artistID}/top-tracks?country=SE`,
@@ -75,4 +73,4 @@ async function getPreviewUrl(token, artistID) {
   return previewUrl
 }
 
-module.exports = {getSongPreview };
+module.exports = {getSongPreview};

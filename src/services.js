@@ -54,17 +54,4 @@ function fetchUsers({ method = 'GET', id = '', data } = {}) {
   }).then(res => res.json())
 }
 
-export function fetchAuthorization() {
-  return fetch("https://accounts.spotify.com/authorize");
-}
 
-export function fetchSpotify(data) {
-  return fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    body: data,
-    headers: {
-      "content-type": "application/x-www-form-urlencoded",
-      "Authorization": "Bearer"
-    }
-  });
-}
