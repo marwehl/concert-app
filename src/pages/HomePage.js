@@ -13,11 +13,12 @@ HomePage.propTypes = {
   onDeleteClick: PropTypes.func,
   onEditClick: PropTypes.func,
   genres: PropTypes.arrayOf(PropTypes.string),
-  onSelectGenre: PropTypes.func
+  onSelectGenre: PropTypes.func,
+  selectedGenre: PropTypes.string,
+  currentUser: PropTypes.object
 }
 
-
-export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick, selectedGenre, currentUser}) {
+export default function HomePage({concerts, onHeartClick, genres, onSelectGenre, onDeleteClick, onEditClick, selectedGenre, currentUser}) {
   
   const [activeSort, setActiveSort] = useState('Latest added')
   const [showPopup, setShowPopup] = useState(false);

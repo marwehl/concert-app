@@ -86,13 +86,13 @@ display: none;
 `
 
 const LabelStyled = styled.label`
-display: ${props => props.active ? 'block' : 'none'};
-background: ${props => props.selected ? '#E87613' : 'white'};
-padding:5px;
-border-radius: 10px;
-text-align: center;
-font-size: 1em;
-&:hover {
-  border: 2px solid #E87613;
-}
-`
+  display: ${props => (props.active ? "block" : "none")};
+  background: ${props => (props.selected ? "#f39b4f" : "white")};
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1em;
+  &:hover {
+    border: 2px solid #f39b4f;
+  }
+`;

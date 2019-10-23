@@ -40,16 +40,15 @@ const LinkStyled = styled(NavLink)`
   background: white;
 
   &.active {
-    color: #E87613;
+    color: #f39b4f;
   }
-`
+`;
 
 const NavigationStyled = styled.nav`
 display: grid;
 grid-auto-flow: column;
 gap: 1px;
 `
-
 const ExitStyled = styled(Exit)`
 width: 28px;
 `

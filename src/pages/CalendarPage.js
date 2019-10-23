@@ -7,11 +7,14 @@ import interactionPlugin from "@fullcalendar/interaction";
 import CalendarWrapper from '../calendar/Calendar'
 import Popup from "../calendar/Popup";
 
+  CalendarPage.propTypes = {
+    concerts: PropTypes.arrayOf(PropTypes.object)
+  };
 
 export default function CalendarPage ({concerts}) {
 
 const dates = concerts.map(concert => concert.fullDate)
-const slicedDates = dates.map(foo => foo.slice(0,10))
+const slicedDates = dates.map(date => date.slice(0,10))
 const newEvents = slicedDates.map(slicedDate => { return { title: '', date: slicedDate, extendedProps: {id: slicedDate}}})
 const [showPopup, setShowPopup] = useState(false)
 const [selectedConcert, setSelectedConcert] = useState({})

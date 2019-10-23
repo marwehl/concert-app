@@ -23,16 +23,15 @@ const FilterButtonStyled = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${props => (props.active ? '#E87613' : 'white')};
+  background: ${props => (props.active ? "#f39b4f" : "white")};
   font-size: 1.3em;
   outline: none;
   border: none;
   margin: 5px;
   border-radius: 10px;
-  box-shadow:  0 2px 4px #CCC2C2;
+  box-shadow: 0 2px 4px #ccc2c2;
 
   &:hover {
-  background: #E87613;
+    background: #f39b4f;
   }
- 
-`
+`;

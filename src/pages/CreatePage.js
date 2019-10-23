@@ -7,15 +7,16 @@ import Datepicker from "../createConcert/Datepicker"
 import AddImageIcon from "../createConcert/AddImageIcon";
 import concert from "../images/concert.jpg"
 
+ CreatePage.propTypes = {
+   onSubmit: PropTypes.func,
+   editConcertData: PropTypes.object
+ };
+
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 export default function CreatePage({ onSubmit, editConcertData }) {
 
-  CreatePage.propTypes = {
-    onSubmit: PropTypes.func,
-    editConcertData: PropTypes.object
-  };
     const [isCreated, setIsCreated] = useState(false);
     const [artist, setArtist] = useState(editConcertData.artist ? editConcertData.artist : '' );
     const [date, setDate] = useState(new Date(editConcertData.fullDate ? editConcertData.fullDate : Date.now()));
@@ -26,7 +27,7 @@ export default function CreatePage({ onSubmit, editConcertData }) {
    const [image, setImage] = useState(editConcertData.image ? editConcertData.image : concert);
 
   return isCreated ? (
-    <Redirect to="/" />
+    <Redirect to="/home" />
   ) : (
     <FormStyled onSubmit={handleSubmit}>
       <LabelStyled>
@@ -132,10 +133,10 @@ const InputStyled = styled.input`
   border-radius: 10px;
   font-size: 1.1em;
   &: active {
-    border-color: #e87613;
+    border-color: #f39b4f;
   }
   &: focus {
-    border-color: #e87613;
+    border-color: #f39b4f;
   }
 `;
 
@@ -157,17 +158,17 @@ const TextareaStyled = styled.textarea`
   font-family: inherit;
   font-size: 1.1em;
   &: active {
-    border-color: #e87613;
+    border-color: #f39b4f;
   }
   &: focus {
-    border-color: #e87613;
+    border-color: #f39b4f;
   }
 `;
 
 const CreateButtonStyled = styled.button`
   height: 48px;
   align-self: center;
-  background-color: #e87613;
+  background-color: #f39b4f;
   font-size: 2em;
   border: none;
   border-radius: 10px;

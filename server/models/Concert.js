@@ -7,6 +7,7 @@ const Concert = mongoose.model('Concert', {
   description: String,
   genres: Array,
   isFavorite: Boolean,
+  previewUrl: String
 })
 
 module.exports = Concert

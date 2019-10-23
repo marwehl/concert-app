@@ -53,3 +53,5 @@ function fetchUsers({ method = 'GET', id = '', data } = {}) {
     },
   }).then(res => res.json())
 }
+
+

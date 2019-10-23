@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
-import Tag from './Tag'
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import Tag from './Tag';
+import concert from "../images/concert.jpg";
 import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Time } from 'styled-icons/boxicons-regular/Time'
@@ -10,7 +11,8 @@ import { Heart } from 'styled-icons/fa-regular/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
-import concert from '../images/concert.jpg'
+import {PlayArrow} from "styled-icons/material/PlayArrow";
+
 
 export default function Concert({ 
   artist, 
@@ -18,7 +20,7 @@ export default function Concert({
   genres, 
   image, 
   description,
-  isFavorite,
+  previewUrl,
   onHeartClick,
   onDeleteClick,
   _id,
@@ -32,18 +34,17 @@ Concert.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   image: PropTypes.string,
   description: PropTypes.string,
-  isFavorite: PropTypes.bool,
   onHeartClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+  _id: PropTypes.string,
+  currentUser: PropTypes.object
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
-console.log("Concert", currentUser);
-
-
-
+const [isPlaying, setIsPlaying] = useState(false)
+const audioEl = useRef(null);
 
   return (
     <ConcertStyled>
@@ -58,7 +59,6 @@ console.log("Concert", currentUser);
             description,
             image,
             genres,
-            isFavorite,
             onHeartClick
           }
         }}
@@ -73,7 +73,14 @@ console.log("Concert", currentUser);
 
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
-          <ArtistStyled>{artist}</ArtistStyled>
+            <ArtistStyled>{artist}</ArtistStyled>
+            <AudioStyled src={previewUrl} ref={audioEl} loop></AudioStyled>
+            {(previewUrl && !isPlaying) &&
+            <PlayArrowStyled onClick={onPlayClick} />
+            }
+            {(previewUrl && isPlaying )&&
+            <PlayArrowStyled onClick={onPauseClick} />
+            }
           <HeartStyled
             onClick={onHeartClick}
             active={
@@ -82,8 +89,7 @@ console.log("Concert", currentUser);
           ></HeartStyled>
           <FullHeartStyled
             onClick={onHeartClick}
-            active={!currentUser.favorites.includes(_id)
-            }
+            active={!currentUser.favorites.includes(_id)}
           ></FullHeartStyled>
         </ConcertInfoHeadlineStyled>
         <DateContainerStyled>
@@ -114,6 +120,16 @@ console.log("Concert", currentUser);
       </ConcertInfoStyled>
     </ConcertStyled>
   );
+
+  function onPlayClick() {
+    audioEl.current.play();
+    setIsPlaying(!isPlaying)
+  }
+
+  function onPauseClick() {
+    audioEl.current.pause()
+     setIsPlaying(!isPlaying);
+  }
 
   function formatDate(fullDate) {
     const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
@@ -147,12 +163,26 @@ border-radius: 10px;
 box-shadow: 0 2px 4px #CCC2C2;
 `
 const ConcertImageStyled = styled.img`
-height: ${props => (props.active) ? '' : '120px'};
-width: 100%;
-object-fit: cover;
-object-position: center;
-border-radius: 10px 10px 0 0;
+  height: ${props => (props.active ? "" : "120px")};
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px 10px 0 0;
+`;
+
+const AudioStyled = styled.audio`
+width: 50px;
 `
+const PlayArrowStyled = styled(PlayArrow)`
+  position: absolute;
+  left: 150px;
+  top: 95px;
+  width: 48px;
+  color: #f39b4f;
+  background: white;
+  border: 2px solid #f39b4f;
+  border-radius: 50%;
+`;
 const DeleteStyled = styled(Delete)`
 position: absolute;
 right: 10px;
@@ -191,11 +221,11 @@ display: ${props => (props.active ? 'none' : 'block')}
 `
 
 const FullHeartStyled = styled(FullHeart)`
-width: 28px;
-margin-top: -10px;
-color: #E87613;
-display: ${props => (props.active ? 'none' : 'block')}
-`
+  width: 28px;
+  margin-top: -10px;
+  color: #f39b4f;
+  display: ${props => (props.active ? "none" : "block")};
+`;
 
 const  DateContainerStyled = styled.section`
 display: flex;
@@ -230,7 +260,3 @@ word-break: break-word;`
 const TagListStyled = styled.section`
 align-self: center;
 `
-
-
-
-
