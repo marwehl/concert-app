@@ -13,14 +13,32 @@ export default function PopUpDelete ({onYesDeleteClick, onNotDeleteClick, concer
   return (
     <PopUpDeleteStyled concert={concert}>
       <p>Do you really want to delete this concert?</p>
-      <button onClick={onNotDeleteClick}>No</button>
-      <button onClick={onYesDeleteClick}>Yes</button>
+      <ButtonContainerStyled>
+        <ButtonStyled onClick={onNotDeleteClick}>Cancel</ButtonStyled>
+        <ButtonStyled
+          onClick={onYesDeleteClick}
+          style={{ background: "var(--orange)" }}
+        >
+          Delete
+        </ButtonStyled>
+      </ButtonContainerStyled>
     </PopUpDeleteStyled>
   );
 }
 
 const PopUpDeleteStyled = styled.section`
-padding: 15px;
-background-color: white;
-border-radius: 10px;
+  padding: 15px;
+  padding-top: 5px;
+  background-color: white;
+  border-radius: 10px;
+`;
+
+const ButtonContainerStyled = styled.section`
+display: flex;
+justify-content: space-around;
+`
+
+const ButtonStyled = styled.button`
+padding: 5px 10px;
+border-radius: 5px;
 `

@@ -87,12 +87,12 @@ display: none;
 
 const LabelStyled = styled.label`
   display: ${props => (props.active ? "block" : "none")};
-  background: ${props => (props.selected ? "#f39b4f" : "white")};
+  background: ${props => (props.selected ? "var(--orange)" : "white")};
   padding: 5px;
   border-radius: 10px;
   text-align: center;
   font-size: 1em;
   &:hover {
-    border: 2px solid #f39b4f;
+    border: 2px solid var(--orange);
   }
 `;

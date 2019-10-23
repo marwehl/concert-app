@@ -40,7 +40,7 @@ const LinkStyled = styled(NavLink)`
   background: white;
 
   &.active {
-    color: #f39b4f;
+    color: var(--orange);
   }
 `;
 

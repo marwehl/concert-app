@@ -2,7 +2,6 @@
 const express = require('express')
 const cors = require('cors')
 const server = express()
-const { getSongPreview } = require("./spotify_utils");
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/concert-app', {
@@ -17,6 +16,3 @@ server.set('json spaces', 2)
 
 server.use('/concerts', require('./routes/concerts'))
 server.use("/users", require("./routes/users"));
-
-
-getSongPreview().then(res => console.log('TEST',res))

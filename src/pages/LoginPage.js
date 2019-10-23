@@ -73,12 +73,12 @@ const InputStyled = styled.input`
   border-radius: 10px;
   font-size: 1.1em;
   &: active {
-    border-color: #e87613;
+    border-color: var(--orange);
   }
   &: focus {
-    border-color: #e87613;
+    border-color: var(--orange);
   }
-  `
+`;
 
   const ButtonStyled = styled.button`
     height: 48px;
