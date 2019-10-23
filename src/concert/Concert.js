@@ -180,7 +180,7 @@ const PlayArrowStyled = styled(PlayArrow)`
   width: 48px;
   color: #f39b4f;
   background: white;
-  border: 2px solid #f39b4f;
+  border: 2px solid var(--orange);
   border-radius: 50%;
 `;
 const DeleteStyled = styled(Delete)`
@@ -223,7 +223,7 @@ display: ${props => (props.active ? 'none' : 'block')}
 const FullHeartStyled = styled(FullHeart)`
   width: 28px;
   margin-top: -10px;
-  color: #f39b4f;
+  color: var(--orange);
   display: ${props => (props.active ? "none" : "block")};
 `;
 

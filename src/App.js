@@ -6,7 +6,7 @@ import CreatePage from './pages/CreatePage'
 import HomePage from './pages/HomePage'
 import FavoritesPage from './pages/FavoritesPage'
 import CalendarPage from './pages/CalendarPage'
-import LoginPage from "./pages/LoginPageinPage";
+import LoginPage from "./pages/LoginPage";
 import { getConcerts, postConcert, patchConcert, deleteConcert, postUser, patchUser, deleteUser, getSingleUser } from './services'
 
 

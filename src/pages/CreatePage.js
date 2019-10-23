@@ -133,10 +133,10 @@ const InputStyled = styled.input`
   border-radius: 10px;
   font-size: 1.1em;
   &: active {
-    border-color: #f39b4f;
+    border-color: var(--orange);
   }
   &: focus {
-    border-color: #f39b4f;
+    border-color: var(--orange);
   }
 `;
 
@@ -158,17 +158,17 @@ const TextareaStyled = styled.textarea`
   font-family: inherit;
   font-size: 1.1em;
   &: active {
-    border-color: #f39b4f;
+    border-color: var(--orange);
   }
   &: focus {
-    border-color: #f39b4f;
+    border-color: var(--orange);
   }
 `;
 
 const CreateButtonStyled = styled.button`
   height: 48px;
   align-self: center;
-  background-color: #f39b4f;
+  background-color: var(--orange);
   font-size: 2em;
   border: none;
   border-radius: 10px;

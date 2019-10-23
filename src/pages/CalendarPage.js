@@ -76,14 +76,13 @@ const PopupStyled = styled.div`
   margin: auto;
   background-color: rgba(0,0,0, 0.5);
   z-index: 3;
+  display: flex;
+  justify-content: center;
+align-items: center;
 `
 
 const PopupInnerStyled = styled.div`
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 16%;
-  margin: auto;
+  margin: 20px;
   background: rgba(0,0,0, 0.5);
   border-radius: 10px;
 `
