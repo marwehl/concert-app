@@ -7,6 +7,9 @@ import interactionPlugin from "@fullcalendar/interaction";
 import CalendarWrapper from '../calendar/Calendar'
 import Popup from "../calendar/Popup";
 
+  CalendarPage.propTypes = {
+    concerts: PropTypes.arrayOf(PropTypes.object)
+  };
 
 export default function CalendarPage ({concerts}) {
 

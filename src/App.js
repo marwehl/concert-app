@@ -6,7 +6,7 @@ import CreatePage from './pages/CreatePage'
 import HomePage from './pages/HomePage'
 import FavoritesPage from './pages/FavoritesPage'
 import CalendarPage from './pages/CalendarPage'
-import LoginPage from "./LoginPage";
+import LoginPage from "./pages/LoginPageinPage";
 import { getConcerts, postConcert, patchConcert, deleteConcert, postUser, patchUser, deleteUser, getSingleUser } from './services'
 
 
@@ -77,7 +77,7 @@ export default function App() {
               concerts={concerts.filter(concert =>
                 currentUser.favorites.includes(concert._id)
               )}
-              onHeartClick={toggleIsFavorite}
+              onHeartClick={setUsersFavorite}
             />
           )}
         />
@@ -161,17 +161,6 @@ deleteConcert(concert._id)
 })
 }
   
-  function toggleIsFavorite(concert) {
-    patchConcert(concert._id, { isFavorite: !concert.isFavorite })
-      .then(updatedConcert => {
-        const index = concerts.findIndex(concert => concert._id === updatedConcert._id)
-        setConcerts([
-          ...concerts.slice(0, index),
-          { ...concert, isFavorite: updatedConcert.isFavorite },
-          ...concerts.slice(index + 1),
-        ])
-      })
-  }
 }
 
 const AppStyled = styled.section`

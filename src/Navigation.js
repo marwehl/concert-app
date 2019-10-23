@@ -49,7 +49,6 @@ display: grid;
 grid-auto-flow: column;
 gap: 1px;
 `
-
 const ExitStyled = styled(Exit)`
 width: 28px;
 `

@@ -1,6 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import PropTypes from "prop-types";
 import ConcertList from '../concert/ConcertList'
+
+ FavoritesPage.propTypes = {
+   concerts: PropTypes.arrayOf(PropTypes.object),
+   onHeartClick: PropTypes.func,
+   currentUser: PropTypes.object
+ };
 
 export default function FavoritesPage ({concerts, onHeartClick, currentUser}) {
 
@@ -16,7 +23,6 @@ export default function FavoritesPage ({concerts, onHeartClick, currentUser}) {
   );
 }
 
-
 const FavoritesPageStyled = styled.section`
 padding: 15px;
 display: grid;
@@ -25,7 +31,6 @@ overflow-y: scroll;
   -ms-overflow-style: none; 
    scrollbar-width: none;
 `
-
 const HeadlineStyled = styled.span`
 text-align: center;
 font-size: 1.5em;

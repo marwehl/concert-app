@@ -1,8 +1,9 @@
 import React, {useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
-import Tag from './Tag'
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import Tag from './Tag';
+import concert from "../images/concert.jpg";
 import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Time } from 'styled-icons/boxicons-regular/Time'
@@ -10,9 +11,8 @@ import { Heart } from 'styled-icons/fa-regular/Heart'
 import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
-import concert from '../images/concert.jpg'
 import {PlayArrow} from "styled-icons/material/PlayArrow";
-import  Sound from 'react-sound'
+
 
 export default function Concert({ 
   artist, 
@@ -21,7 +21,6 @@ export default function Concert({
   image, 
   description,
   previewUrl,
-  isFavorite,
   onHeartClick,
   onDeleteClick,
   _id,
@@ -35,9 +34,10 @@ Concert.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   image: PropTypes.string,
   description: PropTypes.string,
-  isFavorite: PropTypes.bool,
   onHeartClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+  _id: PropTypes.string,
+  currentUser: PropTypes.object
 }
 
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
@@ -59,7 +59,6 @@ const audioEl = useRef(null);
             description,
             image,
             genres,
-            isFavorite,
             onHeartClick
           }
         }}

@@ -7,15 +7,16 @@ import Datepicker from "../createConcert/Datepicker"
 import AddImageIcon from "../createConcert/AddImageIcon";
 import concert from "../images/concert.jpg"
 
+ CreatePage.propTypes = {
+   onSubmit: PropTypes.func,
+   editConcertData: PropTypes.object
+ };
+
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 export default function CreatePage({ onSubmit, editConcertData }) {
 
-  CreatePage.propTypes = {
-    onSubmit: PropTypes.func,
-    editConcertData: PropTypes.object
-  };
     const [isCreated, setIsCreated] = useState(false);
     const [artist, setArtist] = useState(editConcertData.artist ? editConcertData.artist : '' );
     const [date, setDate] = useState(new Date(editConcertData.fullDate ? editConcertData.fullDate : Date.now()));

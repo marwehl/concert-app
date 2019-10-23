@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
+import PropTypes from "prop-types";
 
+LoginPage.propTypes = {
+  handleLogin: PropTypes.func
+};
 
 export default function LoginPage({handleLogin}) {
 
