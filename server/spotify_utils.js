@@ -4,10 +4,6 @@ const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_SECRET } = require('./config.js')
 const client_id = REACT_APP_CLIENT_ID;
 const client_secret = REACT_APP_CLIENT_SECRET;
 
-
-//let spotifyToken = null
-//let artist_ID = null
-
 async function getSongPreview(artist_query) {
   const token = await getSpotifyToken();
   const artistID = await getArtistId(token, artist_query);

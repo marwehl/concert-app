@@ -83,10 +83,9 @@ export default function CreatePage({ onSubmit, editConcertData }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const fullDate = new Date(date);
-    //const createDate = new Date();
+    const createDate = new Date();
     let data = Object.fromEntries(formData);
-    data = { ...data, fullDate, image };
-    console.log(data)
+    data = { ...data, fullDate, createDate, image };
     data.genres = data.genres
       .split(",")
       .filter(item => item !== "")
