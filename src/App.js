@@ -14,7 +14,6 @@ export default function App() {
 
   const [concerts, setConcerts] = useState([])
   const [currentUser, setCurrentUser] = useState({});
-
   //const [isAdmin, setIsAdmin] = useState(false)   wird als nächstes eingebaut
 
   useEffect(() => {
@@ -27,7 +26,6 @@ export default function App() {
 
 
   function handleLogin(userData) {
-    console.log('Userdata', userData)
     getSingleUser(userData.username)
     .then(setCurrentUser)
   }

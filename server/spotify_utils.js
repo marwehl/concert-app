@@ -29,14 +29,12 @@ async function getSpotifyToken() {
   }
   const spotifyToken = await new Promise((resolve, reject) => {
     requestLib.post(authOptions, function(err, req, body) {
-      console.log("SPOTIFY", err, body);
       if (!err) {
         const data = JSON.parse(body)
         resolve(data.access_token);
       }
     });
   });
-  console.log('spotifyToken', spotifyToken);
 return spotifyToken;
  }
 

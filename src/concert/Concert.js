@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
 import Tag from './Tag'
@@ -12,6 +12,7 @@ import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import concert from '../images/concert.jpg'
 import {PlayArrow} from "styled-icons/material/PlayArrow";
+import  Sound from 'react-sound'
 
 export default function Concert({ 
   artist, 
@@ -42,8 +43,8 @@ Concert.propTypes = {
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
-console.log("Concert", currentUser);
-
+const [isPlaying, setIsPlaying] = useState(false)
+const audioEl = useRef(null);
 
   return (
     <ConcertStyled>
@@ -73,14 +74,14 @@ console.log("Concert", currentUser);
 
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
-          <ArtistStyled>{artist}</ArtistStyled>
-          <AudioStyled
-            id="player"
-            controls
-            type="audio/mpeg"
-            src={previewUrl}
-          />
-          <PlayArrowStyled></PlayArrowStyled>
+            <ArtistStyled>{artist}</ArtistStyled>
+            <AudioStyled src={previewUrl} ref={audioEl} loop></AudioStyled>
+            {(previewUrl && !isPlaying) &&
+            <PlayArrowStyled onClick={onPlayClick} />
+            }
+            {(previewUrl && isPlaying )&&
+            <PlayArrowStyled onClick={onPauseClick} />
+            }
           <HeartStyled
             onClick={onHeartClick}
             active={
@@ -121,6 +122,16 @@ console.log("Concert", currentUser);
     </ConcertStyled>
   );
 
+  function onPlayClick() {
+    audioEl.current.play();
+    setIsPlaying(!isPlaying)
+  }
+
+  function onPauseClick() {
+    audioEl.current.pause()
+     setIsPlaying(!isPlaying);
+  }
+
   function formatDate(fullDate) {
     const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
       year: 'numeric',
@@ -153,19 +164,26 @@ border-radius: 10px;
 box-shadow: 0 2px 4px #CCC2C2;
 `
 const ConcertImageStyled = styled.img`
-height: ${props => (props.active) ? '' : '120px'};
-width: 100%;
-object-fit: cover;
-object-position: center;
-border-radius: 10px 10px 0 0;
-`
+  height: ${props => (props.active ? "" : "120px")};
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px 10px 0 0;
+`;
 
 const AudioStyled = styled.audio`
 width: 50px;
 `
 const PlayArrowStyled = styled(PlayArrow)`
-width: 26px;
-`
+  position: absolute;
+  left: 150px;
+  top: 95px;
+  width: 48px;
+  color: #f39b4f;
+  background: white;
+  border: 2px solid #f39b4f;
+  border-radius: 50%;
+`;
 const DeleteStyled = styled(Delete)`
 position: absolute;
 right: 10px;
@@ -243,7 +261,3 @@ word-break: break-word;`
 const TagListStyled = styled.section`
 align-self: center;
 `
-
-
-
-
