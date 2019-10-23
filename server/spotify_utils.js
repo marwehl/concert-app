@@ -1,6 +1,9 @@
 const requestLib = require('request')
-const client_id = ;
-const client_secret = ;
+const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_SECRET } = require('./config.js')
+
+const client_id = REACT_APP_CLIENT_ID;
+const client_secret = REACT_APP_CLIENT_SECRET;
+
 
 let spotifyToken = null
 let artist_ID = null
