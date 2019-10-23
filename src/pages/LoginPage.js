@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
+import concert from "../images/concert.jpg";
 
 LoginPage.propTypes = {
   handleLogin: PropTypes.func
@@ -21,57 +22,68 @@ function handleSubmit(event) {
      //setIsLoggedIn(true);
 }
 
-  return isLoggedIn 
-    ? (
+  return isLoggedIn ? (
     <Redirect to="/home" />
   ) : (
     <MainStyled>
-    <StyledForm onSubmit={handleSubmit}>
-      <LabelStyled>
-        Username:
-        <InputStyled
-          name="username"
-          value={username}
-          onChange={event => setUsername(event.target.value)}
-        ></InputStyled>
-      </LabelStyled>
-      <LabelStyled>
-        Password:
-        <InputStyled
-        type="password"
-          name="password"
-          value={password}
-          onChange={event => setPassword(event.target.value)}
-        ></InputStyled>
-      </LabelStyled>
-      <ButtonStyled>Login</ButtonStyled>
-    </StyledForm>
+      <StyledForm onSubmit={handleSubmit}>
+        <ImageStyled src={concert}></ImageStyled>
+        <LabelStyled>
+          Username:
+          <InputStyled
+            name="username"
+            value={username}
+            onChange={event => setUsername(event.target.value)}
+          ></InputStyled>
+        </LabelStyled>
+        <LabelStyled>
+          Password:
+          <InputStyled
+            type="password"
+            name="password"
+            value={password}
+            onChange={event => setPassword(event.target.value)}
+          ></InputStyled>
+        </LabelStyled>
+        <ButtonStyled>Login</ButtonStyled>
+      </StyledForm>
     </MainStyled>
-  )
+  );
 }
 
 const MainStyled = styled.main`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 padding: 30px;
+`
+const ImageStyled = styled.img`
+width: 100%;
+margin-bottom: 30px;
+border-radius: 10px;
 `
 
 const StyledForm = styled.form`
-display: flex;
-flex-direction: column;
-gap: 20px;
-height: 400px;
+display: grid;
+//flex-direction: column;
+//align-items: center;
 width: 300px;
 `
 
 const LabelStyled = styled.label`
+margin-bottom: 20px;
   display: grid;
-  gap: 0.5px;
+  gap: 1px;
+  font-size: 1.3em;
+  font-weight: bold;
 `;
 
 const InputStyled = styled.input`
-  padding: 7px;
+  padding: 10px;
   border: 1px solid black;
   border-radius: 10px;
-  font-size: 1.1em;
+  font-size: 1.2em;
   &: active {
     border-color: var(--orange);
   }
@@ -81,10 +93,10 @@ const InputStyled = styled.input`
 `;
 
   const ButtonStyled = styled.button`
-    height: 48px;
-    align-self: center;
-    background-color: #e87613;
+    padding: 10px;
+    background-color: var(--orange);
     font-size: 2em;
+    font-weight: bold;
     border: none;
     border-radius: 10px;
     box-shadow: 0 10px 10px gray;
