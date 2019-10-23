@@ -66,8 +66,6 @@ border-radius: 10px;
 
 const StyledForm = styled.form`
 display: grid;
-//flex-direction: column;
-//align-items: center;
 width: 300px;
 `
 

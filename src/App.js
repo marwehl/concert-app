@@ -33,7 +33,8 @@ export default function App() {
 
   function addConcert(concertData) {
     postConcert(concertData).then(concert => {
-      setConcerts([concert, ...concerts])
+      setConcerts([...concerts, concert]);
+      console.log(concert);
     })
   }
 

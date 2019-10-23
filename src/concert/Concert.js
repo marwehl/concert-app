@@ -16,7 +16,8 @@ import {PlayArrow} from "styled-icons/material/PlayArrow";
 
 export default function Concert({ 
   artist, 
-  fullDate, 
+  fullDate,
+  createDate, 
   genres, 
   image, 
   description,
@@ -46,6 +47,8 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 const [isPlaying, setIsPlaying] = useState(false)
 const audioEl = useRef(null);
 
+console.log('concert create date', createDate)
+
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>
@@ -56,6 +59,7 @@ const audioEl = useRef(null);
             id: _id,
             artist,
             fullDate,
+            createDate,
             description,
             image,
             genres,
