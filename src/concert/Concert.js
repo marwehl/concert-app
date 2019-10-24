@@ -47,8 +47,6 @@ const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
 const [isPlaying, setIsPlaying] = useState(false)
 const audioEl = useRef(null);
 
-console.log('concert create date', createDate)
-
   return (
     <ConcertStyled>
       <DeleteStyled onClick={onDeleteClick}></DeleteStyled>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory, useEffect } from "react-router-dom";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import concert from "../images/concert.jpg";
@@ -13,7 +13,8 @@ export default function LoginPage({handleLogin}) {
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
 //const [isLoggedIn, setIsLoggedIn] = useState(false);
- let history = useHistory();
+ //let history = useHistory();
+
 
 function handleSubmit(event) {
   event.preventDefault()
@@ -21,15 +22,14 @@ function handleSubmit(event) {
      let userdata = Object.fromEntries(formData);
      handleLogin(userdata)
      
-     history.push("/home");
-     //setIsLoggedIn(true);
+   // history.push("/home");
+    // setIsLoggedIn(true);
 }
 
   //isLoggedIn ? (
-    //<Redirect to="/home" />
-  //) : 
-   return  (
-    <MainStyled>
+    //<Redirect to="/home"/>
+//) : 
+    return ( <MainStyled>
       <StyledForm onSubmit={handleSubmit}>
         <ImageStyled src={concert}></ImageStyled>
         <LabelStyled>
@@ -56,6 +56,7 @@ function handleSubmit(event) {
       </StyledForm>
     </MainStyled>
   );
+
 }
 
 const MainStyled = styled.main`
