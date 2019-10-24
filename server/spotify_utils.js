@@ -5,10 +5,17 @@ const client_id = REACT_APP_CLIENT_ID;
 const client_secret = REACT_APP_CLIENT_SECRET;
 
 async function getSongPreview(artist_query) {
+  try {
   const token = await getSpotifyToken();
   const artistID = await getArtistId(token, artist_query);
   const previewUrl = await getPreviewUrl(token, artistID);
   return previewUrl;
+  }
+  catch (err) {
+    console.log(err)
+    return ''
+
+  }
 }
 
 async function getSpotifyToken() {
@@ -46,7 +53,14 @@ async function getArtistId (token, artist_query) {
   const artistId = await new Promise((resolve, reject) => {
   requestLib.get(authOptions, function(err, req, body) {
     const data = JSON.parse(body)
-    resolve(data.artists.items[0].id)
+  try {
+   resolve(data.artists.items[0].id);
+  }
+  catch (err) {
+  console.log('Error', err)
+  reject('Artist doesn´t exist on Spotify')
+  }
+   
   });
   });
   return artistId
@@ -64,10 +78,16 @@ async function getPreviewUrl(token, artistID) {
   const previewUrl = await new Promise((resolve, reject) => {
     requestLib.get(authOptions, function(err, req, body) {
       const data = JSON.parse(body);
-      resolve(data.tracks[0].preview_url);
+      try {
+      resolve(data.tracks[0].preview_url) ;
+      }
+      catch (err) {
+        console.log('Error', err)
+        reject('Artist has no preview url')
+      }
     });
   });
   return previewUrl
 }
 
-module.exports = {getSongPreview};
+module.exports = {getSongPreview, getSpotifyToken, getArtistId, getPreviewUrl};
