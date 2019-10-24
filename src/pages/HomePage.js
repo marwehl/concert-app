@@ -100,6 +100,10 @@ const PopupInnerStyled = styled.div`
 
 function getSortedConcerts(concerts, activeSort) {
   let sortedConcerts = concerts.slice()
+
+if (activeSort === 'Latest added') {
+  sortedConcerts.sort((a, b) => new Date(b.createDate) - new Date(a.createDate))
+  }
  
   if (activeSort === 'Date') {
     sortedConcerts.sort((a, b) => new Date(a.fullDate) - new Date(b.fullDate))

@@ -16,7 +16,8 @@ import {PlayArrow} from "styled-icons/material/PlayArrow";
 
 export default function Concert({ 
   artist, 
-  fullDate, 
+  fullDate,
+  createDate, 
   genres, 
   image, 
   description,
@@ -56,6 +57,7 @@ const audioEl = useRef(null);
             id: _id,
             artist,
             fullDate,
+            createDate,
             description,
             image,
             genres,
@@ -176,7 +178,7 @@ width: 50px;
 const PlayArrowStyled = styled(PlayArrow)`
   position: absolute;
   left: 150px;
-  top: 95px;
+  top: 85px;
   width: 48px;
   color: #f39b4f;
   background: white;

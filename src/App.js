@@ -13,7 +13,20 @@ import { getConcerts, postConcert, patchConcert, deleteConcert, postUser, patchU
 export default function App() {
 
   const [concerts, setConcerts] = useState([])
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(
+    getFromLocalStorage("user") || {}
+  );
+
+
+  function getFromLocalStorage(key) {
+    const jsonString = localStorage.getItem(key);
+    let data;
+    try {
+      data = JSON.parse(jsonString);
+    } catch (error) {}
+    return data;
+  }
+
   //const [isAdmin, setIsAdmin] = useState(false)   wird als nächstes eingebaut
 
   useEffect(() => {
@@ -24,6 +37,10 @@ export default function App() {
   setCurrentUser(currentUser);
   }, [currentUser]);
 
+  useEffect(() => {
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  }, [currentUser])
+
 
   function handleLogin(userData) {
     getSingleUser(userData.username)
@@ -33,7 +50,8 @@ export default function App() {
 
   function addConcert(concertData) {
     postConcert(concertData).then(concert => {
-      setConcerts([concert, ...concerts])
+      setConcerts([...concerts, concert]);
+      console.log(concert);
     })
   }
 
