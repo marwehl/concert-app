@@ -18,6 +18,8 @@
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
+    "react-alert": "^6.0.0",
+    "react-alert-template-basic": "^1.0.0",
     "react-datepicker": "^2.9.6",
     "react-dom": "^16.10.1",
     "react-router": "^5.1.2",

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
+import { useAlert } from "react-alert";
 
 PopUpDelete.propTypes = {
   onYesDeleteClick: PropTypes.func,
@@ -10,13 +11,16 @@ PopUpDelete.propTypes = {
 
 
 export default function PopUpDelete ({onYesDeleteClick, onNotDeleteClick, concert}) {
+
+const alert = useAlert();
+
   return (
     <PopUpDeleteStyled concert={concert}>
       <p>Do you really want to delete this concert?</p>
       <ButtonContainerStyled>
         <ButtonStyled onClick={onNotDeleteClick}>Cancel</ButtonStyled>
         <ButtonStyled
-          onClick={onYesDeleteClick}
+          onClick={handleDeleteClick}
           style={{ background: "var(--orange)" }}
         >
           Delete
@@ -24,6 +28,11 @@ export default function PopUpDelete ({onYesDeleteClick, onNotDeleteClick, concer
       </ButtonContainerStyled>
     </PopUpDeleteStyled>
   );
+
+  function handleDeleteClick() {
+        alert.show('Concert is deleted')
+        onYesDeleteClick()
+  }
 }
 
 const PopUpDeleteStyled = styled.section`
