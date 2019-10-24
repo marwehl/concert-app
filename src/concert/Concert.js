@@ -180,7 +180,7 @@ width: 50px;
 const PlayArrowStyled = styled(PlayArrow)`
   position: absolute;
   left: 150px;
-  top: 95px;
+  top: 85px;
   width: 48px;
   color: #f39b4f;
   background: white;
