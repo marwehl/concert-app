@@ -27,10 +27,11 @@ export default function PopUpDelete ({onYesDeleteClick, onNotDeleteClick, concer
 }
 
 const PopUpDeleteStyled = styled.section`
-  padding: 15px;
-  padding-top: 5px;
+  padding: 25px;
+  padding-top: 15px;
   background-color: white;
   border-radius: 10px;
+  font-size: 1.5em;
 `;
 
 const ButtonContainerStyled = styled.section`
@@ -41,4 +42,5 @@ justify-content: space-around;
 const ButtonStyled = styled.button`
 padding: 5px 10px;
 border-radius: 5px;
+font-size: 1.2em;
 `

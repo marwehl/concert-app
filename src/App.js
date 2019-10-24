@@ -7,16 +7,13 @@ import HomePage from './pages/HomePage'
 import FavoritesPage from './pages/FavoritesPage'
 import CalendarPage from './pages/CalendarPage'
 import LoginPage from "./pages/LoginPage";
-import { getConcerts, postConcert, patchConcert, deleteConcert, postUser, patchUser, deleteUser, getSingleUser } from './services'
+import { getConcerts, postConcert, patchConcert, deleteConcert, patchUser, getSingleUser } from './services'
 
 
 export default function App() {
 
   const [concerts, setConcerts] = useState([])
-  const [currentUser, setCurrentUser] = useState(
-    getFromLocalStorage("user") || {}
-  );
-
+  const [currentUser, setCurrentUser] = useState(getFromLocalStorage("user") || {});
 
   function getFromLocalStorage(key) {
     const jsonString = localStorage.getItem(key);
@@ -30,8 +27,8 @@ export default function App() {
   //const [isAdmin, setIsAdmin] = useState(false)   wird als nächstes eingebaut
 
   useEffect(() => {
-    getConcerts().then(setConcerts)
-  }, [])
+    getConcerts().then(setConcerts)  
+  }, []);
 
   useEffect(() => {
   setCurrentUser(currentUser);
