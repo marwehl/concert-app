@@ -89,8 +89,8 @@ const PopupStyled = styled.div`
 
 const PopupInnerStyled = styled.div`
   position: absolute;
-  left: 25%;
-  right: 25%;
+  left: 10%;
+  right: 10%;
   top: 30%;
   margin: auto;
   background: rgba(0, 0, 0, 0.5);

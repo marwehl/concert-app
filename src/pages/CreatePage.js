@@ -43,7 +43,7 @@ export default function CreatePage({ onSubmit, editConcertData }) {
         Date:
         <Datepicker
           name="date"
-          date={date}
+          date={date}  
           onChange={value => setDate(value)}
         ></Datepicker>
       </LabelStyled>

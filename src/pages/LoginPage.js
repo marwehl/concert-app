@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Redirect, useHistory, useEffect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
+import { useAlert } from "react-alert";
 import concert from "../images/concert.jpg";
 
 LoginPage.propTypes = {
@@ -12,24 +13,26 @@ export default function LoginPage({handleLogin}) {
 
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
-//const [isLoggedIn, setIsLoggedIn] = useState(false);
- //let history = useHistory();
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+const alert = useAlert();
 
-
-function handleSubmit(event) {
+async function handleSubmit(event) {
   event.preventDefault()
-     const formData = new FormData(event.target);
+  const form = event.target
+     const formData = new FormData(form);
      let userdata = Object.fromEntries(formData);
-     handleLogin(userdata)
-     
-   // history.push("/home");
-    // setIsLoggedIn(true);
+    if (await handleLogin(userdata)) {
+      alert.show(`Welcome, ${userdata.username}!`);
+      setIsLoggedIn(true);
+    } else {
+      alert.show("Please try again with correct login data");
+    }
 }
 
-  //isLoggedIn ? (
-    //<Redirect to="/home"/>
-//) : 
-    return ( <MainStyled>
+   return isLoggedIn ? (
+    <Redirect to="/home"/>
+) : 
+  ( <MainStyled>
       <StyledForm onSubmit={handleSubmit}>
         <ImageStyled src={concert}></ImageStyled>
         <LabelStyled>
@@ -60,10 +63,7 @@ function handleSubmit(event) {
 }
 
 const MainStyled = styled.main`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+display: grid;
 padding: 30px;
 `
 const ImageStyled = styled.img`

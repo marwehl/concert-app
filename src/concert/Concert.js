@@ -12,6 +12,7 @@ import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
 import {PlayArrow} from "styled-icons/material/PlayArrow";
+import { Pause } from "styled-icons/boxicons-regular/Pause";
 
 
 export default function Concert({ 
@@ -81,7 +82,7 @@ const audioEl = useRef(null);
             <PlayArrowStyled onClick={onPlayClick} />
             }
             {(previewUrl && isPlaying )&&
-            <PlayArrowStyled onClick={onPauseClick} />
+            <PauseStyled onClick={onPauseClick} />
             }
           <HeartStyled
             onClick={onHeartClick}
@@ -176,6 +177,17 @@ const AudioStyled = styled.audio`
 width: 50px;
 `
 const PlayArrowStyled = styled(PlayArrow)`
+  position: absolute;
+  left: 150px;
+  top: 85px;
+  width: 48px;
+  color: #f39b4f;
+  background: white;
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+`;
+
+const PauseStyled = styled(Pause)`
   position: absolute;
   left: 150px;
   top: 85px;

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const Concert = require('../models/Concert')
-const { getSongPreview } = require('../spotify_utils')
+const { getSongPreview, getArtistId, getPreviewUrl, getSpotifyToken } = require('../spotify_utils')
 const artistPreviews = {}
 
 router.get('/', (req, res) => {
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
    // artistPreviews[artist] = previewUrl
   //}
   const artist_query = artist.replace(" ", "+").toLowerCase();
-  const previewUrl = await getSongPreview(artist_query);
+  const previewUrl = await getSongPreview(artist_query)
   const data = {...req.body, previewUrl}
   Concert.create(data)
     .then(concert => res.json(concert))
