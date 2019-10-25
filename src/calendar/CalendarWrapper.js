@@ -1,16 +1,7 @@
-import React from 'react'
 import styled from 'styled-components/macro'
 
 
-export default function CalendarWrapper () {
-
-  return (
-  <CalendarStyled/>
-  )
-
-  }
-    
-const CalendarStyled = styled.div`
+export default styled.div`
   /* DayGridView
 --------------------------------------------------------------------------------------------------*/
   /* day row structure */

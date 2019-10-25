@@ -38,6 +38,6 @@ const ConcertListStyled = styled.section`
   gap: 15px;
   background-color: white;
   overflow-y: scroll;
-    -ms-overflow-style: none; 
-    scrollbar-width: none;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
 `

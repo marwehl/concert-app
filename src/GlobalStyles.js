@@ -14,7 +14,7 @@ export default createGlobalStyle`
     background: white;
     font-family: Helvetica;
 
-     @media (min-width: 900px) {
+     @media (min-width: 400px) {
       width: 375px;
       height: 667px;
       border: 30px solid black;

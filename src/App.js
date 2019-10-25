@@ -190,8 +190,8 @@ deleteConcert(concert._id)
 }
 
 const AppStyled = styled.section`
-display: grid;
-grid-template-rows: auto 48px;
+  display: grid;
+  grid-template-rows: auto 48px;
   left: 0;
   right: 0;
   top: 0;
@@ -201,7 +201,7 @@ grid-template-rows: auto 48px;
 `
 
 const AlertStyled = styled.div`
-text-align: center;
+  text-align: center;
   border: none;
   padding: 15px;
   background: var(--orange);
