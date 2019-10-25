@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro';
 import Tag from '../concert/Tag'
 import PropTypes from 'prop-types'
+import { formatDate, formatTime } from '../utils'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Time } from 'styled-icons/boxicons-regular/Time'
 import { Heart as FullHeart } from 'styled-icons/fa-solid/Heart'
@@ -49,25 +50,6 @@ export default function Popup({
       </ConcertInfoStyled>
     </ConcertStyled>
   )
-
-  function formatDate(fullDate) {
-    const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    })
-    return dateString
-  }
-
-  function formatTime(fullDate) {
-    const timeString = new Date(fullDate).toLocaleString('de-DE', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-
-    return timeString
-  }
-
 }
 
 const ConcertStyled = styled.section`

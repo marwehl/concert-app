@@ -16,18 +16,6 @@ const [password, setPassword] = useState('')
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const alert = useAlert();
 
-async function handleSubmit(event) {
-  event.preventDefault()
-  const form = event.target
-     const formData = new FormData(form);
-     let userdata = Object.fromEntries(formData);
-    if (await handleLogin(userdata)) {
-      alert.show(`Welcome, ${userdata.username}!`);
-      setIsLoggedIn(true);
-    } else {
-      alert.show("Please try again with correct login data");
-    }
-}
 
    return isLoggedIn ? (
     <Redirect to="/home"/>
@@ -59,6 +47,19 @@ async function handleSubmit(event) {
       </StyledForm>
     </MainStyled>
   );
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    let userdata = Object.fromEntries(formData);
+    if (await handleLogin(userdata)) {
+      alert.show(`Welcome, ${userdata.username}!`);
+      setIsLoggedIn(true);
+    } else {
+      alert.show("Please try again with correct login data");
+    }
+  }
 
 }
 

@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import PropTypes from "prop-types";
 import Tag from './Tag';
 import concert from "../images/concert.jpg";
+import { formatDate, formatTime } from '../utils.js'
 import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Time } from 'styled-icons/boxicons-regular/Time'
@@ -134,24 +135,6 @@ const audioEl = useRef(null);
      setIsPlaying(!isPlaying);
   }
 
-  function formatDate(fullDate) {
-    const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    })
-    return dateString
-  }
-
-  function formatTime(fullDate) {
-    const timeString = new Date(fullDate).toLocaleString('de-DE', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-
-    return timeString
-  }
-
   function handleArrowClick() {
     setFullConcertIsVisible(!fullConcertIsVisible)
     setArrowShowsDown(!arrowShowsDown)
@@ -181,7 +164,7 @@ const PlayArrowStyled = styled(PlayArrow)`
   left: 150px;
   top: 85px;
   width: 48px;
-  color: #f39b4f;
+  color: var(--orange);
   background: white;
   border: 2px solid var(--orange);
   border-radius: 50%;
@@ -192,7 +175,7 @@ const PauseStyled = styled(Pause)`
   left: 150px;
   top: 85px;
   width: 48px;
-  color: #f39b4f;
+  color: var(--orange);
   background: white;
   border: 2px solid var(--orange);
   border-radius: 50%;

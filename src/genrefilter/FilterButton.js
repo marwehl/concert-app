@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 
 FilterButton.propTypes = {
   text: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  selectedGenre: PropTypes.string
 }
 
 export default function FilterButton({text, onClick, selectedGenre}) {
-
 
   return (<FilterButtonStyled 
     onClick={() => onClick(text)} 
@@ -30,8 +30,4 @@ const FilterButtonStyled = styled.button`
   margin: 5px;
   border-radius: 10px;
   box-shadow: 0 2px 4px #ccc2c2;
-
-  &:hover {
-    background: var(--orange);
-  }
 `;

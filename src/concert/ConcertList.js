@@ -12,7 +12,8 @@ export default function ConcertList({
                  ConcertList.propTypes = {
                    concerts: PropTypes.arrayOf(PropTypes.object),
                    onHeartClick: PropTypes.func,
-                   onDeleteClick: PropTypes.func
+                   onDeleteClick: PropTypes.func,
+                   currentUser: PropTypes.object
                  };
                  
                  return (

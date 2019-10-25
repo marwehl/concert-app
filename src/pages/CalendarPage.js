@@ -19,10 +19,6 @@ const newEvents = slicedDates.map(slicedDate => { return { title: '', date: slic
 const [showPopup, setShowPopup] = useState(false)
 const [selectedConcert, setSelectedConcert] = useState({})
 
-function togglePopup() {
-  setShowPopup(!showPopup)
-}
-
   return (
     <MainStyled>
       <CalendarStyled>
@@ -32,11 +28,10 @@ function togglePopup() {
           defaultView="dayGridMonth"
           weekends={true}
           events={newEvents}
-          dateClick={event => handleDateClick(event, concerts)}
           eventClick={handleEventClick}
           plugins={[dayGridPlugin, interactionPlugin]}
         />
-        </CalendarStyled>
+      </CalendarStyled>
 
 
       {showPopup && (
@@ -56,13 +51,10 @@ function handleEventClick(event){
   setSelectedConcert(selectedConcert)
   togglePopup(selectedConcert)
 }
-  function handleDateClick(event, concerts) {
-    const eventDate = event.dateStr
-    const selectedConcert = concerts.filter(concert => concert.fullDate.slice(0, 10) === eventDate)[0]
-   setSelectedConcert(selectedConcert)
-   togglePopup(selectedConcert)
+  
+  function togglePopup() {
+    setShowPopup(!showPopup);
   }
-
 } 
 
 const PopupStyled = styled.div`

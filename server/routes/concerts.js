@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Concert = require('../models/Concert')
-const { getSongPreview, getArtistId, getPreviewUrl, getSpotifyToken } = require('../spotify_utils')
-const artistPreviews = {}
+const { getSongPreview } = require('../spotify_utils')
+//const artistPreviews = {}
 
 router.get('/', (req, res) => {
   Concert.find()
@@ -31,8 +31,12 @@ router.post('/', async (req, res) => {
     .catch(err => res.json(err))
 })
 
-router.patch('/:id', (req, res) => {
-  Concert.findByIdAndUpdate(req.params.id, req.body, { new: true })
+router.patch('/:id', async (req, res) => {
+ const artist = req.body.artist
+  const artist_query = artist.replace(" ", "+").toLowerCase();
+  const previewUrl = await getSongPreview(artist_query)
+  const data = {...req.body, previewUrl}
+  Concert.findByIdAndUpdate(req.params.id, data, { new: true })
     .then(concert => res.json(concert))
     .catch(err => res.json(err))
 })

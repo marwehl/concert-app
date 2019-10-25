@@ -90,4 +90,4 @@ async function getPreviewUrl(token, artistID) {
   return previewUrl
 }
 
-module.exports = {getSongPreview, getSpotifyToken, getArtistId, getPreviewUrl};
+module.exports = {getSongPreview};
