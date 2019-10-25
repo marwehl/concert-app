@@ -178,15 +178,14 @@ deleteConcert(concert._id)
   ])
 })
 }
-
- function getFromLocalStorage(key) {
-   const jsonString = localStorage.getItem(key);
-   let data;
-   try {
-     data = JSON.parse(jsonString);
-   } catch (error) {}
-   return data;
- }
+function getFromLocalStorage(key) {
+  const jsonString = localStorage.getItem(key);
+  let data;
+  try {
+    data = JSON.parse(jsonString);
+  } catch (error) {}
+  return data;
+}
 }
 
 const AppStyled = styled.section`

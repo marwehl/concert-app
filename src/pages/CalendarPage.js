@@ -5,7 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; 
 import CalendarWrapper from '../calendar/CalendarWrapper'
-import Popup from "../calendar/Popup";
+import PopupContent from "../calendar/PopupContent";
 
   CalendarPage.propTypes = {
     concerts: PropTypes.arrayOf(PropTypes.object)
@@ -13,9 +13,8 @@ import Popup from "../calendar/Popup";
 
 export default function CalendarPage ({concerts}) {
 
-const dates = concerts.map(concert => concert.fullDate)
-const slicedDates = dates.map(date => date.slice(0,10))
-const newEvents = slicedDates.map(slicedDate => { return { title: '', date: slicedDate, extendedProps: {id: slicedDate}}})
+const reducedConcerts = concerts.map(concert => {return {date: concert.fullDate.slice(0,10), artist: concert.artist}})
+const newEvents = reducedConcerts.map(concert => { return { title: concert.artist, date: concert.date, extendedProps: {id: concert.date}}})
 const [showPopup, setShowPopup] = useState(false)
 const [selectedConcert, setSelectedConcert] = useState({})
 
@@ -36,7 +35,7 @@ const [selectedConcert, setSelectedConcert] = useState({})
       {showPopup && (
         <PopupStyled onClick={togglePopup}>
           <PopupInnerStyled>
-            <Popup {...selectedConcert} />
+            <PopupContent {...selectedConcert} />
           </PopupInnerStyled>
         </PopupStyled>
       )}

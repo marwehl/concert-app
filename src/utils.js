@@ -33,3 +33,12 @@ export function getSortedConcerts(concerts, activeSort) {
 
    return timeString;
  }
+
+ export function getFromLocalStorage(key) {
+   const jsonString = localStorage.getItem(key);
+   let data;
+   try {
+     data = JSON.parse(jsonString);
+   } catch (error) {}
+   return data;
+ }
