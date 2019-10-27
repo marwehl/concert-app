@@ -3,8 +3,9 @@ import styled from 'styled-components/macro';
 import PropTypes from 'prop-types'
 import FilterBar from '../genrefilter/FilterBar'
 import ConcertList from '../concert/ConcertList'
-import SortBar from '../SortBar'
-import PopUpDelete from '../PopUpDelete'
+import SortBar from '../sortbar/SortBar'
+import PopUpDelete from '../concert/PopUpDelete'
+import { getSortedConcerts } from '../utils.js'
 
 
 HomePage.propTypes = {
@@ -24,15 +25,6 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
   const [showPopup, setShowPopup] = useState(false);
   const [deleteConcert, setDeleteConcert] = useState({});
 
-  function togglePopup() {
-    setShowPopup(!showPopup);
-  }
-
-  function handleDeleteClick(concert) {
-    setDeleteConcert(concert)
-    togglePopup();
-  }
-
   return (
     <>
       <MainStyled>
@@ -47,6 +39,7 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
         <ConcertList
           concerts={getSortedConcerts(concerts, activeSort)}
           onHeartClick={onHeartClick}
+          onEditClick={onEditClick}
           onDeleteClick={handleDeleteClick}
           currentUser={currentUser}
         />
@@ -63,6 +56,15 @@ export default function HomePage({concerts, onHeartClick, genres, onSelectGenre,
       )}
     </>
   );
+
+   function togglePopup() {
+     setShowPopup(!showPopup);
+   }
+
+   function handleDeleteClick(concert) {
+     setDeleteConcert(concert);
+     togglePopup();
+   }
 }
 
 const MainStyled = styled.main`
@@ -97,20 +99,4 @@ const PopupInnerStyled = styled.div`
   border-radius: 10px;
 `;
 
-
-function getSortedConcerts(concerts, activeSort) {
-  let sortedConcerts = concerts.slice()
-
-if (activeSort === 'Latest added') {
-  sortedConcerts.sort((a, b) => new Date(b.createDate) - new Date(a.createDate))
-  }
- 
-  if (activeSort === 'Date') {
-    sortedConcerts.sort((a, b) => new Date(a.fullDate) - new Date(b.fullDate))
-  }
-  if (activeSort === 'Name of Artist') {
-    sortedConcerts.sort((a,b) => a.artist > b.artist ? 1 : -1)
-  }
-return sortedConcerts
-}
  

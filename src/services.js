@@ -1,57 +1,37 @@
 export function getConcerts() {
-  return fetchConcerts()
+  return fetchData({ path: "/concerts/" });
 }
 
 export function postConcert(data) {
-  return fetchConcerts({ method: 'POST', data })
+  return fetchData({path: '/concerts/', method: 'POST', data })
 }
 
 export function patchConcert(id, data) {
-  return fetchConcerts({ method: 'PATCH', id, data })
+  return fetchData({path: '/concerts/', method: 'PATCH', id, data })
 }
 
 export function deleteConcert(id) {
-  return fetchConcerts({method: 'DELETE', id})
-}
-
-function fetchConcerts({ method = 'GET', id = '', data } = {}) {
-  return fetch('/concerts/' + id, {
-    method,
-    body: JSON.stringify(data),
-    headers: {
-      'content-type': 'application/json',
-    },
-  }).then(res => res.json())
-}
-
-export function getUsers() {
-  return fetchUsers()
+  return fetchData({path: '/concerts/', method: 'DELETE', id})
 }
 
 export function getSingleUser(id) {
-  return fetchUsers({id})
-}
-
-export function postUser(data) {
-  return fetchUsers({ method: 'POST', data })
+  return fetchData({path: '/users/', id})
 }
 
 export function patchUser(id, data) {
-  return fetchUsers({ method: 'PATCH', id, data })
+  return fetchData({path: '/users/', method: 'PATCH', id, data })
 }
 
-export function deleteUser(id) {
-  return fetchUsers({method: 'DELETE', id})
-}
-
-function fetchUsers({ method = 'GET', id = '', data } = {}) {
-  return fetch('/users/' + id, {
+function fetchData({ path, method = "GET", id = "", data } = {}) {
+  return fetch(path + id, {
     method,
     body: JSON.stringify(data),
     headers: {
-      'content-type': 'application/json',
-    },
-  }).then(res => res.json())
+      "content-type": "application/json"
+    }
+  }).then(res => res.json());
 }
+
+
 
 

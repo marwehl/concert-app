@@ -12,9 +12,6 @@ import concert from "../images/concert.jpg"
    editConcertData: PropTypes.object
  };
 
-const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
-const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
-
 export default function CreatePage({ onSubmit, editConcertData }) {
 
     const [isCreated, setIsCreated] = useState(false);
@@ -25,8 +22,11 @@ export default function CreatePage({ onSubmit, editConcertData }) {
       editConcertData.genres ? editConcertData.genres.join(", ").split(",") : []
     );
    const [image, setImage] = useState(editConcertData.image ? editConcertData.image : concert);
+   const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
+   const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-  return isCreated ? (
+  return isCreated 
+  ? (
     <Redirect to="/home" />
   ) : (
     <FormStyled onSubmit={handleSubmit}>

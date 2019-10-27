@@ -1,75 +1,75 @@
-## If you want to login, please use test user data:
-username: testuser
+# Concert Planner
 
-password: word1234
+This app was developed in October 2019 as the final project for the web development course of neuefische GmbH. 
 
------------------------------------------
+Users get Information about different concerts they could visit in the future. They can filter the concerts by different genres or sort the concerts by different categories. As a special feature the users can get a song preview of every artist to discover new music. The users can bookmarks the concerts which they are interested in and can collect this concerts in their own special concert calendar.
+Concert organizors can put new concerts to the concertlist or edit and delete consisting concerts.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+_________
+#### If you want to login, please use test user data:
+username: **testuser**
 
-In the project directory, you can run:
+password: **word1234**
+______
+## Tech Stack
 
-### `npm start`
+* React.js 
+* Node.js
+* MongoDB running on ```localhost:27017```
+* Express
+____
+* axios
+* mongoose
+* nodemon 
+* npm-run-all
+* react-router-dom
+* request
+* REST API
+* styled-components
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Run on localhost
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### Requirement
 
-### `npm test`
+* Node.js
+* Spotify Developer Account 
+* MongoDB
+* Cloudinary
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Setup
 
-### `npm run build`
+```
+https://github.com/marwehl/concert-app
+cd concert-planner
+npm install
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Cloudinary
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+* Create an account on https://cloudinary.com/
+* Go to https://cloudinary.com/console/settings/upload#upload_presets
+* Click ```Enable unsigned uploading```
+* Copy the preset name (the 8 character hash below name)
+*Create a ```.env.local``` file in the root directory of this project and add your cloudname and preset:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+REACT_APP_CLOUDINARY_CLOUDNAME='your_cloudname'
+REACT_APP_CLOUDINARY_PRESET='your_preset'
+```
 
-### `npm run eject`
+#### Spotify
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* Create an Application at https://developer.spotify.com/ to get a Client-ID and Client-Secret
+* Open server/config.js and paste in your Spotify Client-ID and Secret and save it
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Run the App in the development mode
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run the App you can use
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+npm start
+````
 
-## Learn More
+Open http://localhost:3000 to view it in the browser (if it not opens automatically). Switch your browser to responsive mode as this app was designed for mobile devices in mind.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

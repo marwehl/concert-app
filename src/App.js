@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
 import Navigation from './Navigation'
 import CreatePage from './pages/CreatePage'
 import HomePage from './pages/HomePage'
@@ -15,29 +14,31 @@ export default function App() {
 
   const [concerts, setConcerts] = useState([])
   const [currentUser, setCurrentUser] = useState(getFromLocalStorage("user") || {});
+  const [selectedGenre, setSelectedGenre] = useState("All");
 
+   let allGenres = Array.from(
+     concerts.reduce((prev, concert) => {
+       concert.genres && concert.genres.forEach(genre => prev.add(genre));
+       return prev;
+     }, new Set())
+   );
 
-  function getFromLocalStorage(key) {
-    const jsonString = localStorage.getItem(key);
-    let data;
-    try {
-      data = JSON.parse(jsonString);
-    } catch (error) {}
-    return data;
-  }
+   const filteredByGenre =
+     selectedGenre === "All"
+       ? concerts
+       : concerts.filter(
+           concert => concert.genres && concert.genres.includes(selectedGenre)
+         );
 
   const options = {
-position: positions.MIDDLE,
+    position: positions.MIDDLE,
     timeout: 3000,
     offset: "50px",
     transition: transitions.SCALE
   };
-
   const AlertTemplate = ({ style, message }) => (
     <AlertStyled style={style}>{message}</AlertStyled>
   );
-
-  //const [isAdmin, setIsAdmin] = useState(false)   wird als nächstes eingebaut
 
   useEffect(() => {
     getConcerts().then(setConcerts)  
@@ -50,36 +51,6 @@ position: positions.MIDDLE,
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   }, [currentUser])
-
-
-  function handleLogin(userData) {
-    return getSingleUser(userData.username)
-    .then(user => {
-      setCurrentUser(user)
-      return user
-    })
-  }
-
-
-  function addConcert(concertData) {
-    postConcert(concertData).then(concert => {
-      setConcerts([...concerts, concert]);
-    })
-  }
-
-  const [selectedGenre, setSelectedGenre] = useState('All')
-
-  let allGenres = Array.from(
-    concerts.reduce((prev, concert) => {
-      concert.genres && concert.genres.forEach(genre => prev.add(genre))
-      return prev
-    }, new Set())
-  )
-
-  const filteredByGenre =
-    selectedGenre === 'All'
-      ? concerts
-      : concerts.filter(concert => concert.genres && concert.genres.includes(selectedGenre))
 
 
   return (
@@ -151,6 +122,19 @@ position: positions.MIDDLE,
     </AlertProvider>
   );
 
+  function handleLogin(userData) {
+    return getSingleUser(userData.username).then(user => {
+      setCurrentUser(user);
+      return user;
+    });
+  }
+
+  function addConcert(concertData) {
+    postConcert(concertData).then(concert => {
+      setConcerts([...concerts, concert]);
+    });
+  }
+
   function setUsersFavorite(concert) {
     const indexFav = currentUser.favorites.findIndex(
       favorite => favorite === concert._id
@@ -193,12 +177,19 @@ deleteConcert(concert._id)
   ])
 })
 }
-  
+function getFromLocalStorage(key) {
+  const jsonString = localStorage.getItem(key);
+  let data;
+  try {
+    data = JSON.parse(jsonString);
+  } catch (error) {}
+  return data;
+}
 }
 
 const AppStyled = styled.section`
-display: grid;
-grid-template-rows: auto 48px;
+  display: grid;
+  grid-template-rows: auto 48px;
   left: 0;
   right: 0;
   top: 0;
@@ -207,9 +198,8 @@ grid-template-rows: auto 48px;
   position: fixed;
 `
 
-
 const AlertStyled = styled.div`
-text-align: center;
+  text-align: center;
   border: none;
   padding: 15px;
   background: var(--orange);

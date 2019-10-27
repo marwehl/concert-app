@@ -7,7 +7,8 @@ export default function FilterBar ({onClick, genres, selectedGenre}) {
 
 FilterBar.propTypes = {
 genres: PropTypes.arrayOf(PropTypes.string),
-onClick: PropTypes.func
+onClick: PropTypes.func,
+selectedGenre: PropTypes.string
 }
 
   return (

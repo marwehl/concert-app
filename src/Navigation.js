@@ -7,6 +7,7 @@ import { PlusCircle } from 'styled-icons/boxicons-solid/PlusCircle'
 import { Calendar } from 'styled-icons/boxicons-regular/Calendar'
 import { Exit } from "styled-icons/icomoon/Exit";
 
+
 export default function Navigation () {
   return (
     <NavigationStyled>

@@ -1,18 +1,15 @@
-import React, {useState, useRef} from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro';
 import PropTypes from "prop-types";
-import Tag from './Tag';
+import Audio from './Audio';
+import Heart from './Heart'
+import Date from './Date'
+import FullInfo from './FullInfo';
 import concert from "../images/concert.jpg";
 import { KeyboardArrowDown } from 'styled-icons/material/KeyboardArrowDown'
-import { DateRange } from 'styled-icons/material/DateRange'
-import { Time } from 'styled-icons/boxicons-regular/Time'
-import { Heart } from 'styled-icons/fa-regular/Heart'
-import { Heart as FullHeart} from 'styled-icons/fa-solid/Heart'
 import { Delete } from 'styled-icons/typicons/Delete'
 import { Edit } from 'styled-icons/boxicons-regular/Edit'
-import {PlayArrow} from "styled-icons/material/PlayArrow";
-import { Pause } from "styled-icons/boxicons-regular/Pause";
 
 
 export default function Concert({ 
@@ -45,8 +42,6 @@ Concert.propTypes = {
 const [fullConcertIsVisible, setFullConcertIsVisible] = useState(false)
 const [arrowShowsDown, setArrowShowsDown] = useState(false)
 const [fullImageIsVisible, setFullImageIsVisible] = useState(false)
-const [isPlaying, setIsPlaying] = useState(false)
-const audioEl = useRef(null);
 
   return (
     <ConcertStyled>
@@ -77,43 +72,25 @@ const audioEl = useRef(null);
       <ConcertInfoStyled>
         <ConcertInfoHeadlineStyled>
             <ArtistStyled>{artist}</ArtistStyled>
-            <AudioStyled src={previewUrl} ref={audioEl} loop></AudioStyled>
-            {(previewUrl && !isPlaying) &&
-            <PlayArrowStyled onClick={onPlayClick} />
-            }
-            {(previewUrl && isPlaying )&&
-            <PauseStyled onClick={onPauseClick} />
-            }
-          <HeartStyled
-            onClick={onHeartClick}
-            active={
-              currentUser.favorites && currentUser.favorites.includes(_id)
-            }
-          ></HeartStyled>
-          <FullHeartStyled
-            onClick={onHeartClick}
-            active={!currentUser.favorites.includes(_id)}
-          ></FullHeartStyled>
-        </ConcertInfoHeadlineStyled>
-        <DateContainerStyled>
-          <div>
-            <DateRangeStyled />
-            <span>{formatDate(fullDate)}</span>
-          </div>
-          <div>
-            <TimeStyled />
-            <span>{formatTime(fullDate)}</span>
-          </div>
-        </DateContainerStyled>
+            {previewUrl && 
+            <Audio 
+            previewUrl={previewUrl}
+            />}
 
-        {fullConcertIsVisible && (
-          <ConcertFullInfoStyled>
-            <DescriptionStyled>{description}</DescriptionStyled>
-            <TagListStyled>
-              {genres.map(genre => genre && <Tag text={genre} key={genre} />)}
-            </TagListStyled>
-          </ConcertFullInfoStyled>
-        )}
+          <Heart 
+          onHeartClick={onHeartClick}
+          currentUser={currentUser}
+          id={_id}/>
+         
+        </ConcertInfoHeadlineStyled>
+
+        <Date
+        fullDate={fullDate} />
+
+        {fullConcertIsVisible && 
+          <FullInfo
+          genres={genres}
+          description={description} />}
         {(description || genres.length > 0) && (
           <KeyboardArrowDownStyled
             active={arrowShowsDown}
@@ -123,34 +100,6 @@ const audioEl = useRef(null);
       </ConcertInfoStyled>
     </ConcertStyled>
   );
-
-  function onPlayClick() {
-    audioEl.current.play();
-    setIsPlaying(!isPlaying)
-  }
-
-  function onPauseClick() {
-    audioEl.current.pause()
-     setIsPlaying(!isPlaying);
-  }
-
-  function formatDate(fullDate) {
-    const dateString = new Date(fullDate).toLocaleDateString('de-DE', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    })
-    return dateString
-  }
-
-  function formatTime(fullDate) {
-    const timeString = new Date(fullDate).toLocaleString('de-DE', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-
-    return timeString
-  }
 
   function handleArrowClick() {
     setFullConcertIsVisible(!fullConcertIsVisible)
@@ -173,30 +122,6 @@ const ConcertImageStyled = styled.img`
   border-radius: 10px 10px 0 0;
 `;
 
-const AudioStyled = styled.audio`
-width: 50px;
-`
-const PlayArrowStyled = styled(PlayArrow)`
-  position: absolute;
-  left: 150px;
-  top: 85px;
-  width: 48px;
-  color: #f39b4f;
-  background: white;
-  border: 2px solid var(--orange);
-  border-radius: 50%;
-`;
-
-const PauseStyled = styled(Pause)`
-  position: absolute;
-  left: 150px;
-  top: 85px;
-  width: 48px;
-  color: #f39b4f;
-  background: white;
-  border: 2px solid var(--orange);
-  border-radius: 50%;
-`;
 const DeleteStyled = styled(Delete)`
 position: absolute;
 right: 10px;
@@ -228,49 +153,8 @@ const ArtistStyled = styled.span`
 font-size: 1.5em;
 `
 
-const HeartStyled = styled(Heart)`
-width: 28px;
-margin-top: -10px;
-display: ${props => (props.active ? 'none' : 'block')}
-`
-
-const FullHeartStyled = styled(FullHeart)`
-  width: 28px;
-  margin-top: -10px;
-  color: var(--orange);
-  display: ${props => (props.active ? "none" : "block")};
-`;
-
-const  DateContainerStyled = styled.section`
-display: flex;
-justify-content: space-between;
-gap: 7px;
-`
-
-const DateRangeStyled = styled(DateRange)`
-width: 18px;
-margin: 0 5px 5px;
-`
-
-const TimeStyled = styled(Time)`
-width: 18px;
-margin: 0 5px 5px;
-`
-
 const KeyboardArrowDownStyled = styled(KeyboardArrowDown)`
 width: 30px;
 align-self: center;
 transform: rotate(${props => (props.active ? '180deg' : '0')})
-`
-
-const ConcertFullInfoStyled = styled.section`
-display: flex;
-flex-direction: column;
-`
-
-const DescriptionStyled = styled.p`
-word-break: break-word;`
-
-const TagListStyled = styled.section`
-align-self: center;
 `
