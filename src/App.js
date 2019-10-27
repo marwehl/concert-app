@@ -14,7 +14,7 @@ export default function App() {
 
   const [concerts, setConcerts] = useState([])
   const [currentUser, setCurrentUser] = useState(getFromLocalStorage("user") || {});
-   const [selectedGenre, setSelectedGenre] = useState("All");
+  const [selectedGenre, setSelectedGenre] = useState("All");
 
    let allGenres = Array.from(
      concerts.reduce((prev, concert) => {
@@ -40,7 +40,6 @@ export default function App() {
     <AlertStyled style={style}>{message}</AlertStyled>
   );
 
-  
   useEffect(() => {
     getConcerts().then(setConcerts)  
   }, []);

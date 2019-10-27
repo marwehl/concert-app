@@ -25,7 +25,8 @@ export default function CreatePage({ onSubmit, editConcertData }) {
    const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
    const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-  return isCreated ? (
+  return isCreated 
+  ? (
     <Redirect to="/home" />
   ) : (
     <FormStyled onSubmit={handleSubmit}>

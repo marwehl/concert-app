@@ -6,34 +6,70 @@ Users get Information about different concerts they could visit in the future. T
 Concert organizors can put new concerts to the concertlist or edit and delete consisting concerts.
 
 
+_________
 #### If you want to login, please use test user data:
-username: testuser
+username: **testuser**
 
-password: word1234
+password: **word1234**
+______
+## Tech Stack
 
-### Tech Stack
+* React.js 
+* Node.js
+* MongoDB running on ```localhost:27017```
+* Express
+____
+* axios
+* mongoose
+* nodemon 
+* npm-run-all
+* react-router-dom
+* request
+* REST API
+* styled-components
 
-*React.js
-*Node.js
-*MongoDB
-*Express
+## Run on localhost
 
-*axios
-*mongoose
-*nodemon 
-*npm-run-all
-*react-router-dom
-*request
-*REST API
-*styled-components
+#### Requirement
 
-### Run on localhost
+* Node.js
+* Spotify Developer Account 
+* MongoDB
+* Cloudinary
 
 #### Setup
 
-´´´
+```
 https://github.com/marwehl/concert-app
 cd concert-planner
 npm install
 ```
+
+#### Cloudinary
+
+* Create an account on https://cloudinary.com/
+* Go to https://cloudinary.com/console/settings/upload#upload_presets
+* Click ```Enable unsigned uploading```
+* Copy the preset name (the 8 character hash below name)
+*Create a ```.env.local``` file in the root directory of this project and add your cloudname and preset:
+
+```
+REACT_APP_CLOUDINARY_CLOUDNAME='your_cloudname'
+REACT_APP_CLOUDINARY_PRESET='your_preset'
+```
+
+#### Spotify
+
+* Create an Application at https://developer.spotify.com/ to get a Client-ID and Client-Secret
+* Open server/config.js and paste in your Spotify Client-ID and Secret and save it
+
+#### Run the App in the development mode
+
+To run the App you can use
+
+```
+npm start
+````
+
+Open http://localhost:3000 to view it in the browser (if it not opens automatically). Switch your browser to responsive mode as this app was designed for mobile devices in mind.
 
