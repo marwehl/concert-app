@@ -15,9 +15,9 @@ ______
 
 ## Preview
 <p>
-<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264201/Screen_Shot_2019-10-28_at_13.02.21_n51cfn.png" width="200">
-<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264202/Screen_Shot_2019-10-28_at_13.02.34_kx6iib.png" width="200">
-<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264202/Screen_Shot_2019-10-28_at_13.02.30_utipxv.png" width="200">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572274487/localhost_3000_home_iPhone_6_7_8_hqymif.png" width="200">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572274454/localhost_3000_home_iPhone_6_7_8_3_liembp.png" width="200">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572274469/localhost_3000_home_iPhone_6_7_8_5_dnfikn.png" width="200">
 </p>
 
 ## Tech Stack
@@ -28,12 +28,14 @@ ______
 * Express
 ____
 * axios
+* fullcalendar
 * mongoose
 * nodemon 
 * react-router-dom
 * request
 * SpotifyAPI
 * styled-components
+* styled-icons
 
 ## Run on localhost
 
