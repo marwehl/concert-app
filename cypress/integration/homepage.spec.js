@@ -13,7 +13,7 @@ context("Homepage", () => {
     cy.get("nav").should("have.length", 1);
   });
 
-  //it("has filters", () => {
-   // cy.get("button").contains('All').next('button').should
-  //});
+  it("has filters", () => {
+  cy.get("button").contains('All')
+  });
 });
