@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro';
 import Tag from '../concert/Tag'
 import PropTypes from 'prop-types'
-import { formatDate, formatTime } from '../utils'
+import { formatDate, formatTime } from '../concert/utils.concerts.js'
 import { DateRange } from 'styled-icons/material/DateRange'
 import { Time } from 'styled-icons/boxicons-regular/Time'
 import { Heart as FullHeart } from 'styled-icons/fa-solid/Heart'
