@@ -5,7 +5,7 @@ import FilterBar from '../genrefilter/FilterBar'
 import ConcertList from '../concert/ConcertList'
 import SortBar from '../sortbar/SortBar'
 import PopUpDelete from '../concert/PopUpDelete'
-import { getSortedConcerts } from '../utils.js'
+import { getSortedConcerts } from '../concert/utils.concerts.js'
 
 
 HomePage.propTypes = {
@@ -78,8 +78,8 @@ overflow-y: scroll;
 `
 const PopupStyled = styled.div`
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 375px;
+  height: 667px;
   top: 0;
   left: 0;
   right: 0;

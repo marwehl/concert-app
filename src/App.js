@@ -9,26 +9,18 @@ import FavoritesPage from './pages/FavoritesPage'
 import CalendarPage from './pages/CalendarPage'
 import LoginPage from "./pages/LoginPage";
 import { getConcerts, postConcert, patchConcert, deleteConcert, patchUser, getSingleUser } from './services'
+import { getAllGenres, getConcertsFilteredByGenre, getFavoritesConcerts } from './concert/utils.concerts.js'
 
 export default function App() {
 
   const [concerts, setConcerts] = useState([])
-  const [currentUser, setCurrentUser] = useState(getFromLocalStorage("user") || {});
   const [selectedGenre, setSelectedGenre] = useState("All");
-
-   let allGenres = Array.from(
-     concerts.reduce((prev, concert) => {
-       concert.genres && concert.genres.forEach(genre => prev.add(genre));
-       return prev;
-     }, new Set())
-   );
-
-   const filteredByGenre =
-     selectedGenre === "All"
-       ? concerts
-       : concerts.filter(
-           concert => concert.genres && concert.genres.includes(selectedGenre)
-         );
+  const [currentUser, setCurrentUser] = useState({
+      username: "testuser",
+      password: "word1234",
+      favorites: ["5db0925f32d3144c1c092d00", "5db0925132d3144c1c092cff"]
+    }
+  );
 
   const options = {
     position: positions.MIDDLE,
@@ -36,8 +28,9 @@ export default function App() {
     offset: "50px",
     transition: transitions.SCALE
   };
-  const AlertTemplate = ({ style, message }) => (
-    <AlertStyled style={style}>{message}</AlertStyled>
+
+  const AlertTemplate = ({ message }) => (
+    <AlertStyled>{message}</AlertStyled>
   );
 
   useEffect(() => {
@@ -48,11 +41,6 @@ export default function App() {
   setCurrentUser(currentUser);
   }, [currentUser]);
 
-  useEffect(() => {
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-  }, [currentUser])
-
-
   return (
     <AlertProvider template={AlertTemplate} {...options}>
       <Router>
@@ -61,8 +49,8 @@ export default function App() {
             path="/home"
             render={() => (
               <HomePage
-                concerts={filteredByGenre}
-                genres={allGenres}
+                concerts={getConcertsFilteredByGenre(selectedGenre, concerts)}
+                genres={getAllGenres(concerts)}
                 onHeartClick={setUsersFavorite}
                 onSelectGenre={setSelectedGenre}
                 onDeleteClick={removeConcert}
@@ -76,9 +64,7 @@ export default function App() {
             render={() => (
               <FavoritesPage
                 currentUser={currentUser}
-                concerts={concerts.filter(concert =>
-                  currentUser.favorites.includes(concert._id)
-                )}
+                concerts={getFavoritesConcerts(concerts, currentUser)}
                 onHeartClick={setUsersFavorite}
               />
             )}
@@ -88,9 +74,7 @@ export default function App() {
             render={() => (
               <CalendarPage
                 currentUser={currentUser}
-                concerts={concerts.filter(concert =>
-                  currentUser.favorites.includes(concert._id)
-                )}
+                concerts={getFavoritesConcerts(concerts, currentUser)}
               />
             )}
           />
@@ -177,14 +161,7 @@ deleteConcert(concert._id)
   ])
 })
 }
-function getFromLocalStorage(key) {
-  const jsonString = localStorage.getItem(key);
-  let data;
-  try {
-    data = JSON.parse(jsonString);
-  } catch (error) {}
-  return data;
-}
+
 }
 
 const AppStyled = styled.section`
@@ -196,6 +173,17 @@ const AppStyled = styled.section`
   bottom: 0;
   height: 100%;
   position: fixed;
+
+    @media (min-width: 600px) {
+    box-sizing: content-box;
+    width: 375px;
+    height: 667px;
+    border: 30px solid black;
+    border-width: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 30px 40px 30px #2264;
+    margin: 20px auto;
+  }
 `
 
 const AlertStyled = styled.div`

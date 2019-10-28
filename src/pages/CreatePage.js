@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import axios from "axios";
 import Datepicker from "../createConcert/Datepicker"
 import AddImageIcon from "../createConcert/AddImageIcon";
 import concert from "../images/concert.jpg"
+import { uploadImage } from '../createConcert/utils.create.js'
 
  CreatePage.propTypes = {
    onSubmit: PropTypes.func,
@@ -22,8 +22,7 @@ export default function CreatePage({ onSubmit, editConcertData }) {
       editConcertData.genres ? editConcertData.genres.join(", ").split(",") : []
     );
    const [image, setImage] = useState(editConcertData.image ? editConcertData.image : concert);
-   const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
-   const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
+
 
   return isCreated 
   ? (
@@ -96,23 +95,16 @@ export default function CreatePage({ onSubmit, editConcertData }) {
             ? onSubmit(editConcertData.id, data)
             : onSubmit(data)        
   }
-  
-  function upload(event) {
-    const file = event.target.files[0];
-    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", PRESET);
-    return axios.post(url, formData, {
-      headers: {
-        "Content-type": "multipart/form-data"
-      }
-    }).then(response => {
-      setImage(response.data.url);
-  }
-    ).catch(err => console.log(err));
+
+  function upload(event) {  
+    uploadImage(event)
+    .then(response => {
+      setImage(response.data.url)
+    })
+    .catch(err => console.log(err))
   }
 }
+
 
 const FormStyled = styled.form`
   display: grid;

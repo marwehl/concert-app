@@ -57,8 +57,8 @@ function handleEventClick(event){
 
 const PopupStyled = styled.div`
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 375px;
+  height: 667px;
   top: 0;
   left: 0;
   right: 0;
@@ -68,7 +68,7 @@ const PopupStyled = styled.div`
   z-index: 3;
   display: flex;
   justify-content: center;
-align-items: center;
+  align-items: center;
 `
 
 const PopupInnerStyled = styled.div`
