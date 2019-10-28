@@ -12,6 +12,13 @@ username: **testuser**
 
 password: **word1234**
 ______
+
+## Preview
+
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264201/Screen_Shot_2019-10-28_at_13.02.21_n51cfn.png">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264201/Screen_Shot_2019-10-28_at_13.02.21_n51cfn.png">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264202/Screen_Shot_2019-10-28_at_13.02.30_utipxv.png">
+
 ## Tech Stack
 
 * React.js 
@@ -22,10 +29,9 @@ ____
 * axios
 * mongoose
 * nodemon 
-* npm-run-all
 * react-router-dom
 * request
-* REST API
+* SpotifyAPI
 * styled-components
 
 ## Run on localhost
