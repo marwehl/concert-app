@@ -15,9 +15,9 @@ ______
 
 ## Preview
 
-<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264201/Screen_Shot_2019-10-28_at_13.02.21_n51cfn.png">
-<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264201/Screen_Shot_2019-10-28_at_13.02.21_n51cfn.png">
-<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264202/Screen_Shot_2019-10-28_at_13.02.30_utipxv.png">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264201/Screen_Shot_2019-10-28_at_13.02.21_n51cfn.png" width="200">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264202/Screen_Shot_2019-10-28_at_13.02.34_kx6iib.png" width="200">
+<img src="https://res.cloudinary.com/dhix1uwjg/image/upload/v1572264202/Screen_Shot_2019-10-28_at_13.02.30_utipxv.png" width="200">
 
 ## Tech Stack
 
