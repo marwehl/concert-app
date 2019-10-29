@@ -16,4 +16,5 @@ context("Homepage", () => {
   it("has filters", () => {
   cy.get("button").contains('All')
   });
-});
+
+})
