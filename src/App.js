@@ -80,6 +80,7 @@ export default function App() {
           />
           <Route
             path="/create"
+         
             render={() => {
               return <CreatePage onSubmit={addConcert} editConcertData={{}} />;
             }}
@@ -98,9 +99,9 @@ export default function App() {
           <Route
             exact
             path="/"
-            render={() => <LoginPage handleLogin={handleLogin} />}
+          render={() => <LoginPage handleLogin={handleLogin} /> }
           />
-          <Navigation />
+         <Navigation/>
         </AppStyled>
       </Router>
     </AlertProvider>
@@ -173,17 +174,6 @@ const AppStyled = styled.section`
   bottom: 0;
   height: 100%;
   position: fixed;
-
-    @media (min-width: 600px) {
-    box-sizing: content-box;
-    width: 375px;
-    height: 667px;
-    border: 30px solid black;
-    border-width: 40px 20px;
-    border-radius: 20px;
-    box-shadow: 30px 40px 30px #2264;
-    margin: 20px auto;
-  }
 `
 
 const AlertStyled = styled.div`
