@@ -96,7 +96,7 @@ export default function App() {
           <Route
             exact
             path="/"
-          render={() => <LoginPage handleLogin={handleLogin} /> }
+          render={() => <LoginPage handleLogin={handleLogin} currentUser={setCurrentUser({})}/> }
           />
        {currentUser.username &&  <Navigation/>}
         </AppStyled>

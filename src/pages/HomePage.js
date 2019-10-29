@@ -79,7 +79,7 @@ overflow-y: scroll;
 const PopupStyled = styled.div`
   position: fixed;
   width: 375px;
-  height: 667px;
+  height: 668px;
   top: 0;
   left: 0;
   right: 0;
