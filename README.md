@@ -39,7 +39,7 @@ ____
 
 ## Run on localhost
 
-#### Requirement
+#### Requirements
 
 * Node.js
 * Spotify Developer Account 
@@ -49,7 +49,7 @@ ____
 #### Setup
 
 ```
-https://github.com/marwehl/concert-app
+git clone git@github.com:marwehl/concert-app.git
 cd concert-planner
 npm install
 ```
