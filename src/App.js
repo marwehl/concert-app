@@ -16,9 +16,6 @@ export default function App() {
   const [concerts, setConcerts] = useState([])
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [currentUser, setCurrentUser] = useState({
-      username: "testuser",
-      password: "word1234",
-      favorites: ["5db0925f32d3144c1c092d00", "5db0925132d3144c1c092cff"]
     }
   );
 
@@ -101,7 +98,7 @@ export default function App() {
             path="/"
           render={() => <LoginPage handleLogin={handleLogin} /> }
           />
-         <Navigation/>
+       {currentUser.username &&  <Navigation/>}
         </AppStyled>
       </Router>
     </AlertProvider>
@@ -174,6 +171,17 @@ const AppStyled = styled.section`
   bottom: 0;
   height: 100%;
   position: fixed;
+
+   @media (min-width: 600px) {
+    box-sizing: content-box;
+    width: 375px;
+    height: 667px;
+    border: 30px solid black;
+    border-width: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 30px 40px 30px #2264;
+    margin: 20px auto;
+  }
 `
 
 const AlertStyled = styled.div`
